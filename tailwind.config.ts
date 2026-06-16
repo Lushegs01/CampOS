@@ -42,26 +42,16 @@ const config: Config = {
           "88%": { opacity: "1" },
           "100%": { top: "calc(100% - 9px)", opacity: "0" },
         },
-        /* slow, drifting aurora glows behind the hero */
-        auroraOne: {
-          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)", opacity: "0.9" },
-          "50%": { transform: "translate3d(7%, 5%, 0) scale(1.18)", opacity: "1" },
-        },
-        auroraTwo: {
-          "0%, 100%": { transform: "translate3d(0,0,0) scale(1.12)", opacity: "0.85" },
-          "50%": { transform: "translate3d(-6%, -5%, 0) scale(0.92)", opacity: "1" },
-        },
-        auroraThree: {
-          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)", opacity: "0.6" },
-          "50%": { transform: "translate3d(5%, -7%, 0) scale(1.14)", opacity: "0.9" },
+        /* continuous 3D tumble for the glass prism */
+        prismTumble: {
+          "0%": { transform: "rotateX(0deg) rotateY(0deg) rotateZ(0deg)" },
+          "100%": { transform: "rotateX(360deg) rotateY(360deg) rotateZ(360deg)" },
         },
       },
       animation: {
         "pulse-ring": "pulseRing 2.4s ease-out infinite",
         scan: "scan 2.6s cubic-bezier(.5,0,.5,1) infinite",
-        "aurora-one": "auroraOne 19s ease-in-out infinite",
-        "aurora-two": "auroraTwo 23s ease-in-out infinite",
-        "aurora-three": "auroraThree 27s ease-in-out infinite",
+        "prism-tumble": "prismTumble 18s linear infinite",
       },
     },
   },

@@ -3,45 +3,27 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { HeroCard } from "./HeroCard";
+import { GlassPrism } from "./GlassPrism";
 import { fadeUp, container, viewport } from "@/lib/motion";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,8vw,100px)]">
-      {/* Ambient aurora backdrop — soft honey / sage / blush glows drifting slowly behind the hero */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <span
-          className="absolute -left-[12%] -top-[22%] h-[62vw] max-h-[700px] w-[62vw] max-w-[700px] rounded-full blur-[44px] will-change-transform animate-aurora-one"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(215,151,68,0.22), rgba(215,151,68,0) 68%)",
-          }}
-        />
-        <span
-          className="absolute -bottom-[28%] -right-[14%] h-[64vw] max-h-[740px] w-[64vw] max-w-[740px] rounded-full blur-[48px] will-change-transform animate-aurora-two"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(90,115,99,0.18), rgba(90,115,99,0) 70%)",
-          }}
-        />
-        <span
-          className="absolute left-[42%] top-[26%] h-[42vw] max-h-[480px] w-[42vw] max-w-[480px] rounded-full blur-[52px] will-change-transform animate-aurora-three"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(232,203,185,0.32), rgba(232,203,185,0) 72%)",
-          }}
-        />
-      </div>
-
       <div className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-center gap-[48px] px-[clamp(20px,5vw,56px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(36px,5vw,72px)]">
         
         {/* Left Copy */}
         <motion.div
+          className="relative"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
         >
+          {/* Tumbling glass prism — sits directly behind the headline (standalone).
+              The headline stays crisp on top; the crystal's vivid spectral edges
+              and iridescent faces show through the negative space around the type. */}
+          <GlassPrism className="pointer-events-none absolute left-1/2 top-[40%] -z-10 -translate-x-1/2 -translate-y-1/2" />
+
           <span className="eyebrow mb-[1.6rem]">
             One operating system for the whole campus
           </span>
