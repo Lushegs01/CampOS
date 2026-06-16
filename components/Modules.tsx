@@ -20,14 +20,38 @@ const MODULES: Module[] = [
     body: "Rotating, single-use QR check-ins bound to each student's phone and the room they're in. Proxy attendance simply stops being possible — and the register reconciles itself.",
     gate: "Rotating codes · device-bound",
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="h-[38px] w-[38px]">
-        <path
-          d="M5 9V6.5C5 5.7 5.7 5 6.5 5H9M23 5h2.5c.8 0 1.5.7 1.5 1.5V9M27 23v2.5c0 .8-.7 1.5-1.5 1.5H23M9 27H6.5C5.7 27 5 26.3 5 25.5V23"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <rect x="12" y="12" width="8" height="8" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
+      <svg viewBox="0 0 40 40" fill="none" className="h-[42px] w-[42px]">
+        <rect x="5" y="5" width="10" height="10" stroke="currentColor" strokeWidth="2.5" />
+        <rect x="8" y="8" width="4" height="4" fill="currentColor" />
+        
+        <rect x="5" y="25" width="10" height="10" stroke="currentColor" strokeWidth="2.5" />
+        <rect x="8" y="28" width="4" height="4" fill="currentColor" />
+
+        <rect x="25" y="5" width="10" height="10" stroke="currentColor" strokeWidth="2.5" />
+        <rect x="28" y="8" width="4" height="4" fill="currentColor" />
+
+        <rect x="18" y="5" width="2" height="2" fill="currentColor" />
+        <rect x="18" y="9" width="4" height="2" fill="currentColor" />
+        <rect x="22" y="13" width="2" height="2" fill="currentColor" />
+        
+        <rect x="5" y="18" width="4" height="4" fill="currentColor" />
+        <rect x="11" y="20" width="2" height="2" fill="currentColor" />
+        <rect x="13" y="16" width="2" height="4" fill="currentColor" />
+        
+        <rect x="17" y="17" width="2" height="2" fill="currentColor" />
+        <rect x="21" y="20" width="2" height="4" fill="currentColor" />
+        <rect x="25" y="17" width="4" height="2" fill="currentColor" />
+        <rect x="29" y="21" width="2" height="2" fill="currentColor" />
+        
+        <rect x="17" y="26" width="2" height="4" fill="currentColor" />
+        <rect x="21" y="28" width="2" height="2" fill="currentColor" />
+        <rect x="25" y="25" width="4" height="2" fill="currentColor" />
+        <rect x="25" y="29" width="2" height="4" fill="currentColor" />
+        <rect x="29" y="31" width="4" height="2" fill="currentColor" />
+        <rect x="33" y="26" width="2" height="4" fill="currentColor" />
+
+        <path d="M11 20l7 7 15-15" className="stroke-paper" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M11 20l7 7 15-15" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
