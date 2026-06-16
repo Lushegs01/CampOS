@@ -1,8 +1,7 @@
 export function Logo() {
   return (
     <span
-      className="flex items-center gap-[0.6em] font-display text-[1.4rem] text-primary tracking-[-0.01em]"
-      style={{ fontVariationSettings: '"opsz" 40, "SOFT" 70, "wght" 560' }}
+      className="flex items-center gap-[0.6em] font-sans font-semibold text-[1.5rem] text-primary tracking-tight"
     >
       <svg
         viewBox="0 0 60 60"
