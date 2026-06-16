@@ -1,13 +1,13 @@
 export function Logo() {
   return (
     <span
-      className="flex items-center gap-[0.6em] font-sans font-semibold text-[1.5rem] text-primary tracking-tight"
+      className="flex flex-col items-center gap-[0.15em] font-sans font-semibold text-[1.2rem] text-primary tracking-tight leading-none"
     >
       <svg
         viewBox="0 0 60 60"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-[30px] w-[30px] flex-none"
+        className="h-[38px] w-[38px] flex-none"
         aria-hidden="true"
       >
         <rect x="0" y="20" width="20" height="20" fill="currentColor" />
