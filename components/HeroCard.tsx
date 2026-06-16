@@ -108,9 +108,9 @@ const Ledger = () => (
 
 const KribGlyph = () => (
   <svg viewBox="0 0 64 64" fill="none" className="h-[62px] w-[62px]">
-    <path d="M10 30 32 13l22 17" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M15 27v23h34V27" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M27 50V37h10v13" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M10 30 32 13l22 17" stroke="#C7D0EA" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M15 27v23h34V27" stroke="#C7D0EA" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M27 50V37h10v13" stroke="#C7D0EA" strokeWidth="2.4" strokeLinejoin="round" />
     <circle cx="46" cy="20" r="8" fill="#FFFFFF" stroke="#1E3FD0" strokeWidth="2.4" />
     <path
       d="M42.5 20l2.5 2.5 4-4.5"
@@ -123,9 +123,9 @@ const KribGlyph = () => (
 );
 const NadaGlyph = () => (
   <svg viewBox="0 0 64 64" fill="none" className="h-[62px] w-[62px]">
-    <path d="M16 8h20l12 12v36H16z" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M36 8v12h12" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M23 30h18M23 38h18" stroke="#0B1533" strokeWidth="2.4" strokeLinecap="round" />
+    <path d="M16 8h20l12 12v36H16z" stroke="#C7D0EA" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M36 8v12h12" stroke="#C7D0EA" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M23 30h18M23 38h18" stroke="#C7D0EA" strokeWidth="2.4" strokeLinecap="round" />
     <circle cx="42" cy="46" r="8" fill="#FFFFFF" stroke="#1E3FD0" strokeWidth="2.4" />
     <path
       d="M38.5 46l2.5 2.5 4-4.5"
@@ -231,12 +231,12 @@ export function HeroCard() {
   const fade = { opacity: fading ? 0 : 1, transition: "opacity .5s" };
 
   return (
-    <div className="relative max-w-[520px] rounded-card border border-line bg-paper p-[clamp(22px,2.4vw,34px)] shadow-[0_1px_2px_rgba(11,21,51,.04),0_30px_60px_-34px_rgba(11,21,51,.4)]">
-      <span className="pointer-events-none absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_rgba(255,255,255,.5)]" />
+    <div className="relative w-full max-w-[520px] rounded-card border border-line bg-surface p-[clamp(22px,2.4vw,34px)] shadow-[0_30px_60px_-34px_rgba(0,0,0,.8)]">
+      <span className="pointer-events-none absolute inset-0 rounded-card shadow-[inset_0_1px_0_rgba(255,255,255,.08)]" />
 
       {/* head */}
       <div className="mb-[1.3rem] flex items-center justify-between gap-4">
-        <span className="inline-flex flex-none items-center gap-[0.55em] whitespace-nowrap rounded-full bg-paper-2 px-[0.8em] py-[0.42em] font-mono text-[0.7rem] uppercase tracking-[0.1em] text-sage">
+        <span className="inline-flex flex-none items-center gap-[0.55em] whitespace-nowrap rounded-full border border-line-soft bg-white/5 px-[0.8em] py-[0.42em] font-mono text-[0.7rem] uppercase tracking-[0.1em] text-sage">
           <span className="relative inline-block h-[7px] w-[7px] flex-none rounded-full bg-honey">
             <span className="absolute -inset-[3px] rounded-full border-[1.4px] border-honey opacity-60 animate-pulse-ring" />
           </span>
@@ -249,7 +249,7 @@ export function HeroCard() {
 
       {/* stage */}
       <div className="flex min-h-[3.4em] items-center gap-[clamp(16px,2vw,24px)]" style={fade}>
-        <div className="relative grid h-[clamp(118px,13vw,140px)] w-[clamp(118px,13vw,140px)] flex-none place-items-center overflow-hidden rounded-[12px] border border-line bg-paper p-[9px] shadow-[0_10px_22px_-16px_rgba(11,21,51,.5)]">
+        <div className="relative grid h-[clamp(118px,13vw,140px)] w-[clamp(118px,13vw,140px)] flex-none place-items-center overflow-hidden rounded-[12px] border border-line bg-surface-2 p-[9px] shadow-[0_10px_22px_-16px_rgba(0,0,0,.7)]">
           {slide.kind === "qr" && matrix ? (
             <>
               <div
@@ -263,7 +263,7 @@ export function HeroCard() {
                   <span key={i} className={on ? "bg-ink" : ""} />
                 ))}
               </div>
-              <span className="pointer-events-none absolute left-[9px] right-[9px] top-[9px] h-[2px] animate-scan bg-gradient-to-r from-transparent via-honey to-transparent shadow-[0_0_10px_1px_rgba(215,151,68,.6)]" />
+              <span className="pointer-events-none absolute left-[9px] right-[9px] top-[9px] h-[2px] animate-scan bg-gradient-to-r from-transparent via-honey to-transparent shadow-[0_0_10px_1px_rgba(58,91,240,.6)]" />
             </>
           ) : slide.kind === "krib" ? (
             <KribGlyph />
@@ -292,7 +292,7 @@ export function HeroCard() {
 
       {/* identity (constant — one CampOS identity) */}
       <div className="mb-[0.85rem] flex items-center gap-[0.85em]">
-        <span className="grid h-[42px] w-[42px] flex-none place-items-center rounded-full bg-sage font-display text-[1.05rem] text-paper">
+        <span className="grid h-[42px] w-[42px] flex-none place-items-center rounded-full bg-brand font-display text-[1.05rem] font-bold text-white">
           A
         </span>
         <div>

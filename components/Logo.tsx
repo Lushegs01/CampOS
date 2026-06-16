@@ -20,16 +20,23 @@ export function Logo({ className = "" }: { className?: string }) {
             <path d="M7 7H41V18H18V30H41V41H7Z" />
           </clipPath>
         </defs>
+        {/* rounded cobalt cube — the stroke rounds every corner to match the asset */}
+        <path
+          d="M7 7H41V18H18V30H41V41H7Z"
+          fill="url(#campos-c)"
+          stroke="url(#campos-c)"
+          strokeWidth="4"
+          strokeLinejoin="round"
+        />
         <g clipPath="url(#campos-c-clip)">
-          <rect x="0" y="0" width="48" height="48" fill="url(#campos-c)" />
           {/* folded facets give the cube its dimensional look */}
           <polygon points="7,7 41,7 7,41" fill="#FFFFFF" opacity="0.14" />
           <polygon points="41,41 41,7 7,41" fill="#0B1533" opacity="0.16" />
           <path d="M7 41L41 7" stroke="#FFFFFF" strokeWidth="0.6" opacity="0.2" />
         </g>
       </svg>
-      <span className="font-display text-[1.32rem] font-semibold tracking-[-0.02em] text-brand">
-        CampOS
+      <span className="font-display text-[1.32rem] font-bold tracking-[-0.02em] text-ink">
+        Camp<span className="text-honey-deep">OS</span>
       </span>
     </span>
   );
