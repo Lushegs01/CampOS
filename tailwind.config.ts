@@ -55,6 +55,11 @@ const config: Config = {
           "0%, 100%": { transform: "translate3d(0,0,0) scale(1)", opacity: "0.6" },
           "50%": { transform: "translate3d(5%, -7%, 0) scale(1.14)", opacity: "0.9" },
         },
+        /* continuous 3D tumble for the glass prism */
+        prismTumble: {
+          "0%": { transform: "rotateX(-24deg) rotateY(0deg) rotateZ(0deg)" },
+          "100%": { transform: "rotateX(-24deg) rotateY(360deg) rotateZ(360deg)" },
+        },
       },
       animation: {
         "pulse-ring": "pulseRing 2.4s ease-out infinite",
@@ -62,6 +67,7 @@ const config: Config = {
         "aurora-one": "auroraOne 19s ease-in-out infinite",
         "aurora-two": "auroraTwo 23s ease-in-out infinite",
         "aurora-three": "auroraThree 27s ease-in-out infinite",
+        "prism-tumble": "prismTumble 24s linear infinite",
       },
     },
   },

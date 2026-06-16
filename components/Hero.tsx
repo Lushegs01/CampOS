@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { HeroCard } from "./HeroCard";
+import { GlassPrism } from "./GlassPrism";
 import { fadeUp, container, viewport } from "@/lib/motion";
 
 export function Hero() {
@@ -32,6 +33,11 @@ export function Hero() {
           }}
         />
       </div>
+
+      {/* Tumbling glass prism — refracts the aurora and scatters soft spectral light.
+          Sits above the backdrop (z-0) but behind the content (z-10), so the
+          headline and card stay crisp on top while the crystal floats between. */}
+      <GlassPrism className="pointer-events-none absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 lg:left-[57%]" />
 
       <div className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-center gap-[48px] px-[clamp(20px,5vw,56px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(36px,5vw,72px)]">
         

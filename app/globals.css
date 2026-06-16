@@ -132,6 +132,82 @@
   .btn:hover .arr {
     transform: translateX(3px);
   }
+
+  /* ---- glass prism (hero) ---- */
+  /* A slowly tumbling 3D glass cube that refracts the aurora behind it and
+     scatters soft spectral (chromatic) light along its edges — an editorial,
+     light-mode reading of the Canva hero's rotating glass effect. */
+  .prism-stage {
+    --prism-size: clamp(180px, 22vw, 320px);
+    width: var(--prism-size);
+    height: var(--prism-size);
+    perspective: 1500px;
+  }
+  .prism {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+  .prism__face {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0.06) 52%,
+      rgba(215, 151, 68, 0.12)
+    );
+    backdrop-filter: blur(6px) saturate(155%) brightness(1.03);
+    -webkit-backdrop-filter: blur(6px) saturate(155%) brightness(1.03);
+    box-shadow:
+      inset 0 1px 16px rgba(255, 255, 255, 0.55),
+      inset 0 0 44px rgba(24, 36, 30, 0.05);
+  }
+  /* spectral dispersion edge — soft rainbow drawn only as a border */
+  .prism__face::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    padding: 1.5px;
+    background: conic-gradient(
+      from 210deg,
+      #e8556d,
+      #e8a14b,
+      #d8c24a,
+      #6fae6a,
+      #4aa6c2,
+      #6f7bd8,
+      #b86fd0,
+      #e8556d
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.72;
+  }
+  .prism__face--front {
+    transform: translateZ(calc(var(--prism-size) / 2));
+  }
+  .prism__face--back {
+    transform: rotateY(180deg) translateZ(calc(var(--prism-size) / 2));
+  }
+  .prism__face--right {
+    transform: rotateY(90deg) translateZ(calc(var(--prism-size) / 2));
+  }
+  .prism__face--left {
+    transform: rotateY(-90deg) translateZ(calc(var(--prism-size) / 2));
+  }
+  .prism__face--top {
+    transform: rotateX(90deg) translateZ(calc(var(--prism-size) / 2));
+  }
+  .prism__face--bottom {
+    transform: rotateX(-90deg) translateZ(calc(var(--prism-size) / 2));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
