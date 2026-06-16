@@ -6,8 +6,9 @@ import { SectionHeading } from "./Section";
 
 export function Trust() {
   return (
-    <section id="trust" className="overflow-hidden bg-ink py-[clamp(64px,9vw,118px)] text-paper">
-      <div className="mx-auto grid max-w-wrap grid-cols-1 items-start gap-[clamp(40px,6vw,90px)] px-[clamp(20px,5vw,56px)] md:grid-cols-2">
+    <section id="trust" className="relative overflow-hidden bg-obsidian py-[clamp(64px,9vw,118px)] text-paper">
+      <div className="absolute inset-0 pointer-events-none opacity-50 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.3),transparent_50%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.15),transparent_50%)]" />
+      <div className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-start gap-[clamp(40px,6vw,90px)] px-[clamp(20px,5vw,56px)] md:grid-cols-2">
         {/* Left Side */}
         <motion.div
           variants={fadeUp}
@@ -43,7 +44,7 @@ export function Trust() {
         >
           <li className="flex gap-[1.2rem] border-t border-white/10 py-[1.5rem]">
             <svg
-              className="flex-none h-[34px] w-[34px] text-primary"
+              className="flex-none h-[34px] w-[34px] text-neon-indigo drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]"
               viewBox="0 0 28 28"
               fill="none"
             >
@@ -75,7 +76,7 @@ export function Trust() {
 
           <li className="flex gap-[1.2rem] border-t border-white/10 py-[1.5rem]">
             <svg
-              className="flex-none h-[34px] w-[34px] text-primary"
+              className="flex-none h-[34px] w-[34px] text-neon-indigo drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]"
               viewBox="0 0 28 28"
               fill="none"
             >
@@ -110,7 +111,7 @@ export function Trust() {
 
           <li className="flex gap-[1.2rem] border-y border-white/10 py-[1.5rem]">
             <svg
-              className="flex-none h-[34px] w-[34px] text-primary"
+              className="flex-none h-[34px] w-[34px] text-neon-indigo drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]"
               viewBox="0 0 28 28"
               fill="none"
             >

@@ -16,10 +16,10 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-line-soft bg-[rgba(251,249,245,.78)] backdrop-blur-[14px]"
-          : "border-b border-transparent bg-[rgba(251,249,245,.78)] backdrop-blur-[14px]"
+          ? "border-b border-white/40 bg-white/70 backdrop-blur-xl shadow-sm"
+          : "border-b border-transparent bg-white/20 backdrop-blur-sm"
       }`}
     >
       <div className="mx-auto flex h-[74px] max-w-wrap items-center justify-between px-[clamp(20px,5vw,56px)]">

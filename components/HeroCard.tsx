@@ -231,7 +231,7 @@ export function HeroCard() {
   const fade = { opacity: fading ? 0 : 1, transition: "opacity .5s" };
 
   return (
-    <div className="relative max-w-[520px] rounded-card border border-line bg-paper p-[clamp(22px,2.4vw,34px)] shadow-[0_1px_2px_rgba(24,36,30,.04),0_30px_60px_-34px_rgba(24,36,30,.4)]">
+    <div className="relative max-w-[520px] rounded-card glass-light p-[clamp(22px,2.4vw,34px)] animate-float">
       <span className="pointer-events-none absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_rgba(255,255,255,.5)]" />
 
       {/* head */}
@@ -249,7 +249,7 @@ export function HeroCard() {
 
       {/* stage */}
       <div className="flex min-h-[3.4em] items-center gap-[clamp(16px,2vw,24px)]" style={fade}>
-        <div className="relative grid h-[clamp(118px,13vw,140px)] w-[clamp(118px,13vw,140px)] flex-none place-items-center overflow-hidden rounded-[12px] border border-line bg-paper p-[9px] shadow-[0_10px_22px_-16px_rgba(24,36,30,.5)]">
+        <div className="relative grid h-[clamp(118px,13vw,140px)] w-[clamp(118px,13vw,140px)] flex-none place-items-center overflow-hidden rounded-[12px] border border-white/40 bg-white/80 backdrop-blur-md p-[9px] shadow-xl">
           {slide.kind === "qr" && matrix ? (
             <>
               <div

@@ -90,10 +90,10 @@ export function Modules() {
             <motion.article
               key={m.name}
               variants={fadeUp}
-              className={`flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-38px_rgba(24,36,30,.55)] ${
+              className={`group flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
                 m.dark
-                  ? "border-ink bg-ink text-paper"
-                  : "border-line bg-paper hover:border-slate-light"
+                  ? "border-obsidian-soft bg-obsidian text-paper hover:shadow-[0_10px_40px_rgba(99,102,241,0.3)] hover:border-neon-indigo/50"
+                  : "border-line bg-paper hover:border-emerald-glow/30 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)]"
               }`}
             >
               <div
@@ -103,7 +103,7 @@ export function Modules() {
               >
                 {m.cat}
               </div>
-              <div className={`mb-[1.2rem] ${m.dark ? "text-primary" : "text-slate"}`}>
+              <div className={`mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${m.dark ? "text-neon-indigo drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "text-emerald-glow drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]"}`}>
                 {m.icon}
               </div>
               <h3 className={`display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${m.dark ? "!text-paper" : ""}`}>
