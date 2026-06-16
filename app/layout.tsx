@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Hanken_Grotesk, Spline_Sans_Mono } from "next/font/google";
+import { Space_Grotesk, Hanken_Grotesk, Spline_Sans_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-fraunces",
+  variable: "--font-display",
 });
 
 const hanken = Hanken_Grotesk({
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBF9F5",
+  themeColor: "#F7F9FC",
   width: "device-width",
   initialScale: 1,
 };
@@ -50,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable} scroll-smooth`}
+      className={`${spaceGrotesk.variable} ${hanken.variable} ${splineMono.variable} scroll-smooth`}
     >
       <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
         <MotionProvider>{children}</MotionProvider>

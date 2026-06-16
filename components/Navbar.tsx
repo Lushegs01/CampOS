@@ -18,8 +18,8 @@ export function Navbar() {
     <header
       className={`sticky top-0 z-50 transition-colors duration-300 ${
         scrolled
-          ? "border-b border-line-soft bg-[rgba(251,249,245,.78)] backdrop-blur-[14px]"
-          : "border-b border-transparent bg-[rgba(251,249,245,.78)] backdrop-blur-[14px]"
+          ? "border-b border-line-soft bg-[rgba(247,249,252,.78)] backdrop-blur-[14px]"
+          : "border-b border-transparent bg-[rgba(247,249,252,.78)] backdrop-blur-[14px]"
       }`}
     >
       <div className="mx-auto flex h-[74px] max-w-wrap items-center justify-between px-[clamp(20px,5vw,56px)]">

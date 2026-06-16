@@ -17,7 +17,7 @@ export function Trust() {
         >
           <SectionHeading
             eyebrow="Trust & security"
-            eyebrowVariant="honey"
+            eyebrowVariant="blush"
             title={
               <>
                 Verified once.
@@ -26,7 +26,7 @@ export function Trust() {
               </>
             }
           />
-          <p className="mt-[1.6rem] max-w-[40ch] text-[clamp(1.05rem,1.4vw,1.2rem)] text-[rgba(251,249,245,.78)]">
+          <p className="mt-[1.6rem] max-w-[40ch] text-[clamp(1.05rem,1.4vw,1.2rem)] text-[rgba(247,249,252,.78)]">
             A campus runs on records people can believe — who attended, who lives
             where, who earned what. CampOS proves each one at the moment it
             happens, so nothing downstream has to be taken on faith.
@@ -43,7 +43,7 @@ export function Trust() {
         >
           <li className="flex gap-[1.2rem] border-t border-white/10 py-[1.5rem]">
             <svg
-              className="flex-none h-[34px] w-[34px] text-honey"
+              className="flex-none h-[34px] w-[34px] text-sky"
               viewBox="0 0 28 28"
               fill="none"
             >
@@ -65,7 +65,7 @@ export function Trust() {
               <h4 className="mb-[0.3rem] text-[1.06rem] font-semibold">
                 One identity, proven once
               </h4>
-              <p className="text-[0.93rem] leading-[1.55] text-[rgba(251,249,245,.66)]">
+              <p className="text-[0.93rem] leading-[1.55] text-[rgba(247,249,252,.66)]">
                 Each student gets a single verified CampOS identity. They prove
                 who they are once, then move through class, library, hostel,
                 exams, and wallet without re-registering anywhere.
@@ -75,7 +75,7 @@ export function Trust() {
 
           <li className="flex gap-[1.2rem] border-t border-white/10 py-[1.5rem]">
             <svg
-              className="flex-none h-[34px] w-[34px] text-honey"
+              className="flex-none h-[34px] w-[34px] text-sky"
               viewBox="0 0 28 28"
               fill="none"
             >
@@ -100,7 +100,7 @@ export function Trust() {
               <h4 className="mb-[0.3rem] text-[1.06rem] font-semibold">
                 Access that can't be shared
               </h4>
-              <p className="text-[0.93rem] leading-[1.55] text-[rgba(251,249,245,.66)]">
+              <p className="text-[0.93rem] leading-[1.55] text-[rgba(247,249,252,.66)]">
                 Attendance codes rotate every few seconds and die on first scan;
                 housing and records are bound to the enrolled device. A screenshot
                 passed down the row is already worthless.
@@ -110,7 +110,7 @@ export function Trust() {
 
           <li className="flex gap-[1.2rem] border-y border-white/10 py-[1.5rem]">
             <svg
-              className="flex-none h-[34px] w-[34px] text-honey"
+              className="flex-none h-[34px] w-[34px] text-sky"
               viewBox="0 0 28 28"
               fill="none"
             >
@@ -134,7 +134,7 @@ export function Trust() {
               <h4 className="mb-[0.3rem] text-[1.06rem] font-semibold">
                 Tamper-evident by default
               </h4>
-              <p className="text-[0.93rem] leading-[1.55] text-[rgba(251,249,245,.66)]">
+              <p className="text-[0.93rem] leading-[1.55] text-[rgba(247,249,252,.66)]">
                 Every record — a check-in, a lease, a grade — is written once and
                 logged with who changed it and when. What a campus exports is
                 exactly what happened.

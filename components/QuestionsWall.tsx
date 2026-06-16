@@ -71,7 +71,7 @@ export function QuestionsWall() {
             <motion.article
               key={i}
               variants={fadeUp}
-              className={`mb-[clamp(16px,1.6vw,22px)] break-inside-avoid rounded-[14px] border border-line p-[22px_22px_18px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-30px_rgba(24,36,30,.5)] ${
+              className={`mb-[clamp(16px,1.6vw,22px)] break-inside-avoid rounded-[14px] border border-line p-[22px_22px_18px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-30px_rgba(11,21,51,.5)] ${
                 item.anon
                   ? "bg-gradient-to-br from-white to-paper"
                   : "bg-paper"

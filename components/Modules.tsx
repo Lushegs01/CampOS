@@ -90,7 +90,7 @@ export function Modules() {
             <motion.article
               key={m.name}
               variants={fadeUp}
-              className={`flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-38px_rgba(24,36,30,.55)] ${
+              className={`flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-38px_rgba(11,21,51,.55)] ${
                 m.dark
                   ? "border-ink bg-ink text-paper"
                   : "border-line bg-paper hover:border-mist"
@@ -98,12 +98,12 @@ export function Modules() {
             >
               <div
                 className={`mb-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] ${
-                  m.dark ? "text-honey" : "text-honey-deep"
+                  m.dark ? "text-sky" : "text-honey-deep"
                 }`}
               >
                 {m.cat}
               </div>
-              <div className={`mb-[1.2rem] ${m.dark ? "text-honey" : "text-sage"}`}>
+              <div className={`mb-[1.2rem] ${m.dark ? "text-sky" : "text-sage"}`}>
                 {m.icon}
               </div>
               <h3 className={`display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${m.dark ? "!text-paper" : ""}`}>
