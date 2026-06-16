@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampOS — One operating system for the whole campus</title>
+<meta name="description" content="CampOS unifies attendance, housing, records, and identity into one verified ecosystem. One student login opens every door on campus — and nothing can be forged.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..600,0..100&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF9F5;
+    --paper-2:#F3EFE6;
+    --ink:#18241E;
+    --ink-soft:#425047;
+    --slate:#5A7363;
+    --slate-deep:#36473C;
+    --primary:#D79744;
+    --primary-deep:#BC7E2E;
+    --accent-light:#E8CBB9;
+    --slate-light:#E6DFD2;
+    --line:rgba(24,36,30,0.12);
+    --line-soft:rgba(24,36,30,0.07);
+
+    --f-display:"Fraunces", Georgia, serif;
+    --f-body:"Hanken Grotesk", system-ui, sans-serif;
+    --f-mono:"Spline Sans Mono", ui-monospace, monospace;
+
+    --maxw:1180px;
+    --pad:clamp(20px, 5vw, 56px);
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
+
+  body{
+    font-family:var(--f-body);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--primary);color:var(--ink)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* ---------- type ---------- */
+  .eyebrow{
+    font-family:var(--f-mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--slate);
+    font-weight:500;
+    display:inline-flex;align-items:center;gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";width:26px;height:1px;background:var(--slate);opacity:.55;
+  }
+  .display{
+    font-family:var(--f-display);
+    font-variation-settings:"opsz" 144, "SOFT" 60, "wght" 420;
+    font-weight:420;
+    line-height:1.02;
+    letter-spacing:-.018em;
+    color:var(--ink);
+  }
+  h1.display{font-size:clamp(2.6rem, 6.4vw, 5.1rem)}
+  h2.display{font-size:clamp(2rem, 4.4vw, 3.5rem)}
+  h3.display{font-size:clamp(1.4rem, 2.4vw, 1.9rem);font-variation-settings:"opsz" 60, "SOFT" 60, "wght" 480}
+  em.serif-em{font-style:italic;font-variation-settings:"opsz" 144, "SOFT" 80, "wght" 380;color:var(--slate-deep)}
+
+  .lede{font-size:clamp(1.05rem,1.5vw,1.22rem);color:var(--ink-soft);max-width:42ch}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  section{position:relative}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    font-family:var(--f-body);font-weight:600;font-size:.96rem;
+    display:inline-flex;align-items:center;gap:.55em;
+    padding:.92em 1.5em;border-radius:100px;border:1px solid transparent;
+    cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1), background .25s, color .25s, box-shadow .25s;
+    line-height:1;white-space:nowrap;
+  }
+  .btn:focus-visible{outline:2.5px solid var(--slate-deep);outline-offset:3px}
+  .btn-primary{background:var(--primary);color:var(--ink);box-shadow:0 1px 0 rgba(24,36,30,.06)}
+  .btn-primary:hover{background:var(--primary-deep);transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(188,126,46,.7)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .btn-light{background:var(--paper);color:var(--ink)}
+  .btn-light:hover{transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(0,0,0,.5)}
+  .btn .arr{transition:transform .25s}
+  .btn:hover .arr{transform:translateX(3px)}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,249,245,.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s, background .3s;
+  }
+  header.nav.scrolled{border-bottom-color:var(--line-soft)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:.6em;font-family:var(--f-display);font-size:1.4rem;font-variation-settings:"opsz" 40, "SOFT" 70, "wght" 560;letter-spacing:-.01em}
+  .brand .mark{
+    width:30px;height:30px;border-radius:50% 50% 50% 4px;
+    background:linear-gradient(150deg,var(--primary),var(--accent-light));
+    display:grid;place-items:center;flex:none;
+    box-shadow:inset 0 0 0 1.5px rgba(24,36,30,.08);
+  }
+  .brand .mark svg{width:15px;height:15px;display:block}
+  .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+  .nav-links a{font-size:.95rem;color:var(--ink-soft);font-weight:500;transition:color .2s;position:relative}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--primary);transition:width .25s}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:1.1rem}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px}
+  .nav-toggle span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:.3s}
+  .mobile-cta{display:none}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(48px,7vw,86px);padding-bottom:clamp(56px,8vw,100px);overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,72px);align-items:center}
+  .hero-copy .eyebrow{margin-bottom:1.6rem}
+  .hero-copy h1{margin-bottom:1.4rem}
+  .hero-copy .lede{margin-bottom:2.2rem;max-width:46ch}
+  .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
+  .hero-note{margin-top:1.7rem;font-family:var(--f-mono);font-size:.76rem;letter-spacing:.04em;color:var(--slate);display:flex;align-items:center;gap:.6em}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);position:relative;flex:none}
+  .live-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--primary);opacity:.6;animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.6);opacity:.7}80%,100%{transform:scale(1.9);opacity:0}}
+
+  /* hero card — the signature */
+  .qcard{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:clamp(22px,2.4vw,34px);
+    box-shadow:0 1px 2px rgba(24,36,30,.04), 0 30px 60px -34px rgba(24,36,30,.4);
+    position:relative;
+  }
+  .qcard::before{
+    content:"";position:absolute;inset:0;border-radius:var(--radius);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);pointer-events:none;
+  }
+  .qcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.3rem;gap:1rem}
+  .qcard-tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);background:var(--paper-2);padding:.42em .8em;border-radius:100px;display:inline-flex;align-items:center;gap:.55em;white-space:nowrap;flex:none}
+  .qcard-tag .ld{width:7px;height:7px;border-radius:50%;background:var(--primary);position:relative;flex:none}
+  .qcard-tag .ld::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1.4px solid var(--primary);opacity:.6;animation:pulse 2.4s ease-out infinite}
+  .qcard-meta{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-soft);opacity:.7;text-align:right}
+
+  /* stage: a module visual (QR / glyph) + caption */
+  .scan-stage{display:flex;align-items:center;gap:clamp(16px,2vw,24px);min-height:3.4em;transition:opacity .5s}
+  .stage-visual{
+    --n:21;
+    position:relative;flex:none;display:grid;place-items:center;
+    width:clamp(118px,13vw,140px);height:clamp(118px,13vw,140px);
+    background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    padding:9px;box-shadow:0 10px 22px -16px rgba(24,36,30,.5);
+    overflow:hidden;
+  }
+  .qr-grid{display:grid;grid-template-columns:repeat(var(--n),1fr);grid-template-rows:repeat(var(--n),1fr);width:100%;height:100%;gap:0}
+  .qr-grid i{background:transparent}
+  .qr-grid i.on{background:var(--ink)}
+  .qr-scan{
+    position:absolute;left:9px;right:9px;height:2px;top:9px;
+    background:linear-gradient(90deg,transparent,var(--primary),transparent);
+    box-shadow:0 0 10px 1px rgba(215,151,68,.6);
+    animation:scan 2.6s cubic-bezier(.5,0,.5,1) infinite;
+  }
+  @keyframes scan{0%{top:9px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:calc(100% - 9px);opacity:0}}
+  .stage-visual .glyph{width:62px;height:62px;color:var(--ink)}
+  .scan-cap .scan-h{font-family:var(--f-display);font-variation-settings:"opsz" 40,"SOFT" 70,"wght" 460;font-size:clamp(1.22rem,2vw,1.5rem);line-height:1.2;letter-spacing:-.01em;margin-bottom:.5rem}
+  .scan-cap .scan-sub{font-family:var(--f-mono);font-size:.74rem;color:var(--slate);letter-spacing:.02em;line-height:1.5}
+
+  .qcard-divider{display:flex;align-items:center;gap:.8em;margin:1.5rem 0 1.1rem;color:var(--slate);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+  .qcard-divider::after{content:"";flex:1;height:1px;background:var(--line)}
+  .answerer{display:flex;align-items:center;gap:.85em;margin-bottom:.85rem}
+  .avatar{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--f-display);font-size:1.05rem;color:var(--paper);font-variation-settings:"wght" 500;background:var(--slate)}
+  .answerer-info .name{font-weight:600;font-size:.98rem;display:flex;align-items:center;gap:.4em}
+  .answerer-info .cred{font-family:var(--f-mono);font-size:.72rem;color:var(--slate);letter-spacing:.02em}
+  .verified{width:15px;height:15px;flex:none}
+  .a-text{color:var(--ink-soft);font-size:.98rem;line-height:1.62;min-height:4.7em;transition:opacity .5s}
+  .qcard-foot{display:flex;align-items:center;gap:1.3rem;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line-soft);font-size:.84rem;color:var(--ink-soft)}
+  .qcard-foot span{display:inline-flex;align-items:center;gap:.45em}
+  .qcard-foot svg{opacity:.55;flex:none}
+  .qcard.is-fading .scan-stage,.qcard.is-fading .a-text{opacity:0}
+  .qcard-dots{display:flex;gap:.4em;margin-left:auto}
+  .qcard-dots i{width:6px;height:6px;border-radius:50%;background:var(--line);transition:.3s}
+  .qcard-dots i.on{background:var(--primary);width:18px;border-radius:3px}
+
+  /* ---------- proof strip ---------- */
+  .proof{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:var(--paper-2)}
+  .proof-inner{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,56px);justify-content:space-between;align-items:center;padding-top:30px;padding-bottom:30px}
+  .proof-item{display:flex;flex-direction:column;gap:.15rem}
+  .proof-num{font-family:var(--f-display);font-size:1.9rem;font-variation-settings:"opsz" 60,"SOFT" 60,"wght" 480;line-height:1}
+  .proof-num .unit{color:var(--primary-deep)}
+  .proof-label{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+  .proof-locs{margin-left:auto;font-family:var(--f-mono);font-size:.78rem;color:var(--ink-soft);letter-spacing:.03em;text-align:right}
+
+  /* ---------- generic section heading ---------- */
+  .sec-head{max-width:30ch;margin-bottom:clamp(34px,4vw,58px)}
+  .sec-head .eyebrow{margin-bottom:1.2rem}
+  .sec-head h2{margin-bottom:0}
+  .sec-pad{padding-top:clamp(64px,9vw,118px);padding-bottom:clamp(64px,9vw,118px)}
+
+  /* ---------- modules ---------- */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.6vw,22px)}
+  .tier{
+    border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,2.6vw,34px);
+    background:var(--paper);display:flex;flex-direction:column;min-height:340px;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s, border-color .4s;
+  }
+  .tier:hover{transform:translateY(-6px);box-shadow:0 30px 60px -38px rgba(24,36,30,.55);border-color:var(--slate-light)}
+  .tier-cat{font-family:var(--f-mono);font-size:.72rem;color:var(--primary-deep);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.5rem}
+  .tier .icn{width:38px;height:38px;color:var(--slate);margin-bottom:1.2rem}
+  .tier h3{margin-bottom:.7rem}
+  .tier p{color:var(--ink-soft);font-size:.96rem;margin-bottom:1.3rem}
+  .tier .gate{margin-top:auto;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.04em;color:var(--slate);display:flex;align-items:center;gap:.5em;border-top:1px solid var(--line-soft);padding-top:1.1rem}
+  .tier:last-child{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tier:last-child h3{color:var(--paper)}
+  .tier:last-child p{color:rgba(251,249,245,.72)}
+  .tier:last-child .icn{color:var(--primary)}
+  .tier:last-child .tier-cat{color:var(--primary)}
+  .tier:last-child .gate{color:var(--accent-light);border-top-color:rgba(255,255,255,.14)}
+
+  /* ---------- trust ---------- */
+  .trust{background:var(--ink);color:var(--paper);overflow:hidden;position:relative}
+  .trust .eyebrow{color:var(--primary)}
+  .trust .eyebrow::before{background:var(--primary)}
+  .trust h2{color:var(--paper)}
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:start}
+  .trust-lede{color:rgba(251,249,245,.78);font-size:clamp(1.05rem,1.4vw,1.2rem);margin-top:1.6rem;max-width:40ch}
+  .trust-list{list-style:none;display:flex;flex-direction:column;gap:0}
+  .trust-list li{display:flex;gap:1.2rem;padding:1.5rem 0;border-top:1px solid rgba(255,255,255,.13)}
+  .trust-list li:last-child{border-bottom:1px solid rgba(255,255,255,.13)}
+  .trust-list .ti{flex:none;width:34px;height:34px;color:var(--primary)}
+  .trust-list h4{font-size:1.06rem;font-weight:600;margin-bottom:.3rem}
+  .trust-list p{color:rgba(251,249,245,.66);font-size:.93rem;line-height:1.55}
+
+  /* ---------- questions wall ---------- */
+  .letters{background:var(--paper-2)}
+  .wall{columns:3;column-gap:clamp(16px,1.6vw,22px)}
+  .note{
+    break-inside:avoid;margin-bottom:clamp(16px,1.6vw,22px);
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;
+    transition:transform .3s, box-shadow .3s;
+  }
+  .note:hover{transform:translateY(-4px);box-shadow:0 22px 44px -30px rgba(24,36,30,.5)}
+  .note .nq{font-family:var(--f-display);font-variation-settings:"opsz" 40,"SOFT" 70,"wght" 440;font-size:1.12rem;line-height:1.32;letter-spacing:-.005em;margin-bottom:.9rem}
+  .note .na{color:var(--ink-soft);font-size:.92rem;line-height:1.55;margin-bottom:1rem}
+  .note .nby{font-family:var(--f-mono);font-size:.71rem;letter-spacing:.02em;color:var(--slate);display:flex;align-items:center;gap:.5em;border-top:1px solid var(--line-soft);padding-top:.85rem}
+  .note .nby b{color:var(--ink);font-weight:600;font-family:var(--f-body)}
+  .note.anon{background:linear-gradient(160deg,#fff, var(--paper))}
+
+  /* ---------- institutions CTA ---------- */
+  .supply{position:relative}
+  .supply-card{
+    background:var(--slate-deep);color:var(--paper);border-radius:calc(var(--radius) + 8px);
+    padding:clamp(40px,6vw,80px);display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .supply-card .eyebrow{color:var(--accent-light)}
+  .supply-card .eyebrow::before{background:var(--accent-light)}
+  .supply-card h2{color:var(--paper);margin:1.2rem 0 1.2rem}
+  .supply-card p{color:rgba(251,249,245,.82);max-width:42ch;margin-bottom:2rem}
+  .supply-actions{display:flex;gap:.9rem;flex-wrap:wrap}
+  .supply-aside{display:flex;flex-direction:column;gap:1rem}
+  .earn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:18px 20px}
+  .earn .k{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-light);margin-bottom:.3rem}
+  .earn .v{font-family:var(--f-display);font-size:1.5rem;font-variation-settings:"opsz" 40,"SOFT" 60,"wght" 480}
+
+  /* ---------- footer ---------- */
+  footer{padding-top:clamp(56px,7vw,90px);padding-bottom:40px;border-top:1px solid var(--line)}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:clamp(40px,5vw,64px)}
+  .foot-brand .brand{margin-bottom:1.1rem}
+  .foot-brand p{color:var(--ink-soft);font-size:.92rem;max-width:30ch}
+  .foot-col h5{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:1.1rem}
+  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+  .foot-col a{font-size:.93rem;color:var(--ink-soft);transition:color .2s}
+  .foot-col a:hover{color:var(--ink)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-top:24px;border-top:1px solid var(--line-soft)}
+  .foot-bottom p{font-family:var(--f-mono);font-size:.74rem;color:var(--slate);letter-spacing:.02em}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none}}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .qcard{max-width:520px}
+    .trust-grid{grid-template-columns:1fr;gap:40px}
+    .supply-card{grid-template-columns:1fr;gap:34px}
+    .wall{columns:2}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .foot-brand{grid-column:1 / -1}
+  }
+  @media (max-width:760px){
+    .nav-links{
+      position:fixed;inset:74px 0 auto 0;background:var(--paper);
+      flex-direction:column;align-items:flex-start;gap:0;padding:0 var(--pad);
+      border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;
+    }
+    .nav-links.open{max-height:360px;padding:12px var(--pad) 24px}
+    .nav-links li{width:100%}
+    .nav-links a{display:block;padding:.9rem 0;width:100%;border-bottom:1px solid var(--line-soft)}
+    .nav-links a::after{display:none}
+    .nav-toggle{display:block}
+    .nav .desktop-cta{display:none}
+    .nav-cta .btn-primary{display:none}
+    .mobile-cta{display:block}
+    .mobile-cta a{display:flex;border-bottom:none;padding:.92em 1.5em}
+    .tiers{grid-template-columns:1fr}
+    .proof-locs{margin-left:0;text-align:left;width:100%}
+    .wall{columns:1}
+  }
+  @media (max-width:480px){
+    .hero-actions{flex-direction:column;align-items:stretch}
+    .hero-actions .btn{justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <rect x="1.6" y="1.6" width="12.8" height="12.8" rx="3.4" stroke="#18241E" stroke-width="1.5"/>
+          <rect x="5.5" y="5.5" width="5" height="5" rx="1.3" fill="#18241E"/>
+        </svg>
+      </span>CampOS</a>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#trust">Trust &amp; security</a></li>
+      <li><a href="#faculty">For faculty</a></li>
+      <li><a href="#institutions">For institutions</a></li>
+      <li class="mobile-cta"><a href="#institutions" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:14px">Book a demo</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#institutions" class="desktop-cta" style="font-size:.95rem;font-weight:500;color:var(--ink-soft)">Sign in</a>
+      <a href="#institutions" class="btn btn-primary">Book a demo</a>
+      <button class="nav-toggle" id="navtoggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">One operating system for the whole campus</span>
+      <h1 class="display">The whole campus,<br><em class="serif-em">running as one.</em></h1>
+      <p class="lede">CampOS unifies attendance, housing, records, and identity into a single verified ecosystem. One student login opens every door on campus — class, library, hostel, exams, wallet — and nothing along the way can be forged.</p>
+      <div class="hero-actions">
+        <a href="#institutions" class="btn btn-primary">Book a demo <svg class="arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#modules" class="btn btn-ghost">Explore the modules</a>
+      </div>
+      <div class="hero-note"><span class="live-dot"></span> One identity. Every service. Live across 60+ campuses.</div>
+    </div>
+
+    <!-- SIGNATURE CARD: one identity moving through CampOS -->
+    <div class="hero-card reveal" style="transition-delay:.12s">
+      <div class="qcard" id="qcard" aria-live="polite">
+        <div class="qcard-head">
+          <span class="qcard-tag"><span class="ld"></span><span id="s-tag">CampOS · ScanMark</span></span>
+          <span class="qcard-meta" id="s-meta">Hall 2B · just now</span>
+        </div>
+
+        <div class="scan-stage" id="scan-stage">
+          <div class="stage-visual" id="stage-visual" aria-hidden="true"></div>
+          <div class="scan-cap">
+            <p class="scan-h" id="s-caph">Scan to check in</p>
+            <p class="scan-sub" id="s-capsub">Code refreshes every 15s · single use · no proxies</p>
+          </div>
+        </div>
+
+        <div class="qcard-divider" id="s-divider">Checked in</div>
+
+        <div class="answerer">
+          <div class="avatar" style="background:#5A7363">A</div>
+          <div class="answerer-info">
+            <div class="name"><span>Ada Okafor</span>
+              <svg class="verified" viewBox="0 0 20 20" fill="none" aria-label="verified"><path d="M10 1.5l2.1 1.5 2.6-.2 1 2.4 2.2 1.4-.7 2.5.7 2.5-2.2 1.4-1 2.4-2.6-.2L10 18.5l-2.1-1.5-2.6.2-1-2.4-2.2-1.4.7-2.5-.7-2.5 2.2-1.4 1-2.4 2.6.2L10 1.5z" fill="#D79744"/><path d="M6.6 10l2.1 2.1 4.7-4.7" stroke="#18241E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="cred">MAT/2026/043118 · one CampOS identity</div>
+          </div>
+        </div>
+        <p class="a-text" id="s-status">Checked into CSC 401 — her phone matched her enrolled device and the room matched Hall 2B. The one-time code burned on use, so no proxy was possible.</p>
+
+        <div class="qcard-foot">
+          <span id="s-footl"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8.5l3.5 3.5L14 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>38</b>&nbsp;present</span>
+          <span id="s-footr"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5.5 2.2V7c0 3.4-2.3 5.7-5.5 7-3.2-1.3-5.5-3.6-5.5-7V3.7L8 1.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg> 0 proxies</span>
+          <span class="qcard-dots" id="qdots" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<section class="proof">
+  <div class="wrap proof-inner">
+    <div class="proof-item">
+      <span class="proof-num">1.2M<span class="unit">+</span></span>
+      <span class="proof-label">Verified actions a month</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">60<span class="unit">+</span></span>
+      <span class="proof-label">Campuses running CampOS</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">1<span class="unit"> ID</span></span>
+      <span class="proof-label">Per student, every service</span>
+    </div>
+    <div class="proof-locs">Live across<br>Nigeria · Ghana · United Kingdom</div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="sec-pad" id="modules">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What's inside CampOS</span>
+      <h2 class="display">Four campus systems,<br>one verified ledger.</h2>
+    </div>
+    <div class="tiers">
+      <article class="tier reveal">
+        <div class="tier-cat">Attendance · ScanMark</div>
+        <svg class="icn" viewBox="0 0 32 32" fill="none"><path d="M5 9V6.5C5 5.7 5.7 5 6.5 5H9M23 5h2.5c.8 0 1.5.7 1.5 1.5V9M27 23v2.5c0 .8-.7 1.5-1.5 1.5H23M9 27H6.5C5.7 27 5 26.3 5 25.5V23" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="12" y="12" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h3 class="display">ScanMark</h3>
+        <p>Rotating, single-use QR check-ins bound to each student's phone and the room they're in. Proxy attendance simply stops being possible — and the register reconciles itself.</p>
+        <div class="gate">Rotating codes · device-bound</div>
+      </article>
+      <article class="tier reveal" style="transition-delay:.08s">
+        <div class="tier-cat">Living · Krib</div>
+        <svg class="icn" viewBox="0 0 32 32" fill="none"><path d="M5 15L16 6l11 9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13v13h16V13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 26v-7h6v7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <h3 class="display">Krib</h3>
+        <p>A verified housing marketplace where every listing has a confirmed owner and real photos. Students sign leases near campus without ever meeting a fake agent.</p>
+        <div class="gate">Owner-ID confirmed · no fraud</div>
+      </article>
+      <article class="tier reveal" style="transition-delay:.16s">
+        <div class="tier-cat">Records · Nada</div>
+        <svg class="icn" viewBox="0 0 32 32" fill="none"><path d="M9 4h11l7 7v17H9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M20 4v7h7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 17h7M13 22h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <h3 class="display">Nada &amp; Identity</h3>
+        <p>Tamper-evident transcripts and credentials on one ledger, tied to a single campus identity. Verifiable by any employer in seconds — no letters, no waiting, no forgery.</p>
+        <div class="gate">Tamper-evident · exportable</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust sec-pad" id="trust">
+  <div class="wrap trust-grid">
+    <div class="reveal">
+      <span class="eyebrow">Trust &amp; security</span>
+      <h2 class="display">Verified once.<br>Trusted everywhere.</h2>
+      <p class="trust-lede">A campus runs on records people can believe — who attended, who lives where, who earned what. CampOS proves each one at the moment it happens, so nothing downstream has to be taken on faith.</p>
+    </div>
+    <ul class="trust-list reveal" style="transition-delay:.1s">
+      <li>
+        <svg class="ti" viewBox="0 0 28 28" fill="none"><path d="M14 2l9 4v6c0 6-4 9.5-9 12-5-2.5-9-6-9-12V6l9-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 14l3.5 3.5L19 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><h4>One identity, proven once</h4><p>Each student gets a single verified CampOS identity. They prove who they are once, then move through class, library, hostel, exams, and wallet without re-registering anywhere.</p></div>
+      </li>
+      <li>
+        <svg class="ti" viewBox="0 0 28 28" fill="none"><rect x="6" y="12" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 12V9a4.5 4.5 0 019 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14" cy="18" r="1.6" fill="currentColor"/></svg>
+        <div><h4>Access that can't be shared</h4><p>Attendance codes rotate every few seconds and die on first scan; housing and records are bound to the enrolled device. A screenshot passed down the row is already worthless.</p></div>
+      </li>
+      <li>
+        <svg class="ti" viewBox="0 0 28 28" fill="none"><rect x="5" y="4" width="18" height="20" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10h8M10 14h8M10 18h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div><h4>Tamper-evident by default</h4><p>Every record — a check-in, a lease, a grade — is written once and logged with who changed it and when. What a campus exports is exactly what happened.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- QUESTIONS WALL -->
+<section class="letters sec-pad" id="faculty">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">From the people who run campus</span>
+      <h2 class="display">The questions registrars<br>actually ask.</h2>
+    </div>
+    <div class="wall">
+      <article class="note reveal">
+        <p class="nq">"What stops one student scanning attendance for three friends who skipped the lecture?"</p>
+        <p class="na">The code rotates every fifteen seconds and burns on first scan, and each check-in is tied to the student's enrolled device. One phone can't sign in a row of empty seats.</p>
+        <p class="nby"><b>Dr. Bisi A.</b> · Registrar · 1,400 students</p>
+      </article>
+      <article class="note anon reveal" style="transition-delay:.05s">
+        <p class="nq">"Our students keep getting scammed by fake hostel agents online. Can CampOS actually help?"</p>
+        <p class="na">Krib only lists housing with a confirmed owner ID and verified photos. Students browse and sign near-campus leases inside CampOS, so there's no stranger and no deposit to a ghost.</p>
+        <p class="nby"><b>Dr. Amara O.</b> · Dean of Students</p>
+      </article>
+      <article class="note reveal" style="transition-delay:.1s">
+        <p class="nq">"Verifying a graduate's transcript for an employer takes us weeks. Does this change that?"</p>
+        <p class="na">Records on Nada are sealed to the ledger and verifiable in seconds. An employer checks a credential against the campus itself — no letters, no phone calls, no forgeries to chase.</p>
+        <p class="nby"><b>Mrs. Funke I.</b> · Academic Affairs</p>
+      </article>
+      <article class="note reveal" style="transition-delay:.04s">
+        <p class="nq">"We already run a student records system. Do we have to rip it out to adopt CampOS?"</p>
+        <p class="na">No. CampOS sits on top and syncs by matric number, then exports straight back into your existing rolls and SIS. You keep your system; we make it trustworthy and connected.</p>
+        <p class="nby"><b>Mr. Ngozi U.</b> · IT Director</p>
+      </article>
+      <article class="note anon reveal" style="transition-delay:.08s">
+        <p class="nq">"What about a student with no smartphone? I won't lock anyone out of class or housing."</p>
+        <p class="na">Staff can issue a verified manual action in two taps — a check-in, an ID, a record — logged exactly like a scan. No one is left out for the phone they carry.</p>
+        <p class="nby"><b>Prof. Grace M.</b> · Faculty of Engineering</p>
+      </article>
+      <article class="note reveal" style="transition-delay:.12s">
+        <p class="nq">"One login for everything sounds convenient — and like a single point of failure. Is it safe?"</p>
+        <p class="na">It's one identity, not one password lying around. Access is verified per action and bound to the device, and every record is tamper-evident. Convenience without a master key to lose.</p>
+        <p class="nby"><b>Mr. Tunde A.</b> · Data Protection Officer</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONS CTA -->
+<section class="sec-pad supply" id="institutions">
+  <div class="wrap">
+    <div class="supply-card reveal">
+      <div>
+        <span class="eyebrow">For institutions</span>
+        <h2 class="display">Bring your whole campus<br>into one system.</h2>
+        <p>Give every student a single verified identity and put attendance, housing, and records on one ledger you can stand behind — for accreditation, for funding tied to contact hours, for the reputation of every certificate you issue. No new hardware, no end-of-term scramble.</p>
+        <div class="supply-actions">
+          <a href="#" class="btn btn-light">Book a demo <svg class="arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="#modules" class="btn btn-ghost" style="color:var(--paper);border-color:rgba(255,255,255,.3)">Explore the modules</a>
+        </div>
+      </div>
+      <div class="supply-aside">
+        <div class="earn"><div class="k">Rollout</div><div class="v">Under a term</div></div>
+        <div class="earn"><div class="k">Hardware</div><div class="v">None — just phones</div></div>
+        <div class="earn"><div class="k">Pricing</div><div class="v">Per active student</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand">
+          <span class="mark">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="1.6" y="1.6" width="12.8" height="12.8" rx="3.4" stroke="#18241E" stroke-width="1.5"/>
+              <rect x="5.5" y="5.5" width="5" height="5" rx="1.3" fill="#18241E"/>
+            </svg>
+          </span>CampOS</a>
+        <p>One operating system powering the entire campus. Attendance, housing, records, and identity — unified, verified, and connected.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Modules</h5>
+        <ul>
+          <li><a href="#modules">ScanMark · Attendance</a></li>
+          <li><a href="#modules">Krib · Housing</a></li>
+          <li><a href="#modules">Nada · Records</a></li>
+          <li><a href="#trust">Identity &amp; security</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>For institutions</h5>
+        <ul>
+          <li><a href="#institutions">Book a demo</a></li>
+          <li><a href="#">Rollout</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Accreditation</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© <span id="yr">2026</span> CampOS — the operating system for modern campuses.</p>
+      <p>Nigeria · Ghana · United Kingdom</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), {passive:true});
+
+  // mobile menu
+  const toggle = document.getElementById('navtoggle');
+  const links = document.getElementById('navlinks');
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open'); toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ----- QR matrix: deterministic per seed, with real finder patterns ----- */
+  const N = 21;
+  function inFinder(r,c){
+    const eyes = [[0,0],[0,N-7],[N-7,0]];
+    for(const [fr,fc] of eyes){
+      if(r>=fr && r<fr+7 && c>=fc && c<fc+7){
+        const rr=r-fr, cc=c-fc;
+        const ring = (rr===0||rr===6||cc===0||cc===6);
+        const core = (rr>=2&&rr<=4&&cc>=2&&cc<=4);
+        return {hit:true, on: ring||core};
+      }
+    }
+    return {hit:false, on:false};
+  }
+  function inSeparator(r,c){
+    const eyes = [[0,0],[0,N-7],[N-7,0]];
+    for(const [fr,fc] of eyes){
+      if(r>=fr-1 && r<=fr+7 && c>=fc-1 && c<=fc+7) return true;
+    }
+    return false;
+  }
+  function qrHTML(seed){
+    let x = (seed*9301 + 49297) % 233280;
+    const rnd = () => { x = (x*9301 + 49297) % 233280; return x/233280; };
+    let cells = '';
+    for(let r=0;r<N;r++){
+      for(let c=0;c<N;c++){
+        const f = inFinder(r,c);
+        let on;
+        if(f.hit) on = f.on;
+        else if(inSeparator(r,c)) on = false;
+        else on = rnd() > 0.5;
+        cells += on ? '<i class="on"></i>' : '<i></i>';
+      }
+    }
+    return '<div class="qr-grid" style="--n:'+N+'">'+cells+'</div><span class="qr-scan"></span>';
+  }
+
+  /* ----- module glyphs for the non-attendance slides ----- */
+  const glyphKrib = '<svg class="glyph" viewBox="0 0 64 64" fill="none">'
+    + '<path d="M10 30 32 13l22 17" stroke="#18241E" stroke-width="2.4" stroke-linejoin="round"/>'
+    + '<path d="M15 27v23h34V27" stroke="#18241E" stroke-width="2.4" stroke-linejoin="round"/>'
+    + '<path d="M27 50V37h10v13" stroke="#18241E" stroke-width="2.4" stroke-linejoin="round"/>'
+    + '<circle cx="46" cy="20" r="8" fill="#FBF9F5" stroke="#D79744" stroke-width="2.4"/>'
+    + '<path d="M42.5 20l2.5 2.5 4-4.5" stroke="#D79744" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const glyphNada = '<svg class="glyph" viewBox="0 0 64 64" fill="none">'
+    + '<path d="M16 8h20l12 12v36H16z" stroke="#18241E" stroke-width="2.4" stroke-linejoin="round"/>'
+    + '<path d="M36 8v12h12" stroke="#18241E" stroke-width="2.4" stroke-linejoin="round"/>'
+    + '<path d="M23 30h18M23 38h18" stroke="#18241E" stroke-width="2.4" stroke-linecap="round"/>'
+    + '<circle cx="42" cy="46" r="8" fill="#FBF9F5" stroke="#D79744" stroke-width="2.4"/>'
+    + '<path d="M38.5 46l2.5 2.5 4-4.5" stroke="#D79744" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  /* ----- one identity, three CampOS surfaces ----- */
+  const checkIcon = '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8.5l3.5 3.5L14 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const shieldIcon = '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5.5 2.2V7c0 3.4-2.3 5.7-5.5 7-3.2-1.3-5.5-3.6-5.5-7V3.7L8 1.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+  const homeIcon = '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2.5 7.5L8 3l5.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M4 6.5V13h8V6.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+  const ledgerIcon = '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="3" y="2.5" width="10" height="11" rx="1.4" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 6h5M5.5 9h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+
+  const slides = [
+    { tag:"CampOS · ScanMark", meta:"Hall 2B · just now",
+      kind:"qr", seed:7,
+      capH:"Scan to check in", capSub:"Code refreshes every 15s · single use · no proxies",
+      divider:"Checked in",
+      status:"Checked into CSC 401 — her phone matched her enrolled device and the room matched Hall 2B. The one-time code burned on use, so no proxy was possible.",
+      footL: checkIcon + '<b>38</b>&nbsp;present', footR: shieldIcon + ' 0 proxies' },
+    { tag:"CampOS · Krib", meta:"North Gate · 0.4 mi",
+      kind:"krib",
+      capH:"Lease verified", capSub:"Skyline Loft · Studio · owner ID confirmed",
+      divider:"Signed",
+      status:"Signed a verified lease the same identity uses for class. The owner was ID-checked and the photos confirmed — no agent, no deposit to a stranger.",
+      footL: checkIcon + 'Owner verified', footR: homeIcon + ' $540 / month' },
+    { tag:"CampOS · Nada", meta:"Registry · sealed",
+      kind:"nada",
+      capH:"Transcript sealed", capSub:"Tied to her CampOS identity · verifiable in seconds",
+      divider:"On the ledger",
+      status:"Her final transcript is sealed to the campus ledger. Any employer can verify it against the institution in seconds — no letters, no waiting, nothing to forge.",
+      footL: checkIcon + 'Block #48201', footR: ledgerIcon + ' tamper-evident' }
+  ];
+
+  const card = document.getElementById('qcard');
+  const stage = document.getElementById('stage-visual');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let idx = 0;
+
+  function renderStage(s){
+    if(s.kind === 'qr') stage.innerHTML = qrHTML(s.seed);
+    else if(s.kind === 'krib') stage.innerHTML = glyphKrib;
+    else stage.innerHTML = glyphNada;
+  }
+  const set = i => {
+    const s = slides[i];
+    document.getElementById('s-tag').textContent = s.tag;
+    document.getElementById('s-meta').textContent = s.meta;
+    document.getElementById('s-caph').textContent = s.capH;
+    document.getElementById('s-capsub').textContent = s.capSub;
+    document.getElementById('s-divider').firstChild.textContent = s.divider;
+    document.getElementById('s-status').textContent = s.status;
+    document.getElementById('s-footl').innerHTML = s.footL;
+    document.getElementById('s-footr').innerHTML = s.footR;
+    renderStage(s);
+    document.querySelectorAll('#qdots i').forEach((d,di)=>d.classList.toggle('on', di===i));
+  };
+  set(0);
+  if(!reduce){
+    setInterval(() => {
+      card.classList.add('is-fading');
+      setTimeout(() => { idx = (idx+1)%slides.length; set(idx); card.classList.remove('is-fading'); }, 520);
+    }, 5200);
+  }
+</script>
+</body>
+</html>
