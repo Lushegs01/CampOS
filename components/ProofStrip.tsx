@@ -1,35 +1,29 @@
+const STATS = [
+  { value: "1.2M", accent: "+", label: "Verified actions a month" },
+  { value: "60", accent: "+", label: "Campuses running CampOS" },
+  { value: "1", accent: " ID", label: "Per student, every service" },
+  { value: "3", accent: "", label: "Countries live · NG · GH · UK" },
+];
+
 export function ProofStrip() {
   return (
-    <section className="border-y border-line-soft bg-paper-2">
-      <div className="mx-auto flex max-w-wrap flex-wrap items-center justify-between gap-[clamp(20px,4vw,56px)] px-[clamp(20px,5vw,56px)] py-[30px]">
-        <div className="flex flex-col gap-[0.15rem]">
-          <span className="font-display text-[1.9rem] leading-none" style={{ fontVariationSettings: '"opsz" 60,"SOFT" 60,"wght" 480' }}>
-            1.2M<span className="text-honey-deep">+</span>
-          </span>
-          <span className="font-mono text-[0.72rem] uppercase tracking-[0.08em] text-sage">
-            Verified actions a month
-          </span>
-        </div>
-        <div className="flex flex-col gap-[0.15rem]">
-          <span className="font-display text-[1.9rem] leading-none" style={{ fontVariationSettings: '"opsz" 60,"SOFT" 60,"wght" 480' }}>
-            60<span className="text-honey-deep">+</span>
-          </span>
-          <span className="font-mono text-[0.72rem] uppercase tracking-[0.08em] text-sage">
-            Campuses running CampOS
-          </span>
-        </div>
-        <div className="flex flex-col gap-[0.15rem]">
-          <span className="font-display text-[1.9rem] leading-none" style={{ fontVariationSettings: '"opsz" 60,"SOFT" 60,"wght" 480' }}>
-            1<span className="text-honey-deep"> ID</span>
-          </span>
-          <span className="font-mono text-[0.72rem] uppercase tracking-[0.08em] text-sage">
-            Per student, every service
-          </span>
-        </div>
-        <div className="w-full text-left font-mono text-[0.78rem] tracking-[0.03em] text-ink-soft md:w-auto md:text-right md:ml-auto">
-          Live across
-          <br />
-          Nigeria · Ghana · United Kingdom
+    <section className="bg-paper">
+      <div className="wrap">
+        <div className="grid grid-cols-2 divide-x divide-y divide-line md:grid-cols-4 md:divide-y-0">
+          {STATS.map((s) => (
+            <div
+              key={s.label}
+              className="flex flex-col items-center px-4 py-[clamp(28px,4vw,44px)] text-center"
+            >
+              <p className="font-display text-[clamp(2rem,3.4vw,2.6rem)] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
+                {s.value}
+                <span className="text-honey-deep">{s.accent}</span>
+              </p>
+              <p className="mt-[0.7rem] font-mono text-[10px] uppercase tracking-[0.12em] text-slate">
+                {s.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
