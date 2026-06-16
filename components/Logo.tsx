@@ -28,8 +28,8 @@ export function Logo({ className = "" }: { className?: string }) {
           <path d="M7 41L41 7" stroke="#FFFFFF" strokeWidth="0.6" opacity="0.2" />
         </g>
       </svg>
-      <span className="font-display text-[1.32rem] font-semibold tracking-[-0.02em] text-brand">
-        CampOS
+      <span className="font-display text-[1.32rem] font-bold tracking-[-0.02em] text-ink">
+        Camp<span className="text-honey-deep">OS</span>
       </span>
     </span>
   );

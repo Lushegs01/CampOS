@@ -47,10 +47,11 @@ const QUESTIONS = [
 
 export function QuestionsWall() {
   return (
-    <section id="faculty" className="bg-paper-2 py-[clamp(64px,9vw,118px)]">
-      <div className="mx-auto max-w-wrap px-[clamp(20px,5vw,56px)]">
+    <section id="faculty" className="bg-paper py-[clamp(64px,9vw,118px)]">
+      <div className="wrap">
         <SectionHeading
           eyebrow="From the people who run campus"
+          align="center"
           title={
             <>
               The questions registrars
@@ -58,6 +59,7 @@ export function QuestionsWall() {
               actually ask.
             </>
           }
+          className="mb-[clamp(40px,5vw,68px)]"
         />
 
         <motion.div
@@ -65,27 +67,24 @@ export function QuestionsWall() {
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="columns-1 md:columns-2 lg:columns-3 gap-[clamp(16px,1.6vw,22px)]"
+          className="columns-1 gap-[clamp(16px,1.6vw,22px)] md:columns-2 lg:columns-3"
         >
           {QUESTIONS.map((item, i) => (
             <motion.article
               key={i}
               variants={fadeUp}
-              className={`mb-[clamp(16px,1.6vw,22px)] break-inside-avoid rounded-[14px] border border-line p-[22px_22px_18px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-30px_rgba(11,21,51,.5)] ${
+              className={`mb-[clamp(16px,1.6vw,22px)] break-inside-avoid rounded-[16px] border p-[22px_22px_18px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-34px_rgba(0,0,0,0.9)] ${
                 item.anon
-                  ? "bg-gradient-to-br from-white to-paper"
-                  : "bg-paper"
+                  ? "border-brand/25 bg-surface-2"
+                  : "border-line bg-surface hover:border-mist"
               }`}
             >
-              <p className="mb-[0.9rem] font-display text-[1.12rem] leading-[1.32] tracking-[-0.005em]" style={{ fontVariationSettings: '"opsz" 40,"SOFT" 70,"wght" 440' }}>
+              <p className="mb-[0.9rem] font-display text-[1.12rem] font-medium leading-[1.34] tracking-[-0.01em] text-ink">
                 {item.q}
               </p>
-              <p className="mb-[1rem] text-[0.92rem] leading-[1.55] text-ink-soft">
-                {item.a}
-              </p>
-              <p className="flex items-center gap-[0.5em] border-t border-line-soft pt-[0.85rem] font-mono text-[0.71rem] tracking-[0.02em] text-sage">
-                <b className="font-body font-semibold text-ink">{item.by}</b> ·{" "}
-                {item.role}
+              <p className="mb-[1rem] text-[0.92rem] leading-[1.6] text-ink-soft">{item.a}</p>
+              <p className="flex items-center gap-[0.5em] border-t border-line-soft pt-[0.85rem] font-mono text-[0.71rem] tracking-[0.02em] text-slate">
+                <b className="font-body font-semibold text-ink">{item.by}</b> · {item.role}
               </p>
             </motion.article>
           ))}
