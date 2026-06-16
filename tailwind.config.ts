@@ -5,21 +5,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#FBF9F5",
-        "paper-2": "#F3EFE6",
-        ink: "#18241E",
-        "ink-soft": "#425047",
-        sage: "#5A7363",
-        "sage-deep": "#36473C",
-        honey: "#D79744",
-        "honey-deep": "#BC7E2E",
-        blush: "#E8CBB9",
-        mist: "#E6DFD2",
-        line: "rgba(24,36,30,0.12)",
-        "line-soft": "rgba(24,36,30,0.07)",
+        // --- Surfaces (light modern-SaaS canvas) ---
+        paper: "#F7F9FC", // app canvas / page background
+        "paper-2": "#EDF1FA", // subtle alt-section panel
+        surface: "#FFFFFF", // cards
+        // --- Ink / text (deep navy) ---
+        ink: "#0B1533", // primary text + dark surfaces
+        "ink-soft": "#46506B", // body / secondary text
+        // --- Brand (cobalt, from the CampOS logo) ---
+        brand: "#1E3FD0",
+        "brand-deep": "#1730A8",
+        "brand-bright": "#3A5BF0",
+        honey: "#1E3FD0", // legacy alias → brand
+        "honey-deep": "#1730A8", // legacy alias → brand-deep
+        // --- Cool neutrals (slate) ---
+        slate: "#5B6680",
+        "slate-deep": "#222C45",
+        sage: "#5B6680", // legacy alias → slate
+        "sage-deep": "#222C45", // legacy alias → slate-deep
+        // --- Tints ---
+        sky: "#D9E2FB", // light brand tint
+        blush: "#D9E2FB", // legacy alias → sky
+        mist: "#DCE4F2", // hover borders
+        // --- Hairlines ---
+        line: "rgba(11,21,51,0.10)",
+        "line-soft": "rgba(11,21,51,0.06)",
       },
       fontFamily: {
-        display: ["var(--font-fraunces)", "Georgia", "serif"],
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
         body: ["var(--font-hanken)", "ui-sans-serif", "system-ui", "sans-serif"],
         sans: ["var(--font-hanken)", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["var(--font-spline-mono)", "ui-monospace", "SFMono-Regular", "monospace"],

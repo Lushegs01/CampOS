@@ -108,13 +108,13 @@ const Ledger = () => (
 
 const KribGlyph = () => (
   <svg viewBox="0 0 64 64" fill="none" className="h-[62px] w-[62px]">
-    <path d="M10 30 32 13l22 17" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M15 27v23h34V27" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M27 50V37h10v13" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
-    <circle cx="46" cy="20" r="8" fill="#FBF9F5" stroke="#D79744" strokeWidth="2.4" />
+    <path d="M10 30 32 13l22 17" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M15 27v23h34V27" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M27 50V37h10v13" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
+    <circle cx="46" cy="20" r="8" fill="#FFFFFF" stroke="#1E3FD0" strokeWidth="2.4" />
     <path
       d="M42.5 20l2.5 2.5 4-4.5"
-      stroke="#D79744"
+      stroke="#1E3FD0"
       strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -123,13 +123,13 @@ const KribGlyph = () => (
 );
 const NadaGlyph = () => (
   <svg viewBox="0 0 64 64" fill="none" className="h-[62px] w-[62px]">
-    <path d="M16 8h20l12 12v36H16z" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M36 8v12h12" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
-    <path d="M23 30h18M23 38h18" stroke="#18241E" strokeWidth="2.4" strokeLinecap="round" />
-    <circle cx="42" cy="46" r="8" fill="#FBF9F5" stroke="#D79744" strokeWidth="2.4" />
+    <path d="M16 8h20l12 12v36H16z" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M36 8v12h12" stroke="#0B1533" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M23 30h18M23 38h18" stroke="#0B1533" strokeWidth="2.4" strokeLinecap="round" />
+    <circle cx="42" cy="46" r="8" fill="#FFFFFF" stroke="#1E3FD0" strokeWidth="2.4" />
     <path
       d="M38.5 46l2.5 2.5 4-4.5"
-      stroke="#D79744"
+      stroke="#1E3FD0"
       strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -231,7 +231,7 @@ export function HeroCard() {
   const fade = { opacity: fading ? 0 : 1, transition: "opacity .5s" };
 
   return (
-    <div className="relative max-w-[520px] rounded-card border border-line bg-paper p-[clamp(22px,2.4vw,34px)] shadow-[0_1px_2px_rgba(24,36,30,.04),0_30px_60px_-34px_rgba(24,36,30,.4)]">
+    <div className="relative max-w-[520px] rounded-card border border-line bg-paper p-[clamp(22px,2.4vw,34px)] shadow-[0_1px_2px_rgba(11,21,51,.04),0_30px_60px_-34px_rgba(11,21,51,.4)]">
       <span className="pointer-events-none absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_rgba(255,255,255,.5)]" />
 
       {/* head */}
@@ -249,7 +249,7 @@ export function HeroCard() {
 
       {/* stage */}
       <div className="flex min-h-[3.4em] items-center gap-[clamp(16px,2vw,24px)]" style={fade}>
-        <div className="relative grid h-[clamp(118px,13vw,140px)] w-[clamp(118px,13vw,140px)] flex-none place-items-center overflow-hidden rounded-[12px] border border-line bg-paper p-[9px] shadow-[0_10px_22px_-16px_rgba(24,36,30,.5)]">
+        <div className="relative grid h-[clamp(118px,13vw,140px)] w-[clamp(118px,13vw,140px)] flex-none place-items-center overflow-hidden rounded-[12px] border border-line bg-paper p-[9px] shadow-[0_10px_22px_-16px_rgba(11,21,51,.5)]">
           {slide.kind === "qr" && matrix ? (
             <>
               <div
@@ -301,11 +301,11 @@ export function HeroCard() {
             <svg className="h-[15px] w-[15px] flex-none" viewBox="0 0 20 20" fill="none" aria-label="verified">
               <path
                 d="M10 1.5l2.1 1.5 2.6-.2 1 2.4 2.2 1.4-.7 2.5.7 2.5-2.2 1.4-1 2.4-2.6-.2L10 18.5l-2.1-1.5-2.6.2-1-2.4-2.2-1.4.7-2.5-.7-2.5 2.2-1.4 1-2.4 2.6.2L10 1.5z"
-                fill="#D79744"
+                fill="#1E3FD0"
               />
               <path
                 d="M6.6 10l2.1 2.1 4.7-4.7"
-                stroke="#18241E"
+                stroke="#0B1533"
                 strokeWidth="1.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"

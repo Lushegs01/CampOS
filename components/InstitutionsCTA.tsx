@@ -14,8 +14,22 @@ export function InstitutionsCTA() {
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="relative grid grid-cols-1 items-center gap-[34px] overflow-hidden rounded-[calc(18px+8px)] bg-sage-deep p-[clamp(40px,6vw,80px)] text-paper lg:grid-cols-[1.1fr_0.9fr] lg:gap-[48px]"
+          className="relative grid grid-cols-1 items-center gap-[34px] overflow-hidden rounded-[calc(18px+8px)] bg-ink p-[clamp(40px,6vw,80px)] text-paper lg:grid-cols-[1.1fr_0.9fr] lg:gap-[48px]"
         >
+          {/* branded backdrop — blueprint grid + cobalt glow */}
+          <div
+            aria-hidden
+            className="blueprint-grid pointer-events-none absolute inset-0 -z-10"
+            style={{ "--grid-color": "rgba(255,255,255,0.07)" } as React.CSSProperties}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-[8%] -top-[34%] -z-10 h-[70%] w-[55%] rounded-full blur-[64px]"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(58,91,240,0.55), transparent 70%)",
+            }}
+          />
           <div>
             <SectionHeading
               eyebrow="For institutions"
@@ -29,7 +43,7 @@ export function InstitutionsCTA() {
               }
               className="mb-0"
             />
-            <p className="mb-[2rem] mt-[1.2rem] max-w-[42ch] text-[rgba(251,249,245,.82)]">
+            <p className="mb-[2rem] mt-[1.2rem] max-w-[42ch] text-[rgba(247,249,252,.82)]">
               Give every student a single verified identity and put attendance,
               housing, and records on one ledger you can stand behind — for
               accreditation, for funding tied to contact hours, for the reputation

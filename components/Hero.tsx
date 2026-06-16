@@ -9,6 +9,17 @@ import { fadeUp, container, viewport } from "@/lib/motion";
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,8vw,100px)]">
+      {/* Blueprint construction grid — brand texture (and what the glass cube refracts) */}
+      <div
+        aria-hidden
+        className="blueprint-grid pointer-events-none absolute inset-0 z-0"
+        style={{
+          maskImage:
+            "radial-gradient(ellipse 72% 72% at 50% 42%, #000 28%, transparent 76%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 72% 72% at 50% 42%, #000 28%, transparent 76%)",
+        }}
+      />
       <div className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-center gap-[48px] px-[clamp(20px,5vw,56px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(36px,5vw,72px)]">
         
         {/* Left Copy */}
