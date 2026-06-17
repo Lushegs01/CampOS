@@ -10,29 +10,20 @@ export function Logo() {
         className="h-[48px] w-[48px] flex-none"
         aria-hidden="true"
       >
-        {/* Left arm */}
-        <polygon points="0,20 20,20 0,40" fill="currentColor" />
-        <polygon points="20,20 20,40 0,40" className="fill-primary-deep" />
+        {/* Left Dark Chevron */}
+        <polygon points="0,40 0,20 20,0 20,20" className="fill-primary-deep" />
         
-        {/* Top arm (left half) */}
-        <rect x="20" y="0" width="20" height="20" fill="currentColor" />
-
-        {/* Top arm (right half) */}
-        <polygon points="40,0 60,0 40,20" fill="currentColor" />
-        <polygon points="60,0 60,20 40,20" className="fill-primary-deep" />
-
-        {/* Bottom arm (left half) */}
-        <rect x="20" y="40" width="20" height="20" fill="currentColor" />
-
-        {/* Bottom arm (right half) */}
-        <polygon points="40,40 60,40 40,60" fill="currentColor" />
-        <polygon points="60,40 60,60 40,60" className="fill-primary-deep" />
-
-        {/* Top-left diagonal connection */}
-        <polygon points="0,20 20,0 20,20" fill="currentColor" />
+        {/* Top Bright Arm */}
+        <polygon points="20,0 60,0 40,20 20,20" fill="currentColor" />
         
-        {/* Bottom-left diagonal connection */}
-        <polygon points="0,40 20,60 20,40" className="fill-primary-deep" />
+        {/* Top-Right Dark Triangle */}
+        <polygon points="40,20 60,20 60,0" className="fill-primary-deep" />
+        
+        {/* Bottom Bright Body */}
+        <polygon points="20,20 0,40 20,60 40,60 60,40 20,40" fill="currentColor" />
+        
+        {/* Bottom-Right Dark Triangle */}
+        <polygon points="40,60 60,60 60,40" className="fill-primary-deep" />
       </svg>
       CampOS
     </span>
