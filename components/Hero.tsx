@@ -19,7 +19,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-        className="pointer-events-none absolute -left-[15%] top-[-10%] z-0 h-[120%] w-[120%] opacity-10 mix-blend-multiply grayscale"
+        className="pointer-events-none absolute -left-[15%] top-[-10%] z-0 h-[120%] w-[120%] opacity-5"
       >
         <img src="/logo.png" alt="" className="h-full w-full object-contain object-left-top" />
       </motion.div>
