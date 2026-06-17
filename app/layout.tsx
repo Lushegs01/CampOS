@@ -25,11 +25,11 @@ const splineMono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CampOS — One operating system for the whole campus",
+  title: "CampOS",
   description:
     "CampOS unifies attendance, housing, records, and identity into one verified ecosystem. One student login opens every door on campus — and nothing along the way can be forged.",
   openGraph: {
-    title: "CampOS — One operating system for the whole campus",
+    title: "CampOS",
     description:
       "Attendance, housing, records, and identity — unified, verified, and connected.",
     type: "website",
