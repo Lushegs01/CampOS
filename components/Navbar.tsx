@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { useModal } from "@/context/ModalContext";
 
 export function Navbar() {
+  const { openModal } = useModal();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -71,9 +73,9 @@ export function Navbar() {
           >
             Sign in
           </Link>
-          <Link href="#institutions" className="btn btn-primary hidden md:inline-flex">
+          <button onClick={openModal} className="btn btn-primary hidden md:inline-flex">
             Book a demo
-          </Link>
+          </button>
 
           {/* mobile toggle */}
           <button
@@ -145,13 +147,15 @@ export function Navbar() {
             </Link>
           </li>
           <li className="mt-[14px]">
-            <Link
-              href="#institutions"
+            <button
               className="btn btn-primary w-full justify-center py-[0.92em]"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                openModal();
+              }}
             >
               Book a demo
-            </Link>
+            </button>
           </li>
         </ul>
       </div>

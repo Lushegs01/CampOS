@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { fadeUp, viewport } from "@/lib/motion";
 import { SectionHeading } from "./Section";
+import { useModal } from "@/context/ModalContext";
 
 export function InstitutionsCTA() {
+  const { openModal } = useModal();
   return (
     <section id="institutions" className="py-[clamp(64px,9vw,118px)]">
       <div className="mx-auto max-w-wrap px-[clamp(20px,5vw,56px)]">
@@ -38,7 +40,7 @@ export function InstitutionsCTA() {
               scramble.
             </p>
             <div className="flex flex-wrap gap-[0.9rem]">
-              <Link href="#" className="btn btn-light">
+              <button onClick={openModal} className="btn btn-light">
                 Book a demo
                 <svg
                   className="arr h-[16px] w-[16px]"
@@ -53,7 +55,7 @@ export function InstitutionsCTA() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
+              </button>
               <Link
                 href="#modules"
                 className="btn btn-ghost border-[rgba(255,255,255,.3)] text-paper hover:border-paper"

@@ -42,6 +42,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+import { ModalProvider } from "@/context/ModalContext";
+import { BookingModal } from "@/components/BookingModal";
+
 export default function RootLayout({
   children,
 }: {
@@ -53,7 +56,10 @@ export default function RootLayout({
       className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable} scroll-smooth`}
     >
       <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
-        <MotionProvider>{children}</MotionProvider>
+        <ModalProvider>
+          <MotionProvider>{children}</MotionProvider>
+          <BookingModal />
+        </ModalProvider>
       </body>
     </html>
   );

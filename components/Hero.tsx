@@ -1,17 +1,23 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { HeroCard } from "./HeroCard";
 import { fadeUp, container, viewport } from "@/lib/motion";
 
 export function Hero() {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, 300]);
+
   return (
     <section className="relative overflow-hidden pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,8vw,100px)] bg-campos-hero">
-      {/* Giant CampOS Watermark */}
-      <div className="pointer-events-none absolute -left-[15%] top-[-10%] z-0 h-[120%] w-[120%] opacity-5 mix-blend-multiply grayscale">
+      {/* Giant CampOS Watermark with Parallax */}
+      <motion.div 
+        style={{ y }}
+        className="pointer-events-none absolute -left-[15%] top-[-10%] z-0 h-[120%] w-[120%] opacity-10 mix-blend-multiply grayscale"
+      >
         <img src="/logo.png" alt="" className="h-full w-full object-contain object-left-top" />
-      </div>
+      </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-transparent pointer-events-none z-0" />
       <div className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-center gap-[48px] px-[clamp(20px,5vw,56px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(36px,5vw,72px)]">
         

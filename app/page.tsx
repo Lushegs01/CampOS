@@ -10,15 +10,17 @@ import { Footer } from "@/components/Footer";
 export default function Page() {
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-        <ProofStrip />
-        <Modules />
-        <Trust />
-        <QuestionsWall />
-        <InstitutionsCTA />
-      </main>
+      <div className="relative z-10 bg-paper shadow-[0_20px_40px_rgba(0,0,0,0.1)]">
+        <Navbar />
+        <main>
+          <Hero />
+          <ProofStrip />
+          <Modules />
+          <Trust />
+          <QuestionsWall />
+          <InstitutionsCTA />
+        </main>
+      </div>
       <Footer />
     </>
   );
