@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { useModal } from "@/context/ModalContext";
 
 export function Footer() {
+  const { openModal } = useModal();
   const year = new Date().getFullYear();
 
   return (
@@ -64,7 +68,7 @@ export function Footer() {
                 <li><Link href="#modules" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">FunaaBnB</Link></li>
                 <li><Link href="#modules" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Nada</Link></li>
                 <li><Link href="#trust" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Identity</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Ledger</Link></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Ledger</button></li>
               </ul>
             </div>
 
@@ -72,11 +76,11 @@ export function Footer() {
             <div className="flex flex-col gap-4">
               <h5 className="text-[0.85rem] font-semibold text-white">Institutions</h5>
               <ul className="flex flex-col gap-3">
-                <li><Link href="#institutions" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Book a demo</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Rollout Guide</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Pricing</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Hardware</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Accreditation</Link></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Book a demo</button></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Rollout Guide</button></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Pricing</button></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Hardware</button></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Accreditation</button></li>
               </ul>
             </div>
 
@@ -84,11 +88,10 @@ export function Footer() {
             <div className="flex flex-col gap-4">
               <h5 className="text-[0.85rem] font-semibold text-white">Company</h5>
               <ul className="flex flex-col gap-3">
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">About us</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Careers</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Customers</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Brand</Link></li>
+                <li><Link href="/about" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">About us</Link></li>
+                <li><Link href="/#modules" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/#modules" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Customers</Link></li>
+                <li><Link href="/#top" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Brand</Link></li>
               </ul>
             </div>
 
@@ -96,10 +99,10 @@ export function Footer() {
             <div className="flex flex-col gap-4">
               <h5 className="text-[0.85rem] font-semibold text-white">Legal</h5>
               <ul className="flex flex-col gap-3">
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Terms of Service</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Security</Link></li>
-                <li><Link href="#" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/terms" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/#trust" className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Security</Link></li>
+                <li><button onClick={openModal} className="text-[0.85rem] text-white/50 hover:text-white transition-colors">Contact</button></li>
               </ul>
             </div>
 
