@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
 const N = 21;
-type Kind = "qr" | "krib" | "nada";
+type Kind = "qr" | "krib" | "nada" | "unireg";
 
 interface Slide {
   tag: string;
@@ -137,6 +137,21 @@ const NadaGlyph = () => (
   </svg>
 );
 
+const UniregGlyph = () => (
+  <svg viewBox="0 0 64 64" fill="none" className="h-[62px] w-[62px]">
+    <rect x="14" y="12" width="28" height="40" rx="4" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M22 24h12M22 32h12M22 40h6" stroke="#18241E" strokeWidth="2.4" strokeLinecap="round" />
+    <circle cx="46" cy="40" r="8" fill="#FBF9F5" stroke="#D79744" strokeWidth="2.4" />
+    <path
+      d="M42.5 40l2.5 2.5 4-4.5"
+      stroke="#D79744"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const SLIDES: Slide[] = [
   {
     tag: "CampOS · ScanMark",
@@ -197,6 +212,26 @@ const SLIDES: Slide[] = [
     footR: (
       <>
         <Ledger /> tamper-evident
+      </>
+    ),
+  },
+  {
+    tag: "CampOS · Unireg",
+    meta: "Registrar · 2s ago",
+    kind: "unireg",
+    capH: "Enrollment confirmed",
+    capSub: "CSC 401 · tuition settled · receipt anchored",
+    divider: "On the ledger",
+    status:
+      "Enrolled in her core module with a single click. Her identity, prerequisites, and payment were instantly verified on the campus ledger without manual processing.",
+    footL: (
+      <>
+        <Check /> 12 credits
+      </>
+    ),
+    footR: (
+      <>
+        <Ledger /> verified
       </>
     ),
   },
@@ -267,8 +302,10 @@ export function HeroCard() {
             </>
           ) : slide.kind === "krib" ? (
             <KribGlyph />
-          ) : (
+          ) : slide.kind === "nada" ? (
             <NadaGlyph />
+          ) : (
+            <UniregGlyph />
           )}
         </div>
         <div>
