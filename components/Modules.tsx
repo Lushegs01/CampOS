@@ -118,6 +118,22 @@ const MODULES: Module[] = [
       </svg>
     ),
   },
+  {
+    cat: "Enrollment · Unireg",
+    name: "Unireg",
+    body: "Unified course registration and fee processing without the usual bottlenecks. Students enroll in one click, and the ledger guarantees zero double-booking or lost payments.",
+    gate: "Instant enrollment · zero conflicts",
+    dark: true,
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-[44px] w-[44px]">
+        <path d="M12 8h16a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 16h16" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+        <path d="M12 24h8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="28" cy="28" r="7" fill="currentColor" />
+        <path d="M25 28l2 2 4-4" stroke="#0B0F19" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
 ];
 
 export function Modules() {
@@ -144,7 +160,7 @@ export function Modules() {
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="grid grid-cols-1 gap-[clamp(16px,1.6vw,22px)] md:grid-cols-3"
+          className="grid grid-cols-1 gap-[clamp(16px,1.6vw,22px)] md:grid-cols-2"
         >
           {MODULES.map((m) => (
             <motion.article
