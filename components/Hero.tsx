@@ -4,8 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { HeroCard } from "./HeroCard";
 import { fadeUp, container, viewport } from "@/lib/motion";
+import { useModal } from "@/context/ModalContext";
 
 export function Hero() {
+  const { openModal } = useModal();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 300]);
 
