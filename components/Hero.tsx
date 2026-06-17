@@ -11,23 +11,26 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,8vw,100px)] bg-campos-hero">
-      {/* Giant CampOS Watermark with Parallax */}
+      {/* Giant CampOS Watermark with Parallax & Slow Fade In */}
       <motion.div 
         style={{ y }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
         className="pointer-events-none absolute -left-[15%] top-[-10%] z-0 h-[120%] w-[120%] opacity-10 mix-blend-multiply grayscale"
       >
         <img src="/logo.png" alt="" className="h-full w-full object-contain object-left-top" />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-transparent pointer-events-none z-0" />
-      <div className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-center gap-[48px] px-[clamp(20px,5vw,56px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(36px,5vw,72px)]">
+      <motion.div 
+        variants={container(0.12)}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 mx-auto grid max-w-wrap grid-cols-1 items-center gap-[48px] px-[clamp(20px,5vw,56px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-[clamp(36px,5vw,72px)]"
+      >
         
         {/* Left Copy */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-        >
+        <motion.div variants={fadeUp}>
           <span className="eyebrow mb-[1.6rem]">
             One operating system for the whole campus
           </span>
@@ -42,8 +45,8 @@ export function Hero() {
             campus — class, library, hostel, exams, wallet — and nothing along
             the way can be forged.
           </p>
-          <div className="flex flex-col items-stretch gap-[0.9rem] sm:flex-row sm:items-center">
-            <Link href="#institutions" className="btn btn-primary sm:w-auto w-full justify-center">
+          <motion.div variants={fadeUp} className="flex flex-col items-stretch gap-[0.9rem] sm:flex-row sm:items-center">
+            <button onClick={openModal} className="btn btn-primary sm:w-auto w-full justify-center">
               Book a demo
               <svg
                 className="arr h-[16px] w-[16px]"
@@ -58,11 +61,11 @@ export function Hero() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </Link>
+            </button>
             <Link href="#modules" className="btn btn-ghost sm:w-auto w-full justify-center">
               Explore the modules
             </Link>
-          </div>
+          </motion.div>
           <div className="mt-[1.7rem] flex items-center gap-[0.6em] font-mono text-[0.76rem] tracking-[0.04em] text-slate">
             <span className="relative flex-none h-[8px] w-[8px] rounded-full bg-primary">
               <span className="absolute -inset-[4px] rounded-full border-[1.5px] border-primary opacity-60 animate-pulse-ring" />
@@ -74,14 +77,11 @@ export function Hero() {
         {/* Right Signature Card */}
         <motion.div
           variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
           className="mx-auto w-full max-w-[520px] lg:mx-0 lg:max-w-none"
         >
           <HeroCard />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

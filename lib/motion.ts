@@ -1,10 +1,11 @@
 export const ease = [0.2, 0.8, 0.2, 1];
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 22, filter: "blur(10px)" },
   visible: {
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: { duration: 0.8, ease },
   },
 };

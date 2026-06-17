@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { useModal } from "@/context/ModalContext";
 
+import { motion } from "framer-motion";
+
 export function Navbar() {
   const { openModal } = useModal();
   const [scrolled, setScrolled] = useState(false);
@@ -17,8 +19,11 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+    <motion.header
+      initial={{ y: "-100%", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+      className={`sticky top-0 z-50 transition-colors duration-500 ${
         scrolled
           ? "border-b border-slate-light/60 glass-light shadow-premium"
           : "border-b border-transparent bg-transparent"
