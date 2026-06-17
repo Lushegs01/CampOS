@@ -20,6 +20,7 @@ export function InstitutionsCTA() {
             <SectionHeading
               eyebrow="For institutions"
               eyebrowVariant="accent-light"
+              titleClassName="!text-paper"
               title={
                 <>
                   Bring your whole campus
