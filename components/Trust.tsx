@@ -19,6 +19,7 @@ export function Trust() {
           <SectionHeading
             eyebrow="Trust & security"
             eyebrowVariant="primary"
+            titleClassName="!text-paper"
             title={
               <>
                 Verified once.

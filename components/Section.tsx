@@ -7,6 +7,7 @@ interface SectionHeadingProps {
   eyebrow: string;
   title: React.ReactNode;
   className?: string;
+  titleClassName?: string;
   eyebrowVariant?: "default" | "primary" | "accent-light";
 }
 
@@ -14,6 +15,7 @@ export function SectionHeading({
   eyebrow,
   title,
   className = "",
+  titleClassName = "",
   eyebrowVariant = "default",
 }: SectionHeadingProps) {
   const variantClass =
@@ -32,7 +34,7 @@ export function SectionHeading({
       className={`max-w-[30ch] ${className}`}
     >
       <span className={`eyebrow mb-[1.2rem] ${variantClass}`}>{eyebrow}</span>
-      <h2 className="display mt-[1.2rem] text-[clamp(2rem,4.4vw,3.5rem)]">
+      <h2 className={`display mt-[1.2rem] text-[clamp(2rem,4.4vw,3.5rem)] ${titleClassName}`}>
         {title}
       </h2>
     </motion.div>
