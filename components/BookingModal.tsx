@@ -6,13 +6,17 @@ import { useModal } from "@/context/ModalContext";
 
 export function BookingModal() {
   const { isOpen, closeModal } = useModal();
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [formData, setFormData] = useState({ name: "", email: "", institution: "" });
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Lock body scroll when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       setStatus("idle");
+      setErrorMessage("");
+      setFormData({ name: "", email: "", institution: "" });
     } else {
       document.body.style.overflow = "unset";
     }
@@ -21,15 +25,32 @@ export function BookingModal() {
     };
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
-    setTimeout(() => {
+    setErrorMessage("");
+    
+    try {
+      const res = await fetch("/api/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit request");
+      }
+      
       setStatus("success");
       setTimeout(() => {
         closeModal();
-      }, 1500);
-    }, 1000);
+      }, 2500);
+    } catch (err: any) {
+      setStatus("error");
+      setErrorMessage(err.message || "An unexpected error occurred.");
+    }
   };
 
   return (
@@ -93,6 +114,8 @@ export function BookingModal() {
                     <input
                       required
                       type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full rounded-[10px] border border-line-soft bg-white/50 px-4 py-2.5 text-[0.95rem] outline-none transition-all focus:border-primary focus:bg-white"
                       placeholder="Jane Doe"
                     />
@@ -104,6 +127,8 @@ export function BookingModal() {
                     <input
                       required
                       type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full rounded-[10px] border border-line-soft bg-white/50 px-4 py-2.5 text-[0.95rem] outline-none transition-all focus:border-primary focus:bg-white"
                       placeholder="jane@university.edu"
                     />
@@ -115,10 +140,17 @@ export function BookingModal() {
                     <input
                       required
                       type="text"
+                      value={formData.institution}
+                      onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
                       className="w-full rounded-[10px] border border-line-soft bg-white/50 px-4 py-2.5 text-[0.95rem] outline-none transition-all focus:border-primary focus:bg-white"
                       placeholder="CampOS University"
                     />
                   </div>
+                  {status === "error" && (
+                    <div className="text-[0.85rem] text-red-500 font-medium">
+                      {errorMessage}
+                    </div>
+                  )}
                   <button
                     disabled={status === "submitting"}
                     type="submit"
