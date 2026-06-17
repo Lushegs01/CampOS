@@ -69,10 +69,10 @@ const MODULES: Module[] = [
     ),
   },
   {
-    cat: "Records · Nada",
-    name: "Nada & Identity",
-    body: "Tamper-evident transcripts and credentials on one ledger, tied to a single campus identity. Verifiable by any employer in seconds — no letters, no waiting, no forgery.",
-    gate: "Tamper-evident · exportable",
+    cat: "Social · Nada",
+    name: "Nada",
+    body: "A campus-exclusive anonymous messaging network. Nada uses zero-knowledge proofs to verify you are a real enrolled student without ever revealing your actual identity.",
+    gate: "Verified anonymity · zero bots",
     dark: true,
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-[46px] w-[46px]">

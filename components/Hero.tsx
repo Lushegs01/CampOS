@@ -27,7 +27,7 @@ export function Hero() {
             <em className="serif-em text-gradient">running as one.</em>
           </h1>
           <p className="lede mb-[2.2rem]">
-            CampOS unifies attendance, housing, records, and identity into a
+            CampOS unifies attendance, housing, enrollment, social networks, and identity into a
             single verified ecosystem. One student login opens every door on
             campus — class, library, hostel, exams, wallet — and nothing along
             the way can be forged.

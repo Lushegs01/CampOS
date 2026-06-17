@@ -197,21 +197,21 @@ const SLIDES: Slide[] = [
   },
   {
     tag: "CampOS · Nada",
-    meta: "Registry · sealed",
+    meta: "Campus Feed · just now",
     kind: "nada",
-    capH: "Transcript sealed",
-    capSub: "Tied to her CampOS identity · verifiable in seconds",
-    divider: "On the ledger",
+    capH: "Anonymous thread",
+    capSub: "Verified student · Zero-knowledge proof",
+    divider: "Posted securely",
     status:
-      "Her final transcript is sealed to the campus ledger. Any employer can verify it against the institution in seconds — no letters, no waiting, nothing to forge.",
+      "He posted a bold opinion to the campus feed. The ledger verified his active student status without attaching his name or ID to the message—100% anonymous, zero bots.",
     footL: (
       <>
-        <Check /> Block #48201
+        <Check /> verified student
       </>
     ),
     footR: (
       <>
-        <Ledger /> tamper-evident
+        <Shield /> fully anonymous
       </>
     ),
   },
