@@ -75,10 +75,46 @@ const MODULES: Module[] = [
     gate: "Tamper-evident · exportable",
     dark: true,
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="h-[38px] w-[38px]">
-        <path d="M9 4h11l7 7v17H9z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-        <path d="M20 4v7h7" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-        <path d="M13 17h7M13 22h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <svg viewBox="0 0 40 40" fill="none" className="h-[46px] w-[46px]">
+        <defs>
+          <linearGradient id="gold-base" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#B38728" />
+            <stop offset="20%" stopColor="#FBF5B7" />
+            <stop offset="50%" stopColor="#AA771C" />
+            <stop offset="80%" stopColor="#FCF6BA" />
+            <stop offset="100%" stopColor="#8A5A19" />
+          </linearGradient>
+          <linearGradient id="gold-inner" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#FCF6BA" />
+            <stop offset="50%" stopColor="#B38728" />
+            <stop offset="100%" stopColor="#FBF5B7" />
+          </linearGradient>
+          <linearGradient id="purple-glow" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(192, 132, 252, 0.6)" />
+            <stop offset="50%" stopColor="rgba(192, 132, 252, 0)" />
+            <stop offset="100%" stopColor="rgba(192, 132, 252, 0.4)" />
+          </linearGradient>
+          <clipPath id="gap-clip">
+            <path d="M 0 0 h 40 v 40 h -18 v -20 h -4 v 20 h -18 z" />
+          </clipPath>
+        </defs>
+        
+        <g clipPath="url(#gap-clip)">
+          {/* Outer dark edge */}
+          <circle cx="20" cy="20" r="14" stroke="#3d2a0b" strokeWidth="10" />
+          
+          {/* Main metallic body */}
+          <circle cx="20" cy="20" r="14" stroke="url(#gold-base)" strokeWidth="8" />
+          
+          {/* Inner highlight (bevel) */}
+          <circle cx="20" cy="20" r="14" stroke="url(#gold-inner)" strokeWidth="4" />
+          
+          {/* Center dark ridge */}
+          <circle cx="20" cy="20" r="14" stroke="#7a5215" strokeWidth="1" />
+
+          {/* Purple metallic reflection */}
+          <circle cx="20" cy="20" r="14" stroke="url(#purple-glow)" strokeWidth="8" style={{ mixBlendMode: "color-dodge" }} />
+        </g>
       </svg>
     ),
   },
