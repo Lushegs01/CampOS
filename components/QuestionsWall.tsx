@@ -13,7 +13,7 @@ const QUESTIONS = [
   },
   {
     q: `"Our students keep getting scammed by fake hostel agents online. Can CampOS actually help?"`,
-    a: `Krib only lists housing with a confirmed owner ID and verified photos. Students browse and sign near-campus leases inside CampOS, so there's no stranger and no deposit to a ghost.`,
+    a: `FunaaBnB only lists housing with a confirmed owner ID and verified photos. Students browse and sign near-campus leases inside CampOS, so there's no stranger and no deposit to a ghost.`,
     by: `Dr. Amara O.`,
     role: `Dean of Students`,
     anon: true,

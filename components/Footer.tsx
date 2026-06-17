@@ -30,7 +30,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="#modules" className="text-[0.93rem] text-white/70 transition-colors hover:text-white">
-                  Krib · Housing
+                  FunaaBnB · Housing
                 </Link>
               </li>
               <li>

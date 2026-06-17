@@ -56,8 +56,8 @@ const MODULES: Module[] = [
     ),
   },
   {
-    cat: "Living · Krib",
-    name: "Krib",
+    cat: "Living · FunaaBnB",
+    name: "FunaaBnB",
     body: "A verified housing marketplace where every listing has a confirmed owner and real photos. Students sign leases near campus without ever meeting a fake agent.",
     gate: "Owner-ID confirmed · no fraud",
     icon: (

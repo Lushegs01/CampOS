@@ -106,7 +106,7 @@ const Ledger = () => (
   </svg>
 );
 
-const KribGlyph = () => (
+const FunaaBnBGlyph = () => (
   <svg viewBox="0 0 64 64" fill="none" className="h-[62px] w-[62px]">
     <path d="M10 30 32 13l22 17" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
     <path d="M15 27v23h34V27" stroke="#18241E" strokeWidth="2.4" strokeLinejoin="round" />
@@ -176,7 +176,7 @@ const SLIDES: Slide[] = [
     ),
   },
   {
-    tag: "CampOS · Krib",
+    tag: "CampOS · FunaaBnB",
     meta: "North Gate · 0.4 mi",
     kind: "krib",
     capH: "Lease verified",
@@ -301,7 +301,7 @@ export function HeroCard() {
               <span className="pointer-events-none absolute left-[9px] right-[9px] top-[9px] h-[2px] animate-scan bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_10px_1px_rgba(215,151,68,.6)]" />
             </>
           ) : slide.kind === "krib" ? (
-            <KribGlyph />
+            <FunaaBnBGlyph />
           ) : slide.kind === "nada" ? (
             <NadaGlyph />
           ) : (
