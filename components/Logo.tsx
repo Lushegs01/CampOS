@@ -10,20 +10,23 @@ export function Logo() {
         className="h-[48px] w-[48px] flex-none"
         aria-hidden="true"
       >
-        {/* Left Dark Chevron */}
-        <polygon points="0,40 0,20 20,0 20,20" className="fill-primary-deep" />
+        {/* Base Shape (Bright Blue) */}
+        <path
+          d="M 0 20 L 12 20 A 8 8 0 0 1 20 12 L 20 0 L 60 0 L 60 20 L 28 20 A 8 8 0 0 0 20 28 L 20 32 A 8 8 0 0 0 28 40 L 60 40 L 60 60 L 20 60 L 20 48 A 8 8 0 0 1 12 40 L 0 40 Z"
+          fill="currentColor"
+        />
         
-        {/* Top Bright Arm */}
-        <polygon points="20,0 60,0 40,20 20,20" fill="currentColor" />
+        {/* Left Arm Shadow (Dark Blue) */}
+        <path
+          d="M 0 40 L 20 20 L 20 48 A 8 8 0 0 1 12 40 Z"
+          className="fill-primary-deep"
+        />
+
+        {/* Top-Right Shadow (Dark Blue) */}
+        <polygon points="40,20 60,0 60,20" className="fill-primary-deep" />
         
-        {/* Top-Right Dark Triangle */}
-        <polygon points="40,20 60,20 60,0" className="fill-primary-deep" />
-        
-        {/* Bottom Bright Body */}
-        <polygon points="20,20 0,40 20,60 40,60 60,40 20,40" fill="currentColor" />
-        
-        {/* Bottom-Right Dark Triangle */}
-        <polygon points="40,60 60,60 60,40" className="fill-primary-deep" />
+        {/* Bottom-Right Shadow (Dark Blue) */}
+        <polygon points="40,60 60,40 60,60" className="fill-primary-deep" />
       </svg>
       CampOS
     </span>
