@@ -1,53 +1,33 @@
-import { ImageResponse } from 'next/og';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { ImageResponse } from "next/og";
 
-export const size = {
-  width: 192,
-  height: 192,
-};
-export const contentType = 'image/png';
+export const size = { width: 192, height: 192 };
+export const contentType = "image/png";
 
 export default function Icon() {
-  // Read the logo.png from the public folder
-  const logoPath = join(process.cwd(), 'public', 'logo.png');
-  const logoData = readFileSync(logoPath).toString('base64');
-  const imgSrc = `data:image/png;base64,${logoData}`;
-
   return new ImageResponse(
     (
       <div
         style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#002D80', // deep blue background
-          borderRadius: '44px', // rounded rectangle
-          overflow: 'hidden',
-          border: '4px solid #0047BA', // premium border
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(140deg, #0E1730, #06070B)",
+          borderRadius: "44px",
+          border: "4px solid rgba(46,107,255,0.5)",
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img 
-            src={imgSrc} 
-            style={{ 
-              width: '120px', 
-              height: '120px', 
-              objectFit: 'contain' 
-            }} 
+        <svg width="118" height="118" viewBox="0 0 56 56" fill="none">
+          <path
+            d="M46 20 V13 a5 5 0 0 0-5-5 H13 a5 5 0 0 0-5 5 V43 a5 5 0 0 0 5 5 H41 a5 5 0 0 0 5-5 V36"
+            stroke="#2E6BFF"
+            strokeWidth="9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
-        </div>
+          <rect x="0" y="22.5" width="9" height="11" rx="3" fill="#2E6BFF" />
+        </svg>
       </div>
     ),
     { ...size }
