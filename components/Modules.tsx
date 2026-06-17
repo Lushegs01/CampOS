@@ -166,34 +166,37 @@ export function Modules() {
             <motion.article
               key={m.name}
               variants={fadeUp}
-              className={`group flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
+              className={`relative overflow-hidden group flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-2 ${
                 m.dark
-                  ? "border-obsidian-soft bg-obsidian text-paper hover:shadow-[0_10px_40px_rgba(99,102,241,0.3)] hover:border-neon-indigo/50"
-                  : "border-line bg-paper hover:border-emerald-glow/30 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)]"
+                  ? "border-obsidian-soft bg-obsidian text-paper hover:glow-primary hover:border-primary/50"
+                  : "border-line bg-paper hover:border-primary/30 hover:shadow-premium"
               }`}
             >
+              {/* Geometric Diagonal Slice Branding */}
+              <div className="absolute -inset-x-[50%] inset-y-0 -skew-x-12 bg-gradient-to-r from-transparent via-primary/5 to-transparent opacity-0 transition-all duration-700 ease-out translate-x-full group-hover:translate-x-0 group-hover:opacity-100" />
+              
               <div
-                className={`mb-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] ${
+                className={`relative z-10 mb-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] ${
                   m.dark ? "text-primary" : "text-primary-deep"
                 }`}
               >
                 {m.cat}
               </div>
-              <div className={`mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${m.dark ? "text-neon-indigo drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "text-emerald-glow drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]"}`}>
+              <div className={`relative z-10 mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${m.dark ? "text-primary drop-shadow-[0_0_8px_rgba(0,71,186,0.6)]" : "text-primary-deep drop-shadow-[0_0_8px_rgba(0,45,128,0.4)]"}`}>
                 {m.icon}
               </div>
-              <h3 className={`display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${m.dark ? "!text-paper" : ""}`}>
+              <h3 className={`relative z-10 display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${m.dark ? "!text-paper" : ""}`}>
                 {m.name}
               </h3>
               <p
-                className={`mb-[1.3rem] text-[0.96rem] ${
+                className={`relative z-10 mb-[1.3rem] text-[0.96rem] ${
                   m.dark ? "text-paper/70" : "text-ink-soft"
                 }`}
               >
                 {m.body}
               </p>
               <div
-                className={`mt-auto flex items-center gap-[0.5em] border-t pt-[1.1rem] font-mono text-[0.72rem] tracking-[0.04em] ${
+                className={`relative z-10 mt-auto flex items-center gap-[0.5em] border-t pt-[1.1rem] font-mono text-[0.72rem] tracking-[0.04em] ${
                   m.dark
                     ? "border-white/15 text-accent-light"
                     : "border-line-soft text-slate"

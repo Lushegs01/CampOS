@@ -25,6 +25,8 @@ const config: Config = {
         "emerald-glow": "#10B981",
         "glass-white": "rgba(255, 255, 255, 0.7)",
         "glass-dark": "rgba(11, 15, 25, 0.6)",
+        platinum: "#F1F5F9",
+        "silver-glow": "#CBD5E1",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],
