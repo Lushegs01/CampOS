@@ -33,6 +33,20 @@ export function Trust() {
             where, who earned what. CampOS proves each one at the moment it
             happens, so nothing downstream has to be taken on faith.
           </p>
+          
+          <motion.div 
+            variants={fadeUp}
+            className="relative mt-12 w-full max-w-[360px] overflow-hidden rounded-[24px] border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] lg:mt-16 group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none z-10" />
+            <img 
+              src="/app-mockup.png" 
+              alt="CampOS Verified App Mockup" 
+              className="w-full h-auto object-cover opacity-90 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100" 
+            />
+            {/* Subtle bottom fade to blend with obsidian bg */}
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-obsidian to-transparent pointer-events-none z-20" />
+          </motion.div>
         </motion.div>
 
         {/* Right Side */}
