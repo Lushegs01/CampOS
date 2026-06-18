@@ -178,24 +178,17 @@ function AttendancePanel() {
         </span>
       </p>
 
-      <div className="mb-3 h-12 w-full overflow-hidden rounded-lg border border-white/[0.05] bg-white/[0.01] p-1">
-        <svg className="h-full w-full" viewBox="0 0 100 24" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="att-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#0D9488" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#0D9488" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path d="M0 18 Q15 10 30 15 T60 8 T90 11 L100 9 L100 24 L0 24 Z" fill="url(#att-fill)" />
-          <path
-            d="M0 18 Q15 10 30 15 T60 8 T90 11 L100 9"
-            fill="none"
-            stroke="#0D9488"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
-          <circle cx="100" cy="9" r="1.8" fill="#34d399" />
-        </svg>
+      <div className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner">
+        <img 
+          src="/scanmark-portal.png" 
+          alt="ScanMark Portal App" 
+          className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105" 
+        />
+        {/* Glass badge for context */}
+        <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
+          <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">ScanMark App</span>
+        </div>
       </div>
 
       <div className="flex items-center justify-between gap-2">
