@@ -321,68 +321,115 @@ function VerificationPanel() {
 }
 
 function IntelligencePanel() {
-  return (
-    <Panel accent="violet">
-      <div className="mb-4 flex items-center justify-between">
-        <PanelLabel>Campus Intelligence</PanelLabel>
-        <span className="rounded-full border border-green-500/20 bg-green-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-green-300">
-          AI ENGINE
-        </span>
-      </div>
+  const [isOpen, setIsOpen] = useState(false);
 
-      <div className="mb-4 flex items-center gap-4">
-        <div className="relative h-14 w-14 flex-none">
-          <svg className="h-full w-full -rotate-90" viewBox="0 0 36 36">
-            <path
-              className="text-white/10"
-              strokeWidth="3.2"
-              stroke="currentColor"
-              fill="none"
-              d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831"
-            />
-            <motion.path
-              className="text-green-400"
-              strokeWidth="3.2"
-              strokeLinecap="round"
-              stroke="currentColor"
-              fill="none"
-              d="M18 2.0845a15.9155 15.9155 0 010 31.831 a15.9155 15.9155 0 010-31.831"
-              initial={{ strokeDasharray: "0, 100" }}
-              whileInView={{ strokeDasharray: "89, 100" }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.8, ease: "easeOut" }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-sans text-[0.92rem] font-bold text-white">8.9</span>
-          </div>
-        </div>
-        <div className="min-w-0">
-          <span className="block text-[0.76rem] font-semibold text-white">Engagement Score</span>
-          <span className="mt-0.5 block text-[0.64rem] leading-tight text-white/50">
-            Predicted GPA lift{" "}
-            <strong className="font-semibold text-emerald-400">+0.42</strong>
+  return (
+    <>
+      <Panel accent="violet">
+        <div className="mb-4 flex items-center justify-between">
+          <PanelLabel>Verified Housing</PanelLabel>
+          <span className="rounded-full border border-green-500/20 bg-green-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-green-300">
+            FUNAABNB
           </span>
         </div>
-      </div>
 
-      <div className="rounded-xl border border-green-500/10 bg-green-500/[0.04] p-3 leading-relaxed">
-        <div className="mb-1 flex items-center gap-1.5 text-[0.72rem] font-semibold text-green-200">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-300">
-            <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z" />
-          </svg>
-          AI Insight
+        <div className="mb-2 flex items-baseline gap-2">
+          <span className="font-sans text-[1.8rem] font-bold leading-none tracking-tight text-white">Student Home</span>
+          <span className="font-mono text-[0.64rem] font-semibold text-emerald-400">Exclusively for FUNAAB</span>
         </div>
-        <p className="text-[0.72rem] text-white/80">
-          Peak library use on Tuesdays — retention rises when tutorials are aligned.
-        </p>
-      </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-white/50">
-        <span>Predictive analytics</span>
-        <span className="text-emerald-400">NOMINAL</span>
-      </div>
-    </Panel>
+        <p className="mb-3 text-[0.74rem] leading-relaxed text-white/85">
+          Verified housing marketplace with confirmed landlords and real photos.
+          <span className="mt-0.5 block font-mono text-[0.64rem] text-white/50">
+            Zero scams · secure lease booking
+          </span>
+        </p>
+
+        {/* Preview block */}
+        <div
+          onClick={() => setIsOpen(true)}
+          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
+        >
+          <img 
+            src="/funaabnb-portal.png" 
+            alt="FunaaBnB App" 
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
+          />
+          {/* Glass badge for context */}
+          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
+            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">FunaaBnB App</span>
+          </div>
+          {/* Hover magnifier overlay hint */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
+              Click to Expand
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between gap-2">
+          {[
+            { k: "Listings", v: "500+" },
+            { k: "Rating", v: "4.9" },
+            { k: "Scams", v: "0" },
+          ].map((s) => (
+            <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
+              <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
+              <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/50">{s.k}</div>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
+            />
+
+            {/* Image container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[800px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
+            >
+              {/* Top title bar */}
+              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
+                <span className="font-sans text-xs font-bold tracking-wider text-white/90">FUNAABNB</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable image area */}
+              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
+                <img 
+                  src="/funaabnb-portal.png" 
+                  alt="FunaaBnB Portal Full App" 
+                  className="w-full h-auto object-contain rounded-lg"
+                />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
