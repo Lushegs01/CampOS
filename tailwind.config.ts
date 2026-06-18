@@ -20,7 +20,7 @@ const config: Config = {
         // Hybrid Additions
         obsidian: "#0B0F19",
         "obsidian-soft": "#1A2035",
-        "neon-indigo": "#6366F1",
+        "neon-indigo": "#10B981",
         "neon-violet": "#8B5CF6",
         "emerald-glow": "#10B981",
         "glass-white": "rgba(255, 255, 255, 0.7)",

@@ -89,10 +89,10 @@ const MODULES: Module[] = [
             <stop offset="50%" stopColor="#B38728" />
             <stop offset="100%" stopColor="#FBF5B7" />
           </linearGradient>
-          <linearGradient id="purple-glow" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(192, 132, 252, 0.6)" />
-            <stop offset="50%" stopColor="rgba(192, 132, 252, 0)" />
-            <stop offset="100%" stopColor="rgba(192, 132, 252, 0.4)" />
+          <linearGradient id="green-glow" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(16, 185, 129, 0.6)" />
+            <stop offset="50%" stopColor="rgba(16, 185, 129, 0)" />
+            <stop offset="100%" stopColor="rgba(16, 185, 129, 0.4)" />
           </linearGradient>
           <clipPath id="gap-clip">
             <path d="M 0 0 h 40 v 40 h -18 v -20 h -4 v 20 h -18 z" />
@@ -112,8 +112,8 @@ const MODULES: Module[] = [
           {/* Center dark ridge */}
           <circle cx="20" cy="20" r="14" stroke="#7a5215" strokeWidth="1" />
 
-          {/* Purple metallic reflection */}
-          <circle cx="20" cy="20" r="14" stroke="url(#purple-glow)" strokeWidth="8" style={{ mixBlendMode: "color-dodge" }} />
+          {/* Green metallic reflection */}
+          <circle cx="20" cy="20" r="14" stroke="url(#green-glow)" strokeWidth="8" style={{ mixBlendMode: "color-dodge" }} />
         </g>
       </svg>
     ),
@@ -182,7 +182,7 @@ export function Modules() {
               >
                 {m.cat}
               </div>
-              <div className={`relative z-10 mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${m.dark ? "text-primary drop-shadow-[0_0_8px_rgba(0,71,186,0.6)]" : "text-primary-deep drop-shadow-[0_0_8px_rgba(0,45,128,0.4)]"}`}>
+              <div className={`relative z-10 mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${m.dark ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]" : "text-primary-deep drop-shadow-[0_0_8px_rgba(4,120,87,0.4)]"}`}>
                 {m.icon}
               </div>
               <h3 className={`relative z-10 display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${m.dark ? "!text-paper" : ""}`}>

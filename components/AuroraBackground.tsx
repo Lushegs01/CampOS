@@ -84,7 +84,7 @@ export function AuroraBackground({ mouseX, mouseY }: AuroraBackgroundProps) {
         {/* overall darken */}
         <div className="absolute inset-0 bg-[#030712]/45" />
         {/* cool brand tint */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/40 via-transparent to-violet-950/30" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950/40 via-transparent to-teal-950/30" />
         {/* darken behind the hero copy (upper-center) */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_55%_at_50%_20%,rgba(3,7,18,0.72)_0%,transparent_68%)]" />
         {/* dark at the very top + fade into the base toward the bottom */}
@@ -95,19 +95,19 @@ export function AuroraBackground({ mouseX, mouseY }: AuroraBackgroundProps) {
       <motion.div style={{ x: b1x, y: b1y }} className="absolute -left-[12%] -top-[14%] h-[640px] w-[640px]">
         <motion.div
           {...slowDrift}
-          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(59,103,255,0.30)_0%,transparent_68%)] blur-[60px]"
+          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.30)_0%,transparent_68%)] blur-[60px]"
         />
       </motion.div>
       <motion.div style={{ x: b2x, y: b2y }} className="absolute -right-[14%] top-[2%] h-[600px] w-[600px]">
         <motion.div
           {...slowDrift2}
-          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.26)_0%,transparent_68%)] blur-[60px]"
+          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.20)_0%,transparent_68%)] blur-[60px]"
         />
       </motion.div>
       <motion.div style={{ x: b3x, y: b3y }} className="absolute bottom-[-22%] left-[24%] h-[720px] w-[720px]">
         <motion.div
           {...slowDrift3}
-          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.16)_0%,transparent_70%)] blur-[70px]"
+          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(5,150,105,0.16)_0%,transparent_70%)] blur-[70px]"
         />
       </motion.div>
 

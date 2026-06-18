@@ -20,16 +20,16 @@ const ACCENT: Record<
   { ring: string; sheen: string; glow: string; rgb: string }
 > = {
   indigo: {
-    ring: "group-hover:border-indigo-400/40",
-    sheen: "to-indigo-500/[0.07]",
-    glow: "group-hover:shadow-[0_28px_70px_-20px_rgba(99,102,241,0.55)]",
-    rgb: "99,102,241",
+    ring: "group-hover:border-emerald-400/40",
+    sheen: "to-emerald-500/[0.07]",
+    glow: "group-hover:shadow-[0_28px_70px_-20px_rgba(16,185,129,0.55)]",
+    rgb: "16,185,129",
   },
   cyan: {
-    ring: "group-hover:border-cyan-400/40",
-    sheen: "to-cyan-500/[0.07]",
-    glow: "group-hover:shadow-[0_28px_70px_-20px_rgba(34,211,238,0.5)]",
-    rgb: "34,211,238",
+    ring: "group-hover:border-teal-400/40",
+    sheen: "to-teal-500/[0.07]",
+    glow: "group-hover:shadow-[0_28px_70px_-20px_rgba(13,148,136,0.5)]",
+    rgb: "13,148,136",
   },
   emerald: {
     ring: "group-hover:border-emerald-400/40",
@@ -38,10 +38,10 @@ const ACCENT: Record<
     rgb: "16,185,129",
   },
   violet: {
-    ring: "group-hover:border-violet-400/40",
-    sheen: "to-violet-500/[0.07]",
-    glow: "group-hover:shadow-[0_28px_70px_-20px_rgba(139,92,246,0.55)]",
-    rgb: "139,92,246",
+    ring: "group-hover:border-green-400/40",
+    sheen: "to-green-500/[0.07]",
+    glow: "group-hover:shadow-[0_28px_70px_-20px_rgba(34,197,94,0.55)]",
+    rgb: "34,197,94",
   },
 };
 
@@ -92,7 +92,7 @@ function IdentityPanel() {
       </div>
 
       <div className="mb-4 flex items-center gap-3">
-        <div className="relative h-11 w-11 flex-none rounded-full bg-gradient-to-tr from-indigo-500 via-violet-500 to-cyan-400 p-[1.5px] shadow-[0_0_18px_rgba(99,102,241,0.4)]">
+        <div className="relative h-11 w-11 flex-none rounded-full bg-gradient-to-tr from-emerald-500 via-teal-500 to-emerald-400 p-[1.5px] shadow-[0_0_18px_rgba(16,185,129,0.4)]">
           <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0a0e1a] font-sans text-xs font-bold text-white">
             AO
           </div>
@@ -100,7 +100,7 @@ function IdentityPanel() {
         <div className="min-w-0">
           <h4 className="flex items-center gap-1 font-sans text-[0.92rem] font-semibold leading-tight text-white">
             Ada Okafor
-            <svg className="h-[14px] w-[14px] flex-none text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
+            <svg className="h-[14px] w-[14px] flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
                 d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 011.42-1.42l2.79 2.79 6.79-6.79a1 1 0 011.42 0z"
@@ -134,13 +134,13 @@ function IdentityPanel() {
             ))}
           </div>
           <motion.div
-            className="absolute left-0 right-0 h-0.5 bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.9)]"
+            className="absolute left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]"
             animate={{ top: ["4px", "44px", "4px"] }}
             transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
           />
         </div>
         <div className="ml-3 text-right">
-          <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-cyan-300">
+          <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-emerald-300">
             SECURE ACCESS
           </span>
           <span className="mt-0.5 block text-[0.66rem] leading-tight text-white/50">
@@ -157,10 +157,10 @@ function AttendancePanel() {
     <Panel accent="cyan">
       <div className="mb-4 flex items-center justify-between">
         <PanelLabel>Smart Attendance</PanelLabel>
-        <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-cyan-300">
+        <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-teal-300">
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal-400" />
           </span>
           LIVE
         </span>
@@ -182,15 +182,15 @@ function AttendancePanel() {
         <svg className="h-full w-full" viewBox="0 0 100 24" preserveAspectRatio="none">
           <defs>
             <linearGradient id="att-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+              <stop offset="0%" stopColor="#0D9488" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#0D9488" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path d="M0 18 Q15 10 30 15 T60 8 T90 11 L100 9 L100 24 L0 24 Z" fill="url(#att-fill)" />
           <path
             d="M0 18 Q15 10 30 15 T60 8 T90 11 L100 9"
             fill="none"
-            stroke="#22d3ee"
+            stroke="#0D9488"
             strokeWidth="1.4"
             strokeLinecap="round"
           />
@@ -270,7 +270,7 @@ function IntelligencePanel() {
     <Panel accent="violet">
       <div className="mb-4 flex items-center justify-between">
         <PanelLabel>Campus Intelligence</PanelLabel>
-        <span className="rounded-full border border-violet-500/20 bg-violet-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-violet-300">
+        <span className="rounded-full border border-green-500/20 bg-green-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-green-300">
           AI ENGINE
         </span>
       </div>
@@ -286,7 +286,7 @@ function IntelligencePanel() {
               d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831"
             />
             <motion.path
-              className="text-violet-400"
+              className="text-green-400"
               strokeWidth="3.2"
               strokeLinecap="round"
               stroke="currentColor"
@@ -311,9 +311,9 @@ function IntelligencePanel() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-violet-500/10 bg-violet-500/[0.04] p-3 leading-relaxed">
-        <div className="mb-1 flex items-center gap-1.5 text-[0.72rem] font-semibold text-violet-200">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-violet-300">
+      <div className="rounded-xl border border-green-500/10 bg-green-500/[0.04] p-3 leading-relaxed">
+        <div className="mb-1 flex items-center gap-1.5 text-[0.72rem] font-semibold text-green-200">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-300">
             <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z" />
           </svg>
           AI Insight
@@ -341,7 +341,7 @@ function CoreHub({ reduced }: { reduced: boolean }) {
       {/* rotating conic halo */}
       {!reduced && (
         <motion.div
-          className="absolute inset-[-26px] rounded-full opacity-60 [background:conic-gradient(from_0deg,transparent_0%,rgba(99,102,241,0.35)_18%,transparent_38%,rgba(34,211,238,0.3)_60%,transparent_82%)] blur-[12px]"
+          className="absolute inset-[-26px] rounded-full opacity-60 [background:conic-gradient(from_0deg,transparent_0%,rgba(16,185,129,0.35)_18%,transparent_38%,rgba(20,184,166,0.3)_60%,transparent_82%)] blur-[12px]"
           animate={{ rotate: 360 }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         />
@@ -352,7 +352,7 @@ function CoreHub({ reduced }: { reduced: boolean }) {
         [0, 1, 2].map((i) => (
           <motion.span
             key={i}
-            className="absolute rounded-full border border-indigo-400/30"
+            className="absolute rounded-full border border-emerald-400/30"
             style={{ width: 150, height: 150 }}
             animate={{ scale: [1, 1.9], opacity: [0.5, 0] }}
             transition={{ duration: 3.4, repeat: Infinity, ease: "easeOut", delay: i * 1.13 }}
@@ -360,15 +360,15 @@ function CoreHub({ reduced }: { reduced: boolean }) {
         ))}
 
       {/* glow */}
-      <div className="absolute h-[120px] w-[120px] rounded-full bg-indigo-500/25 blur-[40px]" />
+      <div className="absolute h-[120px] w-[120px] rounded-full bg-emerald-500/25 blur-[40px]" />
 
       {/* core disc */}
-      <div className="relative flex h-[110px] w-[110px] flex-col items-center justify-center rounded-full border border-white/15 bg-[radial-gradient(circle_at_50%_30%,rgba(99,102,241,0.35),rgba(10,14,26,0.9))] shadow-[0_0_50px_-8px_rgba(99,102,241,0.6),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl">
-        <img src="/logo.png" alt="CampOS" className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(99,102,241,0.7)]" />
+      <div className="relative flex h-[110px] w-[110px] flex-col items-center justify-center rounded-full border border-white/15 bg-[radial-gradient(circle_at_50%_30%,rgba(16,185,129,0.35),rgba(10,14,26,0.9))] shadow-[0_0_50px_-8px_rgba(16,185,129,0.6),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl">
+        <img src="/logo.png" alt="CampOS" className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(16,185,129,0.7)]" />
         <span className="mt-1 font-mono text-[0.56rem] font-bold uppercase tracking-[0.22em] text-white/80">
           CampOS
         </span>
-        <span className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-indigo-300/80">
+        <span className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-emerald-300/80">
           Core OS
         </span>
       </div>
@@ -397,10 +397,10 @@ function curvePath(a: Pt, b: Pt, bend: number) {
 }
 
 const CONNECTIONS: { anchor: Pt; bend: number; color: string; dur: number }[] = [
-  { anchor: { x: 0.205, y: 0.28 }, bend: 26, color: "#6366f1", dur: 3.4 },
-  { anchor: { x: 0.795, y: 0.285 }, bend: -26, color: "#22d3ee", dur: 4.1 },
+  { anchor: { x: 0.205, y: 0.28 }, bend: 26, color: "#10b981", dur: 3.4 },
+  { anchor: { x: 0.795, y: 0.285 }, bend: -26, color: "#0D9488", dur: 4.1 },
   { anchor: { x: 0.235, y: 0.715 }, bend: -24, color: "#10b981", dur: 3.8 },
-  { anchor: { x: 0.78, y: 0.705 }, bend: 24, color: "#8b5cf6", dur: 4.5 },
+  { anchor: { x: 0.78, y: 0.705 }, bend: 24, color: "#22c55e", dur: 4.5 },
 ];
 
 function Connections({ w, h, reduced }: { w: number; h: number; reduced: boolean }) {
@@ -412,8 +412,8 @@ function Connections({ w, h, reduced }: { w: number; h: number; reduced: boolean
       <defs>
         <radialGradient id="streamDot" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="40%" stopColor="#a5b4fc" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+          <stop offset="40%" stopColor="#a7f3d0" />
+          <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
         </radialGradient>
         <filter id="streamGlow" x="-300%" y="-300%" width="700%" height="700%">
           <feGaussianBlur stdDeviation="2.2" result="b" />
@@ -458,8 +458,8 @@ function Connections({ w, h, reduced }: { w: number; h: number; reduced: boolean
       })}
 
       {/* hub node */}
-      <circle cx={hub.x} cy={hub.y} r="4" fill="#a5b4fc" />
-      <circle cx={hub.x} cy={hub.y} r="9" fill="#6366f1" opacity="0.18" />
+      <circle cx={hub.x} cy={hub.y} r="4" fill="#a7f3d0" />
+      <circle cx={hub.x} cy={hub.y} r="9" fill="#10b981" opacity="0.18" />
     </svg>
   );
 }
@@ -552,7 +552,7 @@ export function FloatingEcosystem({
           ].map((p, i) => (
             <motion.span
               key={i}
-              className="absolute rounded-full bg-indigo-300/40"
+              className="absolute rounded-full bg-emerald-300/40"
               style={{ top: p.top, left: p.left, width: p.s, height: p.s }}
               animate={{ y: [0, -16, 0], opacity: [0.2, 0.7, 0.2] }}
               transition={{ duration: 4 + p.s, delay: p.d, repeat: Infinity, ease: "easeInOut" }}

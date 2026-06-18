@@ -84,9 +84,9 @@ export function Navbar() {
           </button>
           <MagneticButton
             onClick={openModal}
-            className="group relative hidden overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#030712] shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(165,180,252,0.4)] md:inline-flex"
+            className="group relative hidden overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#030712] shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] md:inline-flex"
           >
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             <span className="relative">Book Demo</span>
           </MagneticButton>
 

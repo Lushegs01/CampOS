@@ -134,8 +134,8 @@ export function Hero() {
             className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-white/[0.03] px-4 py-1.5 backdrop-blur-md"
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
             <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white/80">
               The Operating System for Modern Universities
@@ -150,7 +150,7 @@ export function Hero() {
           >
             <span className="block">The Operating System</span>
             <span className="block">Powering the</span>
-            <span className="block bg-gradient-to-r from-indigo-300 via-violet-300 to-cyan-300 bg-clip-text pb-[0.08em] text-transparent">
+            <span className="block bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-400 bg-clip-text pb-[0.08em] text-transparent">
               Next Generation
             </span>
             <span className="block">of Universities</span>
@@ -174,9 +174,9 @@ export function Hero() {
           >
             <MagneticButton
               onClick={openModal}
-              className="group relative w-full overflow-hidden rounded-full bg-white px-8 py-4 text-[0.96rem] font-semibold text-[#030712] shadow-[0_0_30px_rgba(255,255,255,0.18)] transition-shadow duration-300 hover:shadow-[0_0_44px_rgba(165,180,252,0.4)] sm:w-auto"
+              className="group relative w-full overflow-hidden rounded-full bg-white px-8 py-4 text-[0.96rem] font-semibold text-[#030712] shadow-[0_0_30px_rgba(255,255,255,0.18)] transition-shadow duration-300 hover:shadow-[0_0_44px_rgba(16,185,129,0.4)] sm:w-auto"
             >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               <span className="relative">Book a Demo</span>
               <svg className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -204,10 +204,10 @@ export function Hero() {
             className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-white/60"
           >
             {[
-              ["IDENTITY LAYER", "bg-indigo-400"],
-              ["INFRASTRUCTURE LAYER", "bg-violet-400"],
+              ["IDENTITY LAYER", "bg-emerald-400"],
+              ["INFRASTRUCTURE LAYER", "bg-teal-300"],
               ["TRUST LAYER", "bg-emerald-400"],
-              ["INTELLIGENCE LAYER", "bg-cyan-400"],
+              ["INTELLIGENCE LAYER", "bg-teal-400"],
             ].map(([label, dot]) => (
               <span key={label} className="flex items-center gap-1.5">
                 <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
@@ -237,7 +237,7 @@ export function Hero() {
                 suffix={m.suffix}
                 className={`font-sans text-[clamp(1.9rem,3.2vw,2.6rem)] font-bold leading-none tracking-tight ${
                   m.gradient
-                    ? "bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-transparent"
+                    ? "bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent"
                     : "text-white"
                 }`}
               />
