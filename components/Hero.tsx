@@ -201,7 +201,7 @@ export function Hero() {
           <motion.div
             variants={reveal}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-slate-500"
+            className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-white/60"
           >
             {[
               ["IDENTITY LAYER", "bg-indigo-400"],
@@ -241,7 +241,7 @@ export function Hero() {
                     : "text-white"
                 }`}
               />
-              <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-slate-500">
+              <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-white/60">
                 {m.label}
               </span>
             </div>
@@ -250,7 +250,7 @@ export function Hero() {
 
         {/* ---------- Social proof ---------- */}
         <div className="mt-[clamp(40px,6vw,72px)] text-center">
-          <p className="mb-8 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-slate-500">
+          <p className="mb-8 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-white/60">
             Trusted by forward-thinking universities across Africa
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:gap-x-16">

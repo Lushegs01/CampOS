@@ -70,7 +70,7 @@ function Panel({
 
 function PanelLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.14em] text-slate-400">
+    <span className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.14em] text-white/80">
       {children}
     </span>
   );
@@ -108,7 +108,7 @@ function IdentityPanel() {
               />
             </svg>
           </h4>
-          <span className="block font-mono text-[0.64rem] tracking-wider text-slate-500">
+          <span className="block font-mono text-[0.64rem] tracking-wider text-white/50">
             MAT/2026/043118
           </span>
         </div>
@@ -116,7 +116,7 @@ function IdentityPanel() {
 
       <div className="mb-4 flex flex-col gap-0.5 border-t border-white/[0.05] pt-3 text-[0.74rem]">
         <span className="font-sans font-medium text-white/75">University of Lagos</span>
-        <span className="font-mono text-[0.64rem] text-slate-500">Dept. of Computer Science</span>
+        <span className="font-mono text-[0.64rem] text-white/50">Dept. of Computer Science</span>
       </div>
 
       <div className="flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] p-2.5">
@@ -143,7 +143,7 @@ function IdentityPanel() {
           <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-cyan-300">
             SECURE ACCESS
           </span>
-          <span className="mt-0.5 block text-[0.66rem] leading-tight text-slate-500">
+          <span className="mt-0.5 block text-[0.66rem] leading-tight text-white/50">
             One ID. Every gate &amp; door.
           </span>
         </div>
@@ -171,9 +171,9 @@ function AttendancePanel() {
         <span className="font-mono text-[0.68rem] font-semibold text-emerald-400">+1.2% wk</span>
       </div>
 
-      <p className="mb-3 text-[0.74rem] leading-relaxed text-slate-400">
+      <p className="mb-3 text-[0.74rem] leading-relaxed text-white/85">
         Checked into <strong className="font-semibold text-white/90">CSC 401</strong> · Hall 2B
-        <span className="mt-0.5 block font-mono text-[0.64rem] text-slate-500">
+        <span className="mt-0.5 block font-mono text-[0.64rem] text-white/50">
           Verified via secure proximity beacon
         </span>
       </p>
@@ -206,7 +206,7 @@ function AttendancePanel() {
         ].map((s) => (
           <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
             <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
-            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-slate-500">{s.k}</div>
+            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/50">{s.k}</div>
           </div>
         ))}
       </div>
@@ -235,13 +235,13 @@ function VerificationPanel() {
           <h5 className="font-sans text-[0.88rem] font-semibold leading-snug text-white">
             B.Sc. Computer Science
           </h5>
-          <span className="mt-0.5 block text-[0.72rem] text-slate-400">
+          <span className="mt-0.5 block text-[0.72rem] text-white/85">
             Ada Okafor · First Class Hons
           </span>
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/[0.05] bg-white/[0.01] p-2.5 font-mono text-[0.6rem] text-slate-500">
+      <div className="rounded-lg border border-white/[0.05] bg-white/[0.01] p-2.5 font-mono text-[0.6rem] text-white/50">
         <div className="mb-1 flex justify-between">
           <span>ISSUER</span>
           <span className="text-white/75">UNILAG Registrar</span>
@@ -253,7 +253,7 @@ function VerificationPanel() {
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 text-[0.68rem]">
-        <span className="font-sans text-slate-500">Instant verification</span>
+        <span className="font-sans text-white/50">Instant verification</span>
         <span className="flex items-center gap-1 font-mono font-bold text-emerald-300">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 6 9 17l-5-5" />
@@ -291,7 +291,7 @@ function IntelligencePanel() {
               strokeLinecap="round"
               stroke="currentColor"
               fill="none"
-              d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831"
+              d="M18 2.0845a15.9155 15.9155 0 010 31.831 a15.9155 15.9155 0 010-31.831"
               initial={{ strokeDasharray: "0, 100" }}
               whileInView={{ strokeDasharray: "89, 100" }}
               viewport={{ once: true }}
@@ -304,7 +304,7 @@ function IntelligencePanel() {
         </div>
         <div className="min-w-0">
           <span className="block text-[0.76rem] font-semibold text-white">Engagement Score</span>
-          <span className="mt-0.5 block text-[0.64rem] leading-tight text-slate-500">
+          <span className="mt-0.5 block text-[0.64rem] leading-tight text-white/50">
             Predicted GPA lift{" "}
             <strong className="font-semibold text-emerald-400">+0.42</strong>
           </span>
@@ -318,12 +318,12 @@ function IntelligencePanel() {
           </svg>
           AI Insight
         </div>
-        <p className="text-[0.72rem] text-slate-400">
+        <p className="text-[0.72rem] text-white/80">
           Peak library use on Tuesdays — retention rises when tutorials are aligned.
         </p>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-slate-500">
+      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-white/50">
         <span>Predictive analytics</span>
         <span className="text-emerald-400">NOMINAL</span>
       </div>
