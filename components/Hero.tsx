@@ -68,12 +68,11 @@ const METRICS: {
   decimals?: number;
   suffix: string;
   label: string;
-  gradient?: boolean;
 }[] = [
   { to: 50, suffix: "+", label: "Universities Onboarded" },
   { to: 250000, suffix: "+", label: "Students Verified" },
   { to: 1, suffix: "M+", label: "Credentials Secured" },
-  { to: 99.99, decimals: 2, suffix: "%", label: "Platform Reliability", gradient: true },
+  { to: 99.99, decimals: 2, suffix: "%", label: "Platform Reliability" },
 ];
 
 export function Hero() {
@@ -201,7 +200,7 @@ export function Hero() {
           <motion.div
             variants={reveal}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-slate-300 [text-shadow:0_1px_12px_rgba(3,7,18,0.85)]"
+            className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-white/85 [text-shadow:0_1px_12px_rgba(3,7,18,0.85)]"
           >
             {[
               ["IDENTITY LAYER", "bg-indigo-400"],
@@ -235,13 +234,9 @@ export function Hero() {
                 to={m.to}
                 decimals={m.decimals}
                 suffix={m.suffix}
-                className={`font-sans text-[clamp(1.9rem,3.2vw,2.6rem)] font-bold leading-none tracking-tight ${
-                  m.gradient
-                    ? "bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-transparent"
-                    : "text-white"
-                }`}
+                className="font-sans text-[clamp(1.9rem,3.2vw,2.6rem)] font-bold leading-none tracking-tight text-white"
               />
-              <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-white/75">
                 {m.label}
               </span>
             </div>
@@ -250,14 +245,14 @@ export function Hero() {
 
         {/* ---------- Social proof ---------- */}
         <div className="mt-[clamp(40px,6vw,72px)] text-center">
-          <p className="mb-8 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <p className="mb-8 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-white/75">
             Trusted by forward-thinking universities across Africa
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:gap-x-16">
             {UNIS.map((u) => (
               <div
                 key={u.name}
-                className="flex items-center gap-2 text-white/45 transition-colors duration-300 hover:text-white"
+                className="flex items-center gap-2 text-white/80 transition-colors duration-300 hover:text-white"
               >
                 {u.icon}
                 <span className="font-mono text-[0.72rem] font-bold uppercase tracking-[0.16em]">
