@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05060A",
+  themeColor: "#FBF9F5",
   width: "device-width",
   initialScale: 1,
 };
@@ -55,7 +55,7 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable} scroll-smooth`}
     >
-      <body className="grain overflow-x-hidden bg-void font-body text-body antialiased">
+      <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
         <ModalProvider>
           <MotionProvider>{children}</MotionProvider>
           <BookingModal />
