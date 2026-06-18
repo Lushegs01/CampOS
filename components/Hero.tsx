@@ -160,7 +160,7 @@ export function Hero() {
           <motion.p
             variants={reveal}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto mt-7 max-w-[640px] text-[clamp(1.02rem,1.5vw,1.2rem)] font-medium leading-relaxed text-white/60"
+            className="mx-auto mt-7 max-w-[640px] text-[clamp(1.02rem,1.5vw,1.2rem)] font-medium leading-relaxed text-white/75 [text-shadow:0_1px_18px_rgba(3,7,18,0.7)]"
           >
             CampOS unifies student identity, attendance, credentials, and campus operations
             into a single intelligent platform built for the future of higher education.
