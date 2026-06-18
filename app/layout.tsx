@@ -44,6 +44,7 @@ export const viewport: Viewport = {
 
 import { ModalProvider } from "@/context/ModalContext";
 import { BookingModal } from "@/components/BookingModal";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 export default function RootLayout({
   children,
@@ -56,10 +57,19 @@ export default function RootLayout({
       className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable} scroll-smooth`}
     >
       <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
+        <SmoothScroll />
         <ModalProvider>
           <MotionProvider>{children}</MotionProvider>
           <BookingModal />
         </ModalProvider>
+        
+        {/* Fine grain noise overlay for premium cinematic texture */}
+        <svg className="pointer-events-none fixed inset-0 z-[200] h-full w-full opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">
+          <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+        </svg>
       </body>
     </html>
   );

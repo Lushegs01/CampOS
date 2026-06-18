@@ -2,7 +2,9 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { ProofStrip } from "@/components/ProofStrip";
 import { Modules } from "@/components/Modules";
+import { Sandbox } from "@/components/Sandbox";
 import { Trust } from "@/components/Trust";
+import { PartnerMap } from "@/components/PartnerMap";
 import { QuestionsWall } from "@/components/QuestionsWall";
 import { InstitutionsCTA } from "@/components/InstitutionsCTA";
 import { Footer } from "@/components/Footer";
@@ -16,7 +18,9 @@ export default function Page() {
           <Hero />
           <ProofStrip />
           <Modules />
+          <Sandbox />
           <Trust />
+          <PartnerMap />
           <QuestionsWall />
           <InstitutionsCTA />
         </main>
