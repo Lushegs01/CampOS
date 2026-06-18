@@ -57,7 +57,7 @@ function Panel({
   const a = ACCENT[accent];
   return (
     <div
-      className={`group relative overflow-hidden rounded-[20px] border border-white/[0.09] bg-[#0a0e1a]/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-2xl transition-all duration-500 ${a.ring} ${a.glow} ${className}`}
+      className={`group relative overflow-hidden rounded-[20px] border border-white/[0.1] bg-[#0a0e1a]/90 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-500 ${a.ring} ${a.glow} ${className}`}
     >
       {/* edge sheen */}
       <div className={`pointer-events-none absolute inset-0 rounded-[20px] bg-gradient-to-tr from-transparent via-transparent ${a.sheen}`} />
@@ -70,7 +70,7 @@ function Panel({
 
 function PanelLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.14em] text-slate-400">
+    <span className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.14em] text-slate-300">
       {children}
     </span>
   );
@@ -108,7 +108,7 @@ function IdentityPanel() {
               />
             </svg>
           </h4>
-          <span className="block font-mono text-[0.64rem] tracking-wider text-slate-500">
+          <span className="block font-mono text-[0.64rem] tracking-wider text-slate-400">
             MAT/2026/043118
           </span>
         </div>
@@ -116,7 +116,7 @@ function IdentityPanel() {
 
       <div className="mb-4 flex flex-col gap-0.5 border-t border-white/[0.05] pt-3 text-[0.74rem]">
         <span className="font-sans font-medium text-white/75">University of Lagos</span>
-        <span className="font-mono text-[0.64rem] text-slate-500">Dept. of Computer Science</span>
+        <span className="font-mono text-[0.64rem] text-slate-400">Dept. of Computer Science</span>
       </div>
 
       <div className="flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] p-2.5">
@@ -143,7 +143,7 @@ function IdentityPanel() {
           <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-cyan-300">
             SECURE ACCESS
           </span>
-          <span className="mt-0.5 block text-[0.66rem] leading-tight text-slate-500">
+          <span className="mt-0.5 block text-[0.66rem] leading-tight text-slate-400">
             One ID. Every gate &amp; door.
           </span>
         </div>
@@ -173,7 +173,7 @@ function AttendancePanel() {
 
       <p className="mb-3 text-[0.74rem] leading-relaxed text-slate-400">
         Checked into <strong className="font-semibold text-white/90">CSC 401</strong> · Hall 2B
-        <span className="mt-0.5 block font-mono text-[0.64rem] text-slate-500">
+        <span className="mt-0.5 block font-mono text-[0.64rem] text-slate-400">
           Verified via secure proximity beacon
         </span>
       </p>
@@ -206,7 +206,7 @@ function AttendancePanel() {
         ].map((s) => (
           <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
             <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
-            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-slate-500">{s.k}</div>
+            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-slate-400">{s.k}</div>
           </div>
         ))}
       </div>
@@ -241,7 +241,7 @@ function VerificationPanel() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/[0.05] bg-white/[0.01] p-2.5 font-mono text-[0.6rem] text-slate-500">
+      <div className="rounded-lg border border-white/[0.05] bg-white/[0.01] p-2.5 font-mono text-[0.6rem] text-slate-400">
         <div className="mb-1 flex justify-between">
           <span>ISSUER</span>
           <span className="text-white/75">UNILAG Registrar</span>
@@ -253,7 +253,7 @@ function VerificationPanel() {
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 text-[0.68rem]">
-        <span className="font-sans text-slate-500">Instant verification</span>
+        <span className="font-sans text-slate-400">Instant verification</span>
         <span className="flex items-center gap-1 font-mono font-bold text-emerald-300">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 6 9 17l-5-5" />
@@ -304,7 +304,7 @@ function IntelligencePanel() {
         </div>
         <div className="min-w-0">
           <span className="block text-[0.76rem] font-semibold text-white">Engagement Score</span>
-          <span className="mt-0.5 block text-[0.64rem] leading-tight text-slate-500">
+          <span className="mt-0.5 block text-[0.64rem] leading-tight text-slate-400">
             Predicted GPA lift{" "}
             <strong className="font-semibold text-emerald-400">+0.42</strong>
           </span>
@@ -323,7 +323,7 @@ function IntelligencePanel() {
         </p>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-slate-500">
+      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-slate-400">
         <span>Predictive analytics</span>
         <span className="text-emerald-400">NOMINAL</span>
       </div>
