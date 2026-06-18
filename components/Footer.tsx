@@ -21,7 +21,7 @@ export function Footer() {
             whiteSpace: "nowrap"
           }}
         >
-          Camp<span style={{ WebkitTextStroke: "3px rgba(0, 71, 186, 0.3)", color: "transparent" }}>OS</span>
+          Camp<span style={{ WebkitTextStroke: "3px rgba(5, 150, 105, 0.3)", color: "transparent" }}>OS</span>
         </div>
       </div>
 

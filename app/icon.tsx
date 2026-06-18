@@ -23,10 +23,10 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#002D80', // deep blue background
+          backgroundColor: '#047857', // deep green background
           borderRadius: '44px', // rounded rectangle
           overflow: 'hidden',
-          border: '4px solid #0047BA', // premium border
+          border: '4px solid #059669', // premium border
         }}
       >
         <div

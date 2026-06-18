@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       subject: `New Demo Request: ${institution}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px; color: #1a1a1a;">
-          <h2 style="color: #0047BA;">New CampOS Demo Request</h2>
+          <h2 style="color: #059669;">New CampOS Demo Request</h2>
           <p>You have received a new demo request from the CampOS landing page.</p>
           <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <tr>
