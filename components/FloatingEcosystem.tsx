@@ -560,12 +560,11 @@ export function FloatingEcosystem({
           ))}
 
         {/* central hub */}
-        <motion.div
-          style={reduced ? undefined : { x: hubX, y: hubY }}
-          className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
-        >
-          <CoreHub reduced={reduced} />
-        </motion.div>
+        <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+          <motion.div style={reduced ? undefined : { x: hubX, y: hubY }}>
+            <CoreHub reduced={reduced} />
+          </motion.div>
+        </div>
 
         {/* module panels */}
         <FloatingCard className="left-0 top-[3%] w-[clamp(230px,21vw,272px)]" depth={26} driftY={-9} delay={0} mx={mx} my={my} reduced={reduced}>
