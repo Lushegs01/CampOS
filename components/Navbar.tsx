@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { useModal } from "@/context/ModalContext";
-
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const { openModal } = useModal();
@@ -20,88 +19,88 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: "-100%", opacity: 0 }}
+      initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
-      className={`sticky top-0 z-50 transition-colors duration-500 ${
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-slate-light/60 glass-light shadow-premium"
+          ? "border-b border-white/[0.08] bg-black/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-[74px] max-w-wrap items-center justify-between px-[clamp(20px,5vw,56px)]">
-        <Link href="#top" className="brand">
+        <Link href="#top" className="brand flex items-center gap-2">
           <Logo />
         </Link>
 
         {/* desktop nav */}
-        <ul className="hidden items-center gap-8 md:flex">
-          <li>
-            <Link
-              href="#modules"
-              className="relative text-[0.95rem] font-medium text-ink-soft transition-colors hover:text-ink after:absolute after:-bottom-[5px] after:left-0 after:h-[1.5px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
-            >
-              Modules
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#trust"
-              className="relative text-[0.95rem] font-medium text-ink-soft transition-colors hover:text-ink after:absolute after:-bottom-[5px] after:left-0 after:h-[1.5px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
-            >
-              Trust &amp; security
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#faculty"
-              className="relative text-[0.95rem] font-medium text-ink-soft transition-colors hover:text-ink after:absolute after:-bottom-[5px] after:left-0 after:h-[1.5px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
-            >
-              For faculty
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#institutions"
-              className="relative text-[0.95rem] font-medium text-ink-soft transition-colors hover:text-ink after:absolute after:-bottom-[5px] after:left-0 after:h-[1.5px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
-            >
-              For institutions
-            </Link>
-          </li>
-        </ul>
+        <nav className="hidden items-center gap-8 md:flex">
+          <Link
+            href="#modules"
+            className="text-[0.92rem] font-medium text-white/70 transition-all hover:text-white"
+          >
+            Platform
+          </Link>
+          <Link
+            href="#modules"
+            className="text-[0.92rem] font-medium text-white/70 transition-all hover:text-white"
+          >
+            Solutions
+          </Link>
+          <Link
+            href="#trust"
+            className="text-[0.92rem] font-medium text-white/70 transition-all hover:text-white"
+          >
+            Universities
+          </Link>
+          <Link
+            href="#faculty"
+            className="text-[0.92rem] font-medium text-white/70 transition-all hover:text-white"
+          >
+            Resources
+          </Link>
+          <button
+            onClick={openModal}
+            className="text-[0.92rem] font-medium text-white/70 transition-all hover:text-white"
+          >
+            Pricing
+          </button>
+        </nav>
 
         {/* right actions */}
-        <div className="flex items-center gap-[1.1rem]">
-          <Link
-            href="#institutions"
-            className="hidden text-[0.95rem] font-medium text-ink-soft hover:text-ink md:block"
+        <div className="flex items-center gap-5">
+          <button
+            onClick={openModal}
+            className="hidden text-[0.92rem] font-medium text-white/70 hover:text-white transition-all md:block"
           >
             Sign in
-          </Link>
-          <button onClick={openModal} className="btn btn-primary hidden md:inline-flex">
-            Book a demo
+          </button>
+          <button
+            onClick={openModal}
+            className="relative hidden md:inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-all hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+          >
+            Book Demo
           </button>
 
-          {/* mobile toggle */}
+          {/* mobile menu toggle button */}
           <button
-            className="p-[6px] md:hidden"
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] text-white md:hidden"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Open menu"
-            aria-expanded={isOpen}
+            aria-label="Toggle menu"
           >
             <span
-              className={`my-[5px] block h-[2px] w-[24px] bg-ink transition-transform ${
-                isOpen ? "translate-y-[7px] rotate-45" : ""
+              className={`h-0.5 w-5 bg-white transition-all duration-300 ${
+                isOpen ? "translate-y-2 rotate-45" : ""
               }`}
             />
             <span
-              className={`my-[5px] block h-[2px] w-[24px] bg-ink transition-opacity ${
+              className={`h-0.5 w-5 bg-white transition-all duration-300 ${
                 isOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`my-[5px] block h-[2px] w-[24px] bg-ink transition-transform ${
-                isOpen ? "-translate-y-[7px] -rotate-45" : ""
+              className={`h-0.5 w-5 bg-white transition-all duration-300 ${
+                isOpen ? "-translate-y-2 -rotate-45" : ""
               }`}
             />
           </button>
@@ -109,61 +108,87 @@ export function Navbar() {
       </div>
 
       {/* mobile drawer */}
-      <div
-        className={`fixed inset-x-0 top-[74px] overflow-hidden border-b border-line bg-paper px-[clamp(20px,5vw,56px)] transition-all duration-350 ease-in-out md:hidden ${
-          isOpen ? "max-h-[360px] py-3 pb-6" : "max-h-0 py-0"
-        }`}
-      >
-        <ul className="flex flex-col">
-          <li>
-            <Link
-              href="#modules"
-              className="block border-b border-line-soft py-[0.9rem] text-[0.95rem] font-medium text-ink-soft hover:text-ink"
-              onClick={() => setIsOpen(false)}
-            >
-              Modules
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#trust"
-              className="block border-b border-line-soft py-[0.9rem] text-[0.95rem] font-medium text-ink-soft hover:text-ink"
-              onClick={() => setIsOpen(false)}
-            >
-              Trust &amp; security
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#faculty"
-              className="block border-b border-line-soft py-[0.9rem] text-[0.95rem] font-medium text-ink-soft hover:text-ink"
-              onClick={() => setIsOpen(false)}
-            >
-              For faculty
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#institutions"
-              className="block border-b border-line-soft py-[0.9rem] text-[0.95rem] font-medium text-ink-soft hover:text-ink"
-              onClick={() => setIsOpen(false)}
-            >
-              For institutions
-            </Link>
-          </li>
-          <li className="mt-[14px]">
-            <button
-              className="btn btn-primary w-full justify-center py-[0.92em]"
-              onClick={() => {
-                setIsOpen(false);
-                openModal();
-              }}
-            >
-              Book a demo
-            </button>
-          </li>
-        </ul>
-      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="border-b border-white/[0.08] bg-black/95 px-[clamp(20px,5vw,56px)] md:hidden overflow-hidden"
+          >
+            <ul className="flex flex-col py-4 font-sans">
+              <li>
+                <Link
+                  href="#modules"
+                  className="block border-b border-white/[0.04] py-3 text-[0.95rem] font-medium text-white/70 hover:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Platform
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#modules"
+                  className="block border-b border-white/[0.04] py-3 text-[0.95rem] font-medium text-white/70 hover:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Solutions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#trust"
+                  className="block border-b border-white/[0.04] py-3 text-[0.95rem] font-medium text-white/70 hover:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Universities
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#faculty"
+                  className="block border-b border-white/[0.04] py-3 text-[0.95rem] font-medium text-white/70 hover:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Resources
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="w-full text-left border-b border-white/[0.04] py-3 text-[0.95rem] font-medium text-white/70 hover:text-white"
+                  onClick={() => {
+                    setIsOpen(false);
+                    openModal();
+                  }}
+                >
+                  Pricing
+                </button>
+              </li>
+              <li className="mt-4 flex flex-col gap-3">
+                <button
+                  className="w-full py-2.5 text-center text-[0.95rem] font-medium text-white/70 hover:text-white"
+                  onClick={() => {
+                    setIsOpen(false);
+                    openModal();
+                  }}
+                >
+                  Sign in
+                </button>
+                <button
+                  className="w-full py-3 text-center text-[0.95rem] font-semibold text-black bg-white rounded-full hover:bg-white/90"
+                  onClick={() => {
+                    setIsOpen(false);
+                    openModal();
+                  }}
+                >
+                  Book Demo
+                </button>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
