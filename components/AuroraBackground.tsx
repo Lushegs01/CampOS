@@ -71,24 +71,24 @@ export function AuroraBackground({ mouseX, mouseY }: AuroraBackgroundProps) {
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* Campus photo base — tinted cool and scrimmed for legibility, fading
-          into the deep base so the product ecosystem sits on a clean canvas. */}
-      <div className="absolute inset-x-0 top-0 h-[clamp(640px,90vh,1060px)]">
+      {/* Campus photo base — tinted cool and scrimmed for legibility. It sits
+          behind the hero copy and fades to the deep base before the product
+          ecosystem, so the floating panels always rest on a dark, readable canvas. */}
+      <div className="absolute inset-x-0 top-0 h-[clamp(560px,82vh,960px)]">
         <img
           src="/hero-campus.webp"
           alt=""
           aria-hidden
           fetchPriority="high"
-          className="h-full w-full object-cover object-[center_30%] brightness-[0.6] saturate-[0.8] contrast-[1.05]"
+          className="h-full w-full object-cover object-[center_28%] brightness-[0.6] saturate-[0.8] contrast-[1.05]"
         />
-        {/* overall darken */}
-        <div className="absolute inset-0 bg-[#030712]/45" />
         {/* cool brand tint */}
         <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/40 via-transparent to-violet-950/30" />
-        {/* darken behind the hero copy (upper-center) */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_55%_at_50%_20%,rgba(3,7,18,0.72)_0%,transparent_68%)]" />
-        {/* dark at the very top + fade into the base toward the bottom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/75 via-transparent to-[#030712]" />
+        {/* darken behind the hero copy */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_16%,rgba(3,7,18,0.68)_0%,transparent_68%)]" />
+        {/* light at the top (photo reads), strong dark toward the bottom so the
+            cards below always stay legible */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(3,7,18,0.42)_0%,rgba(3,7,18,0.34)_26%,rgba(3,7,18,0.82)_64%,#030712_100%)]" />
       </div>
 
       {/* Flowing aurora blobs */}
