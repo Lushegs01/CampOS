@@ -82,74 +82,149 @@ function PanelLabel({ children }: { children: React.ReactNode }) {
 /* ------------------------------------------------------------------ */
 
 function IdentityPanel() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Panel accent="indigo">
-      <div className="mb-4 flex items-center justify-between">
-        <PanelLabel>Student Identity</PanelLabel>
-        <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono text-[0.6rem] font-bold text-emerald-300">ACTIVE</span>
-        </span>
-      </div>
-
-      <div className="mb-4 flex items-center gap-3">
-        <div className="relative h-11 w-11 flex-none rounded-full bg-gradient-to-tr from-emerald-500 via-teal-500 to-emerald-400 p-[1.5px] shadow-[0_0_18px_rgba(16,185,129,0.4)]">
-          <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0a0e1a] font-sans text-xs font-bold text-white">
-            AO
-          </div>
-        </div>
-        <div className="min-w-0">
-          <h4 className="flex items-center gap-1 font-sans text-[0.92rem] font-semibold leading-tight text-white">
-            Ada Okafor
-            <svg className="h-[14px] w-[14px] flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 011.42-1.42l2.79 2.79 6.79-6.79a1 1 0 011.42 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </h4>
-          <span className="block font-mono text-[0.64rem] tracking-wider text-white/50">
-            MAT/2026/043118
+    <>
+      <Panel accent="indigo">
+        <div className="mb-4 flex items-center justify-between">
+          <PanelLabel>Student Identity</PanelLabel>
+          <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[0.6rem] font-bold text-emerald-300">ACTIVE</span>
           </span>
         </div>
-      </div>
 
-      <div className="mb-4 flex flex-col gap-0.5 border-t border-white/[0.05] pt-3 text-[0.74rem]">
-        <span className="font-sans font-medium text-white/75">University of Lagos</span>
-        <span className="font-mono text-[0.64rem] text-white/50">Dept. of Computer Science</span>
-      </div>
-
-      <div className="flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] p-2.5">
-        <div className="relative h-12 w-12 flex-none overflow-hidden rounded-lg bg-white p-0.5 shadow-inner">
-          <div className="grid h-full w-full grid-cols-5 gap-[1px]">
-            {Array.from({ length: 25 }).map((_, i) => (
-              <span
-                key={i}
-                className={`rounded-[1px] ${
-                  (i * 7 + 3) % 5 === 0 || i < 5 || i % 5 === 0 || i > 20 || i % 5 === 4
-                    ? "bg-[#0a0e1a]"
-                    : "bg-white"
-                }`}
-              />
-            ))}
+        <div className="mb-4 flex items-center gap-3">
+          <div className="relative h-11 w-11 flex-none rounded-full bg-gradient-to-tr from-emerald-500 via-teal-500 to-emerald-400 p-[1.5px] shadow-[0_0_18px_rgba(16,185,129,0.4)]">
+            <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0a0e1a] font-sans text-xs font-bold text-white">
+              AO
+            </div>
           </div>
-          <motion.div
-            className="absolute left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]"
-            animate={{ top: ["4px", "44px", "4px"] }}
-            transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+          <div className="min-w-0">
+            <h4 className="flex items-center gap-1 font-sans text-[0.92rem] font-semibold leading-tight text-white">
+              Ada Okafor
+              <svg className="h-[14px] w-[14px] flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 011.42-1.42l2.79 2.79 6.79-6.79a1 1 0 011.42 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </h4>
+            <span className="block font-mono text-[0.64rem] tracking-wider text-white/50">
+              MAT/2026/043118
+            </span>
+          </div>
+        </div>
+
+        <div className="mb-4 flex flex-col gap-0.5 border-t border-white/[0.05] pt-3 text-[0.74rem]">
+          <span className="font-sans font-medium text-white/75">University of Lagos</span>
+          <span className="font-mono text-[0.64rem] text-white/50">Dept. of Computer Science</span>
+        </div>
+
+        {/* Preview block */}
+        <div
+          onClick={() => setIsOpen(true)}
+          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
+        >
+          <img 
+            src="/nada-portal.png" 
+            alt="NADA App" 
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
           />
+          {/* Glass badge for context */}
+          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
+            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">NADA App</span>
+          </div>
+          {/* Hover magnifier overlay hint */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
+              Click to Expand
+            </span>
+          </div>
         </div>
-        <div className="ml-3 text-right">
-          <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-emerald-300">
-            SECURE ACCESS
-          </span>
-          <span className="mt-0.5 block text-[0.66rem] leading-tight text-white/50">
-            One ID. Every gate &amp; door.
-          </span>
+
+        <div className="flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] p-2.5">
+          <div className="relative h-12 w-12 flex-none overflow-hidden rounded-lg bg-white p-0.5 shadow-inner">
+            <div className="grid h-full w-full grid-cols-5 gap-[1px]">
+              {Array.from({ length: 25 }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`rounded-[1px] ${
+                    (i * 7 + 3) % 5 === 0 || i < 5 || i % 5 === 0 || i > 20 || i % 5 === 4
+                      ? "bg-[#0a0e1a]"
+                      : "bg-white"
+                  }`}
+                />
+              ))}
+            </div>
+            <motion.div
+              className="absolute left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]"
+              animate={{ top: ["4px", "44px", "4px"] }}
+              transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+            />
+          </div>
+          <div className="ml-3 text-right">
+            <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-emerald-300">
+              SECURE ACCESS
+            </span>
+            <span className="mt-0.5 block text-[0.66rem] leading-tight text-white/50">
+              One ID. Every gate &amp; door.
+            </span>
+          </div>
         </div>
-      </div>
-    </Panel>
+      </Panel>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
+            />
+
+            {/* Image container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[800px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
+            >
+              {/* Top title bar */}
+              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
+                <span className="font-sans text-xs font-bold tracking-wider text-white/90">NADA</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable image area */}
+              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
+                <img 
+                  src="/nada-portal.png" 
+                  alt="NADA Full App" 
+                  className="w-full h-auto object-contain rounded-lg"
+                />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
