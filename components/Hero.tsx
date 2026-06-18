@@ -174,9 +174,9 @@ export function Hero() {
           >
             <MagneticButton
               onClick={openModal}
-              className="group relative w-full overflow-hidden rounded-full bg-white px-8 py-4 text-[0.96rem] font-semibold text-[#030712] shadow-[0_0_30px_rgba(255,255,255,0.18)] transition-shadow duration-300 hover:shadow-[0_0_44px_rgba(16,185,129,0.4)] sm:w-auto"
+              className="group relative w-full overflow-hidden rounded-full bg-primary px-8 py-4 text-[0.96rem] font-semibold text-white shadow-[0_0_30px_rgba(5,150,105,0.3)] transition-all duration-300 hover:shadow-[0_0_44px_rgba(16,185,129,0.5)] sm:w-auto"
             >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-emerald-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               <span className="relative">Book a Demo</span>
               <svg className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

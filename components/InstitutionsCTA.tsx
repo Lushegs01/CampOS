@@ -40,7 +40,7 @@ export function InstitutionsCTA() {
               scramble.
             </p>
             <div className="flex flex-wrap gap-[0.9rem]">
-              <button onClick={openModal} className="btn btn-light">
+              <button onClick={openModal} className="btn btn-primary">
                 Book a demo
                 <svg
                   className="arr h-[16px] w-[16px]"
