@@ -7,6 +7,7 @@ import {
   useTransform,
   useReducedMotion,
   type MotionValue,
+  AnimatePresence,
 } from "framer-motion";
 
 /* ------------------------------------------------------------------ */
@@ -153,57 +154,118 @@ function IdentityPanel() {
 }
 
 function AttendancePanel() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Panel accent="cyan">
-      <div className="mb-4 flex items-center justify-between">
-        <PanelLabel>Smart Attendance</PanelLabel>
-        <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-teal-300">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal-400" />
+    <>
+      <Panel accent="cyan">
+        <div className="mb-4 flex items-center justify-between">
+          <PanelLabel>Smart Attendance</PanelLabel>
+          <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-teal-300">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal-400" />
+            </span>
+            LIVE
           </span>
-          LIVE
-        </span>
-      </div>
-
-      <div className="mb-2 flex items-baseline gap-2">
-        <span className="font-sans text-[2rem] font-bold leading-none tracking-tight text-white">96.4%</span>
-        <span className="font-mono text-[0.68rem] font-semibold text-emerald-400">+1.2% wk</span>
-      </div>
-
-      <p className="mb-3 text-[0.74rem] leading-relaxed text-white/85">
-        Checked into <strong className="font-semibold text-white/90">CSC 401</strong> · Hall 2B
-        <span className="mt-0.5 block font-mono text-[0.64rem] text-white/50">
-          Verified via secure proximity beacon
-        </span>
-      </p>
-
-      <div className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner">
-        <img 
-          src="/scanmark-portal.png" 
-          alt="ScanMark Portal App" 
-          className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105" 
-        />
-        {/* Glass badge for context */}
-        <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
-          <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">ScanMark App</span>
         </div>
-      </div>
 
-      <div className="flex items-center justify-between gap-2">
-        {[
-          { k: "Live", v: "312" },
-          { k: "Classes", v: "18" },
-          { k: "Proxies", v: "0" },
-        ].map((s) => (
-          <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
-            <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
-            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/50">{s.k}</div>
+        <div className="mb-2 flex items-baseline gap-2">
+          <span className="font-sans text-[2rem] font-bold leading-none tracking-tight text-white">96.4%</span>
+          <span className="font-mono text-[0.68rem] font-semibold text-emerald-400">+1.2% wk</span>
+        </div>
+
+        <p className="mb-3 text-[0.74rem] leading-relaxed text-white/85">
+          Checked into <strong className="font-semibold text-white/90">CSC 401</strong> · Hall 2B
+          <span className="mt-0.5 block font-mono text-[0.64rem] text-white/50">
+            Verified via secure proximity beacon
+          </span>
+        </p>
+
+        <div
+          onClick={() => setIsOpen(true)}
+          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
+        >
+          <img 
+            src="/scanmark-portal.png" 
+            alt="ScanMark Portal App" 
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
+          />
+          {/* Glass badge for context */}
+          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
+            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">ScanMark App</span>
           </div>
-        ))}
-      </div>
-    </Panel>
+          {/* Hover magnifier overlay hint */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
+              Click to Expand
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between gap-2">
+          {[
+            { k: "Live", v: "312" },
+            { k: "Classes", v: "18" },
+            { k: "Proxies", v: "0" },
+          ].map((s) => (
+            <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
+              <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
+              <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/50">{s.k}</div>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
+            />
+
+            {/* Image container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[500px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
+            >
+              {/* Top title bar */}
+              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
+                <span className="font-sans text-xs font-semibold tracking-wide text-white/80">ScanMark Student Portal</span>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable image area */}
+              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
+                <img 
+                  src="/scanmark-portal.png" 
+                  alt="ScanMark Portal Full App" 
+                  className="w-full h-auto object-contain rounded-lg"
+                />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
