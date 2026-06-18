@@ -70,7 +70,7 @@ function Panel({
 
 function PanelLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.14em] text-slate-300">
+    <span className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.14em] text-white">
       {children}
     </span>
   );
@@ -87,7 +87,7 @@ function IdentityPanel() {
         <PanelLabel>Student Identity</PanelLabel>
         <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-mono text-[0.6rem] font-bold text-emerald-300">ACTIVE</span>
+          <span className="font-mono text-[0.6rem] font-bold text-white">ACTIVE</span>
         </span>
       </div>
 
@@ -108,7 +108,7 @@ function IdentityPanel() {
               />
             </svg>
           </h4>
-          <span className="block font-mono text-[0.64rem] tracking-wider text-slate-400">
+          <span className="block font-mono text-[0.64rem] tracking-wider text-white/70">
             MAT/2026/043118
           </span>
         </div>
@@ -116,7 +116,7 @@ function IdentityPanel() {
 
       <div className="mb-4 flex flex-col gap-0.5 border-t border-white/[0.05] pt-3 text-[0.74rem]">
         <span className="font-sans font-medium text-white/75">University of Lagos</span>
-        <span className="font-mono text-[0.64rem] text-slate-400">Dept. of Computer Science</span>
+        <span className="font-mono text-[0.64rem] text-white/70">Dept. of Computer Science</span>
       </div>
 
       <div className="flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] p-2.5">
@@ -140,10 +140,10 @@ function IdentityPanel() {
           />
         </div>
         <div className="ml-3 text-right">
-          <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-cyan-300">
+          <span className="block font-mono text-[0.62rem] font-bold tracking-wider text-white">
             SECURE ACCESS
           </span>
-          <span className="mt-0.5 block text-[0.66rem] leading-tight text-slate-400">
+          <span className="mt-0.5 block text-[0.66rem] leading-tight text-white/70">
             One ID. Every gate &amp; door.
           </span>
         </div>
@@ -157,7 +157,7 @@ function AttendancePanel() {
     <Panel accent="cyan">
       <div className="mb-4 flex items-center justify-between">
         <PanelLabel>Smart Attendance</PanelLabel>
-        <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-cyan-300">
+        <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-white">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400" />
@@ -168,12 +168,12 @@ function AttendancePanel() {
 
       <div className="mb-2 flex items-baseline gap-2">
         <span className="font-sans text-[2rem] font-bold leading-none tracking-tight text-white">96.4%</span>
-        <span className="font-mono text-[0.68rem] font-semibold text-emerald-400">+1.2% wk</span>
+        <span className="font-mono text-[0.68rem] font-semibold text-white">+1.2% wk</span>
       </div>
 
-      <p className="mb-3 text-[0.74rem] leading-relaxed text-slate-400">
+      <p className="mb-3 text-[0.74rem] leading-relaxed text-white/70">
         Checked into <strong className="font-semibold text-white/90">CSC 401</strong> · Hall 2B
-        <span className="mt-0.5 block font-mono text-[0.64rem] text-slate-400">
+        <span className="mt-0.5 block font-mono text-[0.64rem] text-white/70">
           Verified via secure proximity beacon
         </span>
       </p>
@@ -206,7 +206,7 @@ function AttendancePanel() {
         ].map((s) => (
           <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
             <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
-            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-slate-400">{s.k}</div>
+            <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/70">{s.k}</div>
           </div>
         ))}
       </div>
@@ -219,7 +219,7 @@ function VerificationPanel() {
     <Panel accent="emerald">
       <div className="mb-4 flex items-center justify-between">
         <PanelLabel>Credential Verification</PanelLabel>
-        <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-emerald-300">
+        <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-white">
           VERIFIED
         </span>
       </div>
@@ -235,26 +235,26 @@ function VerificationPanel() {
           <h5 className="font-sans text-[0.88rem] font-semibold leading-snug text-white">
             B.Sc. Computer Science
           </h5>
-          <span className="mt-0.5 block text-[0.72rem] text-slate-400">
+          <span className="mt-0.5 block text-[0.72rem] text-white/70">
             Ada Okafor · First Class Hons
           </span>
         </div>
       </div>
 
-      <div className="rounded-lg border border-white/[0.05] bg-white/[0.01] p-2.5 font-mono text-[0.6rem] text-slate-400">
+      <div className="rounded-lg border border-white/[0.05] bg-white/[0.01] p-2.5 font-mono text-[0.6rem] text-white/70">
         <div className="mb-1 flex justify-between">
           <span>ISSUER</span>
           <span className="text-white/75">UNILAG Registrar</span>
         </div>
         <div className="flex justify-between">
           <span>ANCHOR HASH</span>
-          <span className="select-all text-emerald-300/90">8f2b…d91a</span>
+          <span className="select-all text-white/90">8f2b…d91a</span>
         </div>
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 text-[0.68rem]">
-        <span className="font-sans text-slate-400">Instant verification</span>
-        <span className="flex items-center gap-1 font-mono font-bold text-emerald-300">
+        <span className="font-sans text-white/70">Instant verification</span>
+        <span className="flex items-center gap-1 font-mono font-bold text-white">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 6 9 17l-5-5" />
           </svg>
@@ -270,7 +270,7 @@ function IntelligencePanel() {
     <Panel accent="violet">
       <div className="mb-4 flex items-center justify-between">
         <PanelLabel>Campus Intelligence</PanelLabel>
-        <span className="rounded-full border border-violet-500/20 bg-violet-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-violet-300">
+        <span className="rounded-full border border-violet-500/20 bg-violet-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-white">
           AI ENGINE
         </span>
       </div>
@@ -304,28 +304,28 @@ function IntelligencePanel() {
         </div>
         <div className="min-w-0">
           <span className="block text-[0.76rem] font-semibold text-white">Engagement Score</span>
-          <span className="mt-0.5 block text-[0.64rem] leading-tight text-slate-400">
+          <span className="mt-0.5 block text-[0.64rem] leading-tight text-white/70">
             Predicted GPA lift{" "}
-            <strong className="font-semibold text-emerald-400">+0.42</strong>
+            <strong className="font-semibold text-white">+0.42</strong>
           </span>
         </div>
       </div>
 
       <div className="rounded-xl border border-violet-500/10 bg-violet-500/[0.04] p-3 leading-relaxed">
-        <div className="mb-1 flex items-center gap-1.5 text-[0.72rem] font-semibold text-violet-200">
+        <div className="mb-1 flex items-center gap-1.5 text-[0.72rem] font-semibold text-white">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-violet-300">
             <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z" />
           </svg>
           AI Insight
         </div>
-        <p className="text-[0.72rem] text-slate-400">
+        <p className="text-[0.72rem] text-white/70">
           Peak library use on Tuesdays — retention rises when tutorials are aligned.
         </p>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-slate-400">
+      <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 font-mono text-[0.64rem] text-white/70">
         <span>Predictive analytics</span>
-        <span className="text-emerald-400">NOMINAL</span>
+        <span className="text-white">NOMINAL</span>
       </div>
     </Panel>
   );
@@ -365,10 +365,10 @@ function CoreHub({ reduced }: { reduced: boolean }) {
       {/* core disc */}
       <div className="relative flex h-[110px] w-[110px] flex-col items-center justify-center rounded-full border border-white/15 bg-[radial-gradient(circle_at_50%_30%,rgba(99,102,241,0.35),rgba(10,14,26,0.9))] shadow-[0_0_50px_-8px_rgba(99,102,241,0.6),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl">
         <img src="/logo.png" alt="CampOS" className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(99,102,241,0.7)]" />
-        <span className="mt-1 font-mono text-[0.56rem] font-bold uppercase tracking-[0.22em] text-white/80">
+        <span className="mt-1 font-mono text-[0.56rem] font-bold uppercase tracking-[0.22em] text-white">
           CampOS
         </span>
-        <span className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-indigo-300/80">
+        <span className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-white/70">
           Core OS
         </span>
       </div>
