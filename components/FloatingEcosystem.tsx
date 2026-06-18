@@ -241,7 +241,7 @@ function AttendancePanel() {
             >
               {/* Top title bar */}
               <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
-                <span className="font-sans text-xs font-semibold tracking-wide text-white/80">ScanMark Student Portal</span>
+                <span className="font-sans text-xs font-bold tracking-wider text-white/90">SCANMARK</span>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
