@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { useModal } from "@/context/ModalContext";
+import { MagneticButton } from "./MagneticButton";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
@@ -22,12 +23,18 @@ export function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "border-b border-white/[0.08] bg-black/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-          : "border-b border-transparent bg-transparent"
+          ? "bg-[#030712]/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+          : "bg-transparent"
       }`}
     >
+      {/* gradient hairline that fades in on scroll */}
+      <div
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent transition-opacity duration-500 ${
+          scrolled ? "opacity-100" : "opacity-0"
+        }`}
+      />
       <div className="mx-auto flex h-[74px] max-w-wrap items-center justify-between px-[clamp(20px,5vw,56px)]">
         <Link href="#top" className="brand flex items-center gap-2">
           <Logo />
@@ -75,12 +82,13 @@ export function Navbar() {
           >
             Sign in
           </button>
-          <button
+          <MagneticButton
             onClick={openModal}
-            className="relative hidden md:inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-all hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+            className="group relative hidden overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#030712] shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(165,180,252,0.4)] md:inline-flex"
           >
-            Book Demo
-          </button>
+            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            <span className="relative">Book Demo</span>
+          </MagneticButton>
 
           {/* mobile menu toggle button */}
           <button

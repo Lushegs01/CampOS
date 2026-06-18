@@ -1,227 +1,270 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 import { useModal } from "@/context/ModalContext";
 import { FloatingEcosystem } from "./FloatingEcosystem";
+import { AuroraBackground } from "./AuroraBackground";
+import { ParticleField } from "./ParticleField";
+import { MagneticButton } from "./MagneticButton";
+import { CountUp } from "./CountUp";
 
-const UnilagLogo = () => (
-  <div className="flex items-center gap-2 text-white/35 hover:text-white/60 transition-colors duration-300">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v12M6 12h12M8 8l8 8M16 8l-8 8" />
-    </svg>
-    <span className="font-mono text-[0.74rem] font-bold tracking-[0.16em] uppercase">UNILAG</span>
-  </div>
-);
+/* ---- university wordmark placeholders ---- */
 
-const AshesiLogo = () => (
-  <div className="flex items-center gap-2 text-white/35 hover:text-white/60 transition-colors duration-300">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="4" y="4" width="16" height="16" rx="2" />
-      <path d="M12 4v16 M4 12h16" />
-    </svg>
-    <span className="font-mono text-[0.74rem] font-bold tracking-[0.16em] uppercase">ASHESI</span>
-  </div>
-);
+const UNIS: { name: string; icon: React.ReactNode }[] = [
+  {
+    name: "UNILAG",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v12M6 12h12M8 8l8 8M16 8l-8 8" />
+      </svg>
+    ),
+  },
+  {
+    name: "ASHESI",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <path d="M12 4v16M4 12h16" />
+      </svg>
+    ),
+  },
+  {
+    name: "MAKERERE",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    ),
+  },
+  {
+    name: "CAPE TOWN",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 3 2 12h3v9h14v-9h3L12 3z" />
+      </svg>
+    ),
+  },
+  {
+    name: "NAIROBI",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 2v20M2 12h20" />
+      </svg>
+    ),
+  },
+];
 
-const MakerereLogo = () => (
-  <div className="flex items-center gap-2 text-white/35 hover:text-white/60 transition-colors duration-300">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-    </svg>
-    <span className="font-mono text-[0.74rem] font-bold tracking-[0.16em] uppercase">MAKERERE</span>
-  </div>
-);
-
-const CapeTownLogo = () => (
-  <div className="flex items-center gap-2 text-white/35 hover:text-white/60 transition-colors duration-300">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M12 3L2 12h3v9h14v-9h3L12 3z" />
-    </svg>
-    <span className="font-mono text-[0.74rem] font-bold tracking-[0.16em] uppercase">CAPE TOWN</span>
-  </div>
-);
-
-const NairobiLogo = () => (
-  <div className="flex items-center gap-2 text-white/35 hover:text-white/60 transition-colors duration-300">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="12" cy="12" r="8" />
-      <path d="M12 2v20M2 12h20" />
-    </svg>
-    <span className="font-mono text-[0.74rem] font-bold tracking-[0.16em] uppercase">NAIROBI</span>
-  </div>
-);
+const METRICS: {
+  to: number;
+  decimals?: number;
+  suffix: string;
+  label: string;
+  gradient?: boolean;
+}[] = [
+  { to: 50, suffix: "+", label: "Universities Onboarded" },
+  { to: 250000, suffix: "+", label: "Students Verified" },
+  { to: 1, suffix: "M+", label: "Credentials Secured" },
+  { to: 99.99, decimals: 2, suffix: "%", label: "Platform Reliability", gradient: true },
+];
 
 export function Hero() {
   const { openModal } = useModal();
+  const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Normalised cursor position shared across the hero (-1..1).
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Subtle parallax for the copy column.
+  const copySpringX = useSpring(mouseX, { stiffness: 60, damping: 20 });
+  const copySpringY = useSpring(mouseY, { stiffness: 60, damping: 20 });
+  const copyX = useTransform(copySpringX, (v) => v * -10);
+  const copyY = useTransform(copySpringY, (v) => v * -8);
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    if (reduced || !sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    mouseX.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
+    mouseY.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
+  };
+
+  const reveal = {
+    hidden: { opacity: 0, y: 26, filter: "blur(8px)" },
+    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  };
 
   return (
-    <section className="relative overflow-hidden bg-[#030712] pt-[clamp(64px,8vw,110px)] pb-[clamp(56px,8vw,100px)] border-b border-white/[0.04]">
-      {/* 1. CSS Grid Background Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0" />
-
-      {/* 2. Dynamic Aurora glows */}
-      <div className="absolute top-[-10%] left-[-15%] h-[600px] w-[600px] rounded-full bg-indigo-600/10 blur-[140px] pointer-events-none z-0" />
-      <div className="absolute top-[20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[130px] pointer-events-none z-0" />
-      <div className="absolute bottom-[-10%] left-[20%] h-[700px] w-[700px] rounded-full bg-cyan-600/8 blur-[160px] pointer-events-none z-0" />
+    <section
+      id="top"
+      ref={sectionRef}
+      onPointerMove={handlePointerMove}
+      className="relative -mt-[74px] overflow-hidden bg-[#030712] pt-[clamp(132px,16vh,190px)] pb-[clamp(64px,9vw,110px)]"
+    >
+      <AuroraBackground mouseX={mouseX} mouseY={mouseY} />
+      <div className="absolute inset-0 z-[1]">
+        <ParticleField className="absolute inset-0 h-full w-full" />
+      </div>
 
       <div className="relative z-10 mx-auto max-w-wrap px-[clamp(20px,5vw,56px)]">
-        {/* Main Grid: Copy on Left, Connected Ecosystem on Right */}
-        <div className="grid grid-cols-1 items-center gap-[48px] lg:grid-cols-[1.1fr_0.9fr] lg:gap-[clamp(36px,5vw,72px)]">
-          {/* Left Copy */}
+        {/* ---------- Copy ---------- */}
+        <motion.div
+          style={reduced ? undefined : { x: copyX, y: copyY }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+          }}
+          className="mx-auto max-w-[920px] text-center"
+        >
+          {/* eyebrow */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            variants={reveal}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-white/[0.03] px-4 py-1.5 backdrop-blur-md"
           >
-            {/* Tagline */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3.5 py-1.5 mb-6 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-              </span>
-              <span className="font-mono text-[0.68rem] font-bold uppercase tracking-wider text-white/80">
-                The Operating System for Modern Universities
-              </span>
-            </div>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-400" />
+            </span>
+            <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white/80">
+              The Operating System for Modern Universities
+            </span>
+          </motion.div>
 
-            {/* Headline */}
-            <h1 className="font-sans text-[clamp(2.4rem,5vw,4.3rem)] font-black leading-[1.06] tracking-tight text-white mb-6">
-              The Operating System
-              <br />
-              Powering the{" "}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Next Generation
-              </span>
-              <br />
-              of Universities
-            </h1>
+          {/* headline */}
+          <motion.h1
+            variants={reveal}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans text-[clamp(2.5rem,6.2vw,5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-white"
+          >
+            <span className="block">The Operating System</span>
+            <span className="block">Powering the</span>
+            <span className="block bg-gradient-to-r from-indigo-300 via-violet-300 to-cyan-300 bg-clip-text pb-[0.08em] text-transparent">
+              Next Generation
+            </span>
+            <span className="block">of Universities</span>
+          </motion.h1>
 
-            {/* Subheadline */}
-            <p className="text-white/60 text-base sm:text-[1.12rem] font-medium leading-relaxed mb-8 max-w-xl">
-              CampOS unifies student identity, attendance, credentials, and campus operations into a single intelligent platform built for the future of higher education.
-            </p>
+          {/* subheadline */}
+          <motion.p
+            variants={reveal}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-7 max-w-[640px] text-[clamp(1.02rem,1.5vw,1.2rem)] font-medium leading-relaxed text-white/60"
+          >
+            CampOS unifies student identity, attendance, credentials, and campus operations
+            into a single intelligent platform built for the future of higher education.
+          </motion.p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
-              <button
-                onClick={openModal}
-                className="btn w-full sm:w-auto bg-white text-black hover:bg-white/90 font-semibold px-8 py-4 rounded-full transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_24px_rgba(255,255,255,0.2)]"
-              >
-                Book a Demo
-                <svg
-                  className="h-4 w-4 transform transition-transform group-hover:translate-x-1"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <button
-                onClick={openModal}
-                className="btn w-full sm:w-auto bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                Watch Platform Tour
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="text-white/80"
-                >
+          {/* CTAs */}
+          <motion.div
+            variants={reveal}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <MagneticButton
+              onClick={openModal}
+              className="group relative w-full overflow-hidden rounded-full bg-white px-8 py-4 text-[0.96rem] font-semibold text-[#030712] shadow-[0_0_30px_rgba(255,255,255,0.18)] transition-shadow duration-300 hover:shadow-[0_0_44px_rgba(165,180,252,0.4)] sm:w-auto"
+            >
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="relative">Book a Demo</span>
+              <svg className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </MagneticButton>
+
+            <MagneticButton
+              onClick={openModal}
+              strength={0.25}
+              className="group w-full rounded-full border border-white/15 bg-white/[0.04] px-8 py-4 text-[0.96rem] font-semibold text-white backdrop-blur-md transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.08] sm:w-auto"
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-              </button>
-            </div>
-
-            {/* Brand Positioning indicators */}
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/[0.04] pt-6 font-mono text-[0.68rem] tracking-wider text-slate-500">
-              <div className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                <span>IDENTITY LAYER</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
-                <span>INFRASTRUCTURE LAYER</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-pink-500" />
-                <span>TRUST LAYER</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
-                <span>INTELLIGENCE LAYER</span>
-              </div>
-            </div>
+              </span>
+              Watch Platform Tour
+            </MagneticButton>
           </motion.div>
 
-          {/* Right Visual Floating Ecosystem */}
+          {/* layer pills */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="w-full relative"
+            variants={reveal}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-slate-500"
           >
-            <FloatingEcosystem />
+            {[
+              ["IDENTITY LAYER", "bg-indigo-400"],
+              ["INFRASTRUCTURE LAYER", "bg-violet-400"],
+              ["TRUST LAYER", "bg-emerald-400"],
+              ["INTELLIGENCE LAYER", "bg-cyan-400"],
+            ].map(([label, dot]) => (
+              <span key={label} className="flex items-center gap-1.5">
+                <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
+                {label}
+              </span>
+            ))}
           </motion.div>
+        </motion.div>
+
+        {/* ---------- Hero visual ---------- */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          className="relative mt-[clamp(32px,5vw,64px)]"
+        >
+          <FloatingEcosystem mouseX={mouseX} mouseY={mouseY} />
+        </motion.div>
+
+        {/* ---------- Trust bar ---------- */}
+        <div className="mx-auto mt-[clamp(24px,4vw,48px)] grid max-w-4xl grid-cols-2 gap-x-4 gap-y-8 border-t border-white/[0.06] pt-10 md:grid-cols-4">
+          {METRICS.map((m) => (
+            <div key={m.label} className="flex flex-col items-center gap-1 text-center">
+              <CountUp
+                to={m.to}
+                decimals={m.decimals}
+                suffix={m.suffix}
+                className={`font-sans text-[clamp(1.9rem,3.2vw,2.6rem)] font-bold leading-none tracking-tight ${
+                  m.gradient
+                    ? "bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-transparent"
+                    : "text-white"
+                }`}
+              />
+              <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                {m.label}
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Divider line before Metrics */}
-        <div className="my-16 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-        {/* 3. Trust Bar Metrics */}
-        <div className="grid grid-cols-2 gap-y-8 gap-x-4 md:grid-cols-4">
-          <div className="flex flex-col gap-1 text-center md:text-left">
-            <span className="font-sans text-[2.2rem] sm:text-[2.6rem] font-bold text-white tracking-tight leading-none">
-              50+
-            </span>
-            <span className="font-mono text-[0.68rem] uppercase tracking-widest text-slate-500 font-bold">
-              Universities Onboarded
-            </span>
-          </div>
-          <div className="flex flex-col gap-1 text-center md:text-left">
-            <span className="font-sans text-[2.2rem] sm:text-[2.6rem] font-bold text-white tracking-tight leading-none">
-              250,000+
-            </span>
-            <span className="font-mono text-[0.68rem] uppercase tracking-widest text-slate-500 font-bold">
-              Students Verified
-            </span>
-          </div>
-          <div className="flex flex-col gap-1 text-center md:text-left">
-            <span className="font-sans text-[2.2rem] sm:text-[2.6rem] font-bold text-white tracking-tight leading-none">
-              1M+
-            </span>
-            <span className="font-mono text-[0.68rem] uppercase tracking-widest text-slate-500 font-bold">
-              Credentials Secured
-            </span>
-          </div>
-          <div className="flex flex-col gap-1 text-center md:text-left">
-            <span className="font-sans text-[2.2rem] sm:text-[2.6rem] font-bold text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text tracking-tight leading-none">
-              99.99%
-            </span>
-            <span className="font-mono text-[0.68rem] uppercase tracking-widest text-slate-500 font-bold">
-              Platform Reliability
-            </span>
-          </div>
-        </div>
-
-        {/* 4. Social Proof Section */}
-        <div className="mt-16 border-t border-white/[0.04] pt-10 text-center">
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-slate-500 font-semibold mb-8">
+        {/* ---------- Social proof ---------- */}
+        <div className="mt-[clamp(40px,6vw,72px)] text-center">
+          <p className="mb-8 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-slate-500">
             Trusted by forward-thinking universities across Africa
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:gap-x-16">
-            <UnilagLogo />
-            <AshesiLogo />
-            <MakerereLogo />
-            <CapeTownLogo />
-            <NairobiLogo />
+            {UNIS.map((u) => (
+              <div
+                key={u.name}
+                className="flex items-center gap-2 text-white/30 transition-colors duration-300 hover:text-white/70"
+              >
+                {u.icon}
+                <span className="font-mono text-[0.72rem] font-bold uppercase tracking-[0.16em]">
+                  {u.name}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
