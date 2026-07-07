@@ -26,8 +26,21 @@ const splineMono = Spline_Sans_Mono({
 
 export const metadata: Metadata = {
   title: "CampOS",
+  applicationName: "CampOS",
   description:
     "CampOS unifies attendance, housing, records, and identity into one verified ecosystem. One student login opens every door on campus — and nothing along the way can be forged.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "CampOS",
+    statusBarStyle: "black-translucent",
+  },
+  other: {
+    // Next only emits the modern `mobile-web-app-capable`; older iOS (< 15.4)
+    // still needs the Apple-prefixed tag to launch full-screen from the home screen.
+    "apple-mobile-web-app-capable": "yes",
+  },
+  // Favicon + apple-touch-icon come from app/icon.png and app/apple-icon.png.
   openGraph: {
     title: "CampOS",
     description:
@@ -37,7 +50,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBF9F5",
+  // Matches the dark hero the app opens on, so the mobile browser bar and the
+  // installed-app status bar blend into the page.
+  themeColor: "#030712",
   width: "device-width",
   initialScale: 1,
 };
@@ -45,6 +60,7 @@ export const viewport: Viewport = {
 import { ModalProvider } from "@/context/ModalContext";
 import { BookingModal } from "@/components/BookingModal";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 export default function RootLayout({
   children,
@@ -58,6 +74,7 @@ export default function RootLayout({
     >
       <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
         <SmoothScroll />
+        <ServiceWorkerRegister />
         <ModalProvider>
           <MotionProvider>{children}</MotionProvider>
           <BookingModal />
