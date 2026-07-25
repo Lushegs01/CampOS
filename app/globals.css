@@ -205,6 +205,82 @@
   }
 }
 
+/* Entry reveal for the hero copy.
+   This was a Framer Motion variant stagger, which meant the headline sat at
+   opacity 0 until the JS bundle had downloaded, parsed and hydrated — on a
+   throttled phone the largest text on the page did not appear for close to two
+   seconds. As a CSS animation it plays from first paint, with no JS involved. */
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-reveal {
+  animation: hero-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Cinematic grain. A 64px texture tiled by the compositor — the previous
+   feTurbulence filter had to be regenerated across the whole viewport whenever
+   the layer was invalidated. `contain` keeps it off the layout/paint path for
+   everything underneath. */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("/noise.png");
+  background-repeat: repeat;
+  background-size: 64px 64px;
+  contain: strict;
+}
+
+/* Coarse pointers are phones and tablets: no cursor to react to, and the GPUs
+   least able to afford backdrop-filter. `.glass*` keeps its look via a more
+   opaque background instead of sampling what is behind it. */
+@media (hover: none), (pointer: coarse) {
+  .glass,
+  .glass-light,
+  .glass-dark {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .glass-light {
+    background: rgba(255, 255, 255, 0.92);
+  }
+  .glass-dark {
+    background: rgba(11, 15, 25, 0.92);
+  }
+
+  /* Same reasoning for the inline Tailwind utilities. Every one of these sits
+     on an already-tinted surface, so dropping the backdrop sample costs almost
+     nothing visually and removes a full-layer readback per element per frame.
+     Listed class by class rather than as [class*="backdrop-blur"]: a substring
+     match on the rightmost selector has to be tested against every element in
+     the document on each style recalc, which measurably slowed recalc on the
+     very devices this block exists to help. Keep in sync with the utilities
+     actually used in components/. */
+  .backdrop-blur,
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-\[2px\] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -212,5 +288,9 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .noise-overlay {
+    display: none;
   }
 }

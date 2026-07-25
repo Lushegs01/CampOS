@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useModal } from "@/context/ModalContext";
 
 export function BookingModal() {
@@ -58,7 +58,7 @@ export function BookingModal() {
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
           {/* Backdrop */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -67,7 +67,7 @@ export function BookingModal() {
           />
 
           {/* Modal Container */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -92,7 +92,7 @@ export function BookingModal() {
               </p>
 
               {status === "success" ? (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center py-8 text-center"
@@ -104,7 +104,7 @@ export function BookingModal() {
                   </div>
                   <h4 className="display-sm text-[1.4rem]">Request Sent</h4>
                   <p className="text-ink-soft">We'll contact you shortly.</p>
-                </motion.div>
+                </m.div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div>
@@ -161,7 +161,7 @@ export function BookingModal() {
                 </form>
               )}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

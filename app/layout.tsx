@@ -3,24 +3,27 @@ import { Fraunces, Hanken_Grotesk, Spline_Sans_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
+// All three are variable fonts, so omitting `weight` ships one file spanning the
+// whole axis instead of a static instance per weight. The italic axis of
+// Fraunces is not requested — `.serif-em` is the only italic style in the sheet
+// and nothing uses it.
 const fraunces = Fraunces({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
   variable: "--font-fraunces",
 });
 
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   variable: "--font-hanken",
 });
 
+// Only ever used for small uppercase labels, so it can wait for first paint.
 const splineMono = Spline_Sans_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
+  preload: false,
   variable: "--font-spline-mono",
 });
 
@@ -68,9 +71,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // No `scroll-smooth` on <html>: it fights Lenis for control of programmatic
+    // scrolling, which is what made anchor jumps stutter.
     <html
       lang="en"
-      className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable} scroll-smooth`}
+      className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable}`}
     >
       <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
         <SmoothScroll />
@@ -79,14 +84,13 @@ export default function RootLayout({
           <MotionProvider>{children}</MotionProvider>
           <BookingModal />
         </ModalProvider>
-        
-        {/* Fine grain noise overlay for premium cinematic texture */}
-        <svg className="pointer-events-none fixed inset-0 z-[200] h-full w-full opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">
-          <filter id="noiseFilter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-        </svg>
+
+        {/* Fine grain noise overlay for premium cinematic texture. A pre-baked
+            tiling texture rather than an feTurbulence filter: the filter had to
+            be procedurally rasterised across the full viewport on every resize
+            and zoom, which alone cost more than the rest of the page combined
+            on mid-range phones. */}
+        <div className="noise-overlay" aria-hidden />
       </body>
     </html>
   );

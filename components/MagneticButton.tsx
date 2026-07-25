@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { m, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -45,6 +45,9 @@ export function MagneticButton({
   const siy = useSpring(iy, spring);
 
   const handleMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    // There is no cursor to be magnetic toward on touch — this only fired when
+    // a finger was already pressing the button.
+    if (e.pointerType !== "mouse") return;
     if (reduced || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const relX = e.clientX - (rect.left + rect.width / 2);
@@ -63,7 +66,7 @@ export function MagneticButton({
   };
 
   return (
-    <motion.button
+    <m.button
       ref={ref}
       type={type}
       onClick={onClick}
@@ -74,12 +77,12 @@ export function MagneticButton({
       aria-label={ariaLabel}
       className={className}
     >
-      <motion.span
+      <m.span
         style={{ x: six, y: siy }}
         className="inline-flex items-center justify-center gap-2"
       >
         {children}
-      </motion.span>
-    </motion.button>
+      </m.span>
+    </m.button>
   );
 }

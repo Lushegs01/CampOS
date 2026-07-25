@@ -4,7 +4,7 @@ export function Logo({ className = "", hideText = false }: { className?: string;
       className={`flex items-center gap-2 font-sans font-bold text-[1.25rem] text-white tracking-tight leading-none ${className}`}
     >
       <img
-        src="/logo.png"
+        src="/logo.webp"
         alt="CampOS Logo"
         className="h-8 w-8 object-contain flex-none"
       />

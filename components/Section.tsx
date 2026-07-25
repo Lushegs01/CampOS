@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp, viewport } from "@/lib/motion";
 
 interface SectionHeadingProps {
@@ -26,7 +26,7 @@ export function SectionHeading({
         : "";
 
   return (
-    <motion.div
+    <m.div
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
@@ -37,6 +37,6 @@ export function SectionHeading({
       <h2 className={`display mt-[1.2rem] text-[clamp(2rem,4.4vw,3.5rem)] ${titleClassName}`}>
         {title}
       </h2>
-    </motion.div>
+    </m.div>
   );
 }

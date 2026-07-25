@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useTransform,
@@ -38,48 +39,39 @@ export function AuroraBackground({ mouseX, mouseY }: AuroraBackgroundProps) {
   const b3x = useTransform(px, (v) => v * 26);
   const b3y = useTransform(py, (v) => v * -32);
 
-  const slowDrift = reduced
-    ? {}
-    : {
-        animate: {
-          x: [0, 40, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.12, 0.96, 1],
-        },
-        transition: { duration: 26, repeat: Infinity, ease: "easeInOut" as const },
-      };
-  const slowDrift2 = reduced
-    ? {}
-    : {
-        animate: {
-          x: [0, -50, 30, 0],
-          y: [0, 26, -24, 0],
-          scale: [1, 0.94, 1.1, 1],
-        },
-        transition: { duration: 32, repeat: Infinity, ease: "easeInOut" as const },
-      };
-  const slowDrift3 = reduced
-    ? {}
-    : {
-        animate: {
-          x: [0, 36, -28, 0],
-          y: [0, -22, 30, 0],
-          scale: [1, 1.08, 0.92, 1],
-        },
-        transition: { duration: 38, repeat: Infinity, ease: "easeInOut" as const },
-      };
+  // The blobs deliberately drift on x/y only. Animating `scale` as well meant
+  // the browser could not reuse the cached raster of a 640px element carrying a
+  // 60px blur — it had to re-run the blur every frame, three times over, for the
+  // entire time the hero was on screen. Translation alone moves an already
+  // rasterised layer on the compositor and costs effectively nothing.
+  const drift = (duration: number, x: number[], y: number[]) =>
+    reduced
+      ? {}
+      : {
+          animate: { x, y },
+          transition: { duration, repeat: Infinity, ease: "easeInOut" as const },
+        };
+
+  const slowDrift = drift(26, [0, 40, -20, 0], [0, -30, 20, 0]);
+  const slowDrift2 = drift(32, [0, -50, 30, 0], [0, 26, -24, 0]);
+  const slowDrift3 = drift(38, [0, 36, -28, 0], [0, -22, 30, 0]);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Campus photo base — tinted cool and scrimmed for legibility, fading
           into the deep base so the product ecosystem sits on a clean canvas. */}
       <div className="absolute inset-x-0 top-0 h-[clamp(640px,90vh,1060px)]">
-        <img
+        {/* `priority` because this is the LCP element; `sizes="100vw"` lets a
+            phone fetch a ~640px variant instead of the full 1920px master. */}
+        <Image
           src="/hero-campus.webp"
           alt=""
           aria-hidden
-          fetchPriority="high"
-          className="h-full w-full object-cover object-[center_30%] brightness-[0.6] saturate-[0.8] contrast-[1.05]"
+          fill
+          priority
+          sizes="100vw"
+          quality={70}
+          className="object-cover object-[center_30%] brightness-[0.6] saturate-[0.8] contrast-[1.05]"
         />
         {/* overall darken */}
         <div className="absolute inset-0 bg-[#030712]/45" />
@@ -91,25 +83,29 @@ export function AuroraBackground({ mouseX, mouseY }: AuroraBackgroundProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/75 via-transparent to-[#030712]" />
       </div>
 
-      {/* Flowing aurora blobs */}
-      <motion.div style={{ x: b1x, y: b1y }} className="absolute -left-[12%] -top-[14%] h-[640px] w-[640px]">
-        <motion.div
+      {/* Flowing aurora blobs. Each is roughly half-size with a smaller blur
+          below `sm`, where a phone would otherwise hold three ~640px blurred
+          layers in GPU memory for a hero most of which is off-screen anyway. */}
+      <m.div style={{ x: b1x, y: b1y }} className="absolute -left-[12%] -top-[14%] h-[340px] w-[340px] sm:h-[640px] sm:w-[640px]">
+        <m.div
           {...slowDrift}
-          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.30)_0%,transparent_68%)] blur-[60px]"
+          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.30)_0%,transparent_68%)] blur-[36px] sm:blur-[60px]"
         />
-      </motion.div>
-      <motion.div style={{ x: b2x, y: b2y }} className="absolute -right-[14%] top-[2%] h-[600px] w-[600px]">
-        <motion.div
+      </m.div>
+      <m.div style={{ x: b2x, y: b2y }} className="absolute -right-[14%] top-[2%] h-[320px] w-[320px] sm:h-[600px] sm:w-[600px]">
+        <m.div
           {...slowDrift2}
-          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.20)_0%,transparent_68%)] blur-[60px]"
+          className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.20)_0%,transparent_68%)] blur-[36px] sm:blur-[60px]"
         />
-      </motion.div>
-      <motion.div style={{ x: b3x, y: b3y }} className="absolute bottom-[-22%] left-[24%] h-[720px] w-[720px]">
-        <motion.div
+      </m.div>
+      {/* Third blob is pure depth-building and sits mostly below the fold on a
+          phone, so it only mounts once there is room for it. */}
+      <m.div style={{ x: b3x, y: b3y }} className="absolute bottom-[-22%] left-[24%] hidden h-[720px] w-[720px] sm:block">
+        <m.div
           {...slowDrift3}
           className="h-full w-full rounded-full bg-[radial-gradient(circle,rgba(5,150,105,0.16)_0%,transparent_70%)] blur-[70px]"
         />
-      </motion.div>
+      </m.div>
 
       {/* Technical grid, faded toward the edges */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_55%,transparent_100%)]" />

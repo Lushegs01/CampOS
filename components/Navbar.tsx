@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { useModal } from "@/context/ModalContext";
 import { MagneticButton } from "./MagneticButton";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const { openModal } = useModal();
@@ -19,7 +19,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <motion.header
+    <m.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -118,7 +118,7 @@ export function Navbar() {
       {/* mobile drawer */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -194,9 +194,9 @@ export function Navbar() {
                 </button>
               </li>
             </ul>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 }

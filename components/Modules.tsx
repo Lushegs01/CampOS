@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { container, fadeUp, viewport } from "@/lib/motion";
 import { SectionHeading } from "./Section";
 
@@ -155,19 +155,19 @@ export function Modules() {
           className="mb-[clamp(34px,4vw,58px)]"
         />
 
-        <motion.div
+        <m.div
           variants={container(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
           className="grid grid-cols-1 gap-[clamp(16px,1.6vw,22px)] md:grid-cols-2"
         >
-          {MODULES.map((m) => (
-            <motion.article
-              key={m.name}
+          {MODULES.map((mod) => (
+            <m.article
+              key={mod.name}
               variants={fadeUp}
               className={`relative overflow-hidden group flex min-h-[340px] flex-col rounded-card border p-[clamp(24px,2.6vw,34px)] transition-all duration-500 hover:-translate-y-2 ${
-                m.dark
+                mod.dark
                   ? "border-obsidian-soft bg-obsidian text-paper hover:glow-primary hover:border-primary/50"
                   : "border-line bg-paper hover:border-primary/30 hover:shadow-premium"
               }`}
@@ -177,36 +177,36 @@ export function Modules() {
               
               <div
                 className={`relative z-10 mb-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] ${
-                  m.dark ? "text-primary" : "text-primary-deep"
+                  mod.dark ? "text-primary" : "text-primary-deep"
                 }`}
               >
-                {m.cat}
+                {mod.cat}
               </div>
-              <div className={`relative z-10 mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${m.dark ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]" : "text-primary-deep drop-shadow-[0_0_8px_rgba(4,120,87,0.4)]"}`}>
-                {m.icon}
+              <div className={`relative z-10 mb-[1.2rem] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 ${mod.dark ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]" : "text-primary-deep drop-shadow-[0_0_8px_rgba(4,120,87,0.4)]"}`}>
+                {mod.icon}
               </div>
-              <h3 className={`relative z-10 display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${m.dark ? "!text-paper" : ""}`}>
-                {m.name}
+              <h3 className={`relative z-10 display-sm mb-[0.7rem] text-[clamp(1.4rem,2.4vw,1.9rem)] ${mod.dark ? "!text-paper" : ""}`}>
+                {mod.name}
               </h3>
               <p
                 className={`relative z-10 mb-[1.3rem] text-[0.96rem] ${
-                  m.dark ? "text-paper/70" : "text-ink-soft"
+                  mod.dark ? "text-paper/70" : "text-ink-soft"
                 }`}
               >
-                {m.body}
+                {mod.body}
               </p>
               <div
                 className={`relative z-10 mt-auto flex items-center gap-[0.5em] border-t pt-[1.1rem] font-mono text-[0.72rem] tracking-[0.04em] ${
-                  m.dark
+                  mod.dark
                     ? "border-white/15 text-accent-light"
                     : "border-line-soft text-slate"
                 }`}
               >
-                {m.gate}
+                {mod.gate}
               </div>
-            </motion.article>
+            </m.article>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
