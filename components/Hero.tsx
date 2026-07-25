@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useTransform,
@@ -92,15 +92,14 @@ export function Hero() {
   const copyY = useTransform(copySpringY, (v) => v * -8);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    // Touch and pen also fire pointermove, so on a phone every scroll drag was
+    // driving the hero's parallax springs — six-plus transforms recomputed per
+    // frame during the exact gesture that most needs the headroom.
+    if (e.pointerType !== "mouse") return;
     if (reduced || !sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
     mouseX.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
     mouseY.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
-  };
-
-  const reveal = {
-    hidden: { opacity: 0, y: 26, filter: "blur(8px)" },
-    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
   };
 
   return (
@@ -117,21 +116,14 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto max-w-wrap px-[clamp(20px,5vw,56px)]">
         {/* ---------- Copy ---------- */}
-        <motion.div
+        <m.div
           style={reduced ? undefined : { x: copyX, y: copyY }}
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-          }}
           className="mx-auto max-w-[920px] text-center"
         >
           {/* eyebrow */}
-          <motion.div
-            variants={reveal}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-white/[0.03] px-4 py-1.5 backdrop-blur-md"
+          <div
+            style={{ "--reveal-delay": "100ms" } as React.CSSProperties}
+            className="hero-reveal mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-white/[0.03] px-4 py-1.5 backdrop-blur-md"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -140,13 +132,12 @@ export function Hero() {
             <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white/80">
               The Operating System for Modern Universities
             </span>
-          </motion.div>
+          </div>
 
           {/* headline */}
-          <motion.h1
-            variants={reveal}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-            className="font-sans text-[clamp(2.5rem,6.2vw,5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-white"
+          <h1
+            style={{ "--reveal-delay": "220ms" } as React.CSSProperties}
+            className="hero-reveal font-sans text-[clamp(2.5rem,6.2vw,5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-white"
           >
             <span className="block">The Operating System</span>
             <span className="block">Powering the</span>
@@ -154,23 +145,21 @@ export function Hero() {
               Next Generation
             </span>
             <span className="block">of Universities</span>
-          </motion.h1>
+          </h1>
 
           {/* subheadline */}
-          <motion.p
-            variants={reveal}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto mt-7 max-w-[640px] text-[clamp(1.02rem,1.5vw,1.2rem)] font-medium leading-relaxed text-white/75 [text-shadow:0_1px_18px_rgba(3,7,18,0.7)]"
+          <p
+            style={{ "--reveal-delay": "340ms" } as React.CSSProperties}
+            className="hero-reveal mx-auto mt-7 max-w-[640px] text-[clamp(1.02rem,1.5vw,1.2rem)] font-medium leading-relaxed text-white/75 [text-shadow:0_1px_18px_rgba(3,7,18,0.7)]"
           >
             CampOS unifies student identity, attendance, credentials, and campus operations
             into a single intelligent platform built for the future of higher education.
-          </motion.p>
+          </p>
 
           {/* CTAs */}
-          <motion.div
-            variants={reveal}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          <div
+            style={{ "--reveal-delay": "460ms" } as React.CSSProperties}
+            className="hero-reveal mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <MagneticButton
               onClick={openModal}
@@ -195,13 +184,12 @@ export function Hero() {
               </span>
               Watch Platform Tour
             </MagneticButton>
-          </motion.div>
+          </div>
 
           {/* layer pills */}
-          <motion.div
-            variants={reveal}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-white/60"
+          <div
+            style={{ "--reveal-delay": "580ms" } as React.CSSProperties}
+            className="hero-reveal mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono text-[0.66rem] tracking-[0.12em] text-white/60"
           >
             {[
               ["IDENTITY LAYER", "bg-emerald-400"],
@@ -214,18 +202,18 @@ export function Hero() {
                 {label}
               </span>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </m.div>
 
         {/* ---------- Hero visual ---------- */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
           className="relative mt-[clamp(32px,5vw,64px)]"
         >
           <FloatingEcosystem mouseX={mouseX} mouseY={mouseY} />
-        </motion.div>
+        </m.div>
 
         {/* ---------- Trust bar ---------- */}
         <div className="mx-auto mt-[clamp(24px,4vw,48px)] grid max-w-4xl grid-cols-2 gap-x-4 gap-y-8 border-t border-white/[0.06] pt-10 md:grid-cols-4">

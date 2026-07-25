@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp, container, viewport } from "@/lib/motion";
 import { SectionHeading } from "./Section";
 
@@ -60,7 +60,7 @@ export function QuestionsWall() {
           }
         />
 
-        <motion.div
+        <m.div
           variants={container(0.06)}
           initial="hidden"
           whileInView="visible"
@@ -68,7 +68,7 @@ export function QuestionsWall() {
           className="columns-1 md:columns-2 lg:columns-3 gap-[clamp(16px,1.6vw,22px)]"
         >
           {QUESTIONS.map((item, i) => (
-            <motion.article
+            <m.article
               key={i}
               variants={fadeUp}
               className={`mb-[clamp(16px,1.6vw,22px)] break-inside-avoid rounded-[14px] border border-line p-[22px_22px_18px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-30px_rgba(24,36,30,.5)] ${
@@ -87,9 +87,9 @@ export function QuestionsWall() {
                 <b className="font-body font-semibold text-ink">{item.by}</b> ·{" "}
                 {item.role}
               </p>
-            </motion.article>
+            </m.article>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

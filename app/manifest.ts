@@ -46,14 +46,14 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     screenshots: [
       {
-        src: "/app-mockup.png",
+        src: "/app-mockup.webp",
         sizes: "456x1024",
-        type: "image/png",
+        type: "image/webp",
         form_factor: "narrow",
       },
       {
         src: "/hero-campus.webp",
-        sizes: "2400x1600",
+        sizes: "1920x1280",
         type: "image/webp",
         form_factor: "wide",
       },

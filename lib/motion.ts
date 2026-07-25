@@ -1,11 +1,14 @@
 export const ease = [0.2, 0.8, 0.2, 1];
 
+// Deliberately opacity + transform only. These two are the properties Chrome
+// can hand to the compositor; interpolating `filter: blur()` instead forces the
+// element to be re-rasterised at a new blur radius on every frame, and this
+// variant drives the reveal of every section heading and card on the page.
 export const fadeUp = {
-  hidden: { opacity: 0, y: 22, filter: "blur(10px)" },
+  hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.8, ease },
   },
 };

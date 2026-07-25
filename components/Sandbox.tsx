@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, useInView } from "framer-motion";
 import { SectionHeading } from "./Section";
 
 type ModuleType = "scanmark" | "funaabnb" | "nada" | "verity";
@@ -50,7 +50,7 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
   return (
     <div className="w-full flex flex-col items-center justify-center text-center h-full">
       {progress < 25 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -79,19 +79,20 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
             </div>
             
             {/* Laser scanning line */}
-            <motion.div
-              className="absolute left-0 right-0 h-[1.5px] bg-emerald-400 shadow-[0_0_8px_#10b981]"
-              animate={{ top: ["4px", "76px", "4px"] }}
+            {/* `y` rather than `top`: this ran a layout pass per frame. */}
+            <m.div
+              className="absolute left-0 right-0 top-0 h-[1.5px] bg-emerald-400 shadow-[0_0_8px_#10b981]"
+              animate={{ y: [4, 76, 4] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
             />
           </div>
           <span className="font-mono text-[0.55rem] text-white/80 font-bold uppercase tracking-wider">Scanning QR Code</span>
           <p className="mt-1 text-[0.48rem] text-white/40">Searching for class beacon...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 25 && progress < 50 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -107,11 +108,11 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Verifying Proximity</span>
           <p className="mt-1 text-[0.48rem] text-white/40">Matching device MAC & Bluetooth...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 50 && progress < 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -126,11 +127,11 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Validating Ticket</span>
           <p className="mt-1 text-[0.48rem] text-white/40">Matching registrar timetable...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -143,7 +144,7 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.58rem] text-emerald-300 font-bold uppercase tracking-wider">Attendance Sealed</span>
           <p className="mt-1 text-[0.48rem] text-white/50 px-2">Register updated. Permanent block created.</p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
@@ -153,7 +154,7 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
   return (
     <div className="w-full flex flex-col items-center justify-center text-center h-full">
       {progress < 25 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -170,11 +171,11 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
             <p className="text-[0.48rem] text-white/40 mt-0.5">Owner: Lanre Davies (ID Verified)</p>
           </div>
           <span className="font-mono text-[0.55rem] text-white/70 font-bold uppercase tracking-wider">Selecting Listing</span>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 25 && progress < 50 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -184,7 +185,7 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
             <span className="block font-mono text-[0.45rem] text-emerald-400/60 uppercase mb-1">Contract Signature</span>
             <div className="h-10 border border-dashed border-white/10 rounded flex items-center justify-center relative overflow-hidden bg-black/30">
               <svg className="w-full h-full absolute inset-0 p-1" viewBox="0 0 100 30">
-                <motion.path
+                <m.path
                   d="M10 20 Q 20 10 30 20 T 50 15 T 70 25"
                   fill="none"
                   stroke="#10b981"
@@ -199,11 +200,11 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Signing Smart Lease</span>
           <p className="mt-0.5 text-[0.48rem] text-white/40">Binding tenant key to escrow...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 50 && progress < 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -218,11 +219,11 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Anchoring Escrow</span>
           <p className="mt-0.5 text-[0.48rem] text-white/40">Locking deposit into smart escrow...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -236,7 +237,7 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.58rem] text-green-300 font-bold uppercase tracking-wider">Lease Secured</span>
           <p className="mt-1 text-[0.48rem] text-white/50 px-2">Agreement sealed. Access tokens released.</p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
@@ -258,7 +259,7 @@ function NadaSimulation({ progress }: { progress: number }) {
   return (
     <div className="w-full flex flex-col items-center justify-center text-center h-full">
       {progress < 25 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -272,23 +273,23 @@ function NadaSimulation({ progress }: { progress: number }) {
             </div>
           </div>
           <span className="font-mono text-[0.55rem] text-yellow-400 font-bold uppercase tracking-wider">Typing Message</span>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 25 && progress < 50 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           className="flex flex-col items-center"
         >
           <div className="h-16 w-16 relative flex items-center justify-center mb-2.5">
-            <motion.div
+            <m.div
               className="absolute inset-0 rounded-full border border-dashed border-yellow-500/40"
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
             />
-            <motion.div
+            <m.div
               className="absolute h-10 w-10 rounded-full border border-yellow-500/60"
               animate={{ rotate: -360 }}
               transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
@@ -299,11 +300,11 @@ function NadaSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-yellow-400 font-bold uppercase tracking-wider">Computing ZK-Proof</span>
           <p className="mt-0.5 text-[0.48rem] text-white/40">Signing anonymously with student root...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 50 && progress < 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -315,11 +316,11 @@ function NadaSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-yellow-400 font-bold uppercase tracking-wider">ZK-Proof Verified</span>
           <p className="mt-0.5 text-[0.48rem] text-white/40">Zero student identity traces exposed...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -334,7 +335,7 @@ function NadaSimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.58rem] text-yellow-400 font-bold uppercase tracking-wider">Post Published</span>
           <p className="mt-0.5 text-[0.48rem] text-white/50">Post added with cryptographic seal.</p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
@@ -344,7 +345,7 @@ function VeritySimulation({ progress }: { progress: number }) {
   return (
     <div className="w-full flex flex-col items-center justify-center text-center h-full">
       {progress < 25 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -361,11 +362,11 @@ function VeritySimulation({ progress }: { progress: number }) {
             </div>
           </div>
           <span className="font-mono text-[0.55rem] text-white/70 font-bold uppercase tracking-wider">Uploading Certificate</span>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 25 && progress < 50 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -381,11 +382,11 @@ function VeritySimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Verifying Signature</span>
           <p className="mt-0.5 text-[0.48rem] text-white/40">Matching registrar digital key...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 50 && progress < 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -400,11 +401,11 @@ function VeritySimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Validating Registrar</span>
           <p className="mt-0.5 text-[0.48rem] text-white/40">Matching registry credentials...</p>
-        </motion.div>
+        </m.div>
       )}
 
       {progress >= 75 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -422,7 +423,7 @@ function VeritySimulation({ progress }: { progress: number }) {
           </div>
           <span className="font-mono text-[0.58rem] text-emerald-300 font-bold uppercase tracking-wider">Credential Sealed</span>
           <p className="mt-0.5 text-[0.48rem] text-white/50">Diploma anchored on secure block.</p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
@@ -434,20 +435,32 @@ interface SimulatorVideoProps {
 }
 
 function SimulatorVideo({ type, status }: SimulatorVideoProps) {
-  const [videoError, setVideoError] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration] = useState(12); // 12 seconds loop
   const [isPlaying, setIsPlaying] = useState(true);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // `once: false` so the ticker suspends again when the section leaves.
+  const inView = useInView(rootRef, { once: false, amount: 0.2 });
+  const [tabVisible, setTabVisible] = useState(true);
 
-  // Reset video error and progress when type changes
   useEffect(() => {
-    setVideoError(false);
+    const onVisibility = () => setTabVisible(!document.hidden);
+    onVisibility();
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  // Reset progress when type changes
+  useEffect(() => {
     setProgress(0);
   }, [type]);
 
-  // Handle fake progress bar for CSS simulation
+  // Drives the walkthrough timeline. Gated on visibility: this re-renders the
+  // whole simulator subtree ten times a second, and it used to do so from first
+  // paint until the tab closed — including while the section was several
+  // screens away or the tab was in the background.
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || !inView || !tabVisible) return;
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) return 0;
@@ -455,14 +468,13 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
       });
     }, 100);
     return () => clearInterval(interval);
-  }, [isPlaying, duration]);
+  }, [isPlaying, duration, inView, tabVisible]);
 
   const currentSec = Math.floor((progress / 100) * duration);
   const timeString = `0:${String(currentSec).padStart(2, "0")} / 0:${String(duration).padStart(2, "0")}`;
-  const videoSrc = `/videos/${type}.mp4`;
 
   return (
-    <div className="relative w-full aspect-[9/13.5] rounded-2xl border border-white/10 bg-[#060b0c] overflow-hidden flex flex-col justify-between shadow-2xl">
+    <div ref={rootRef} className="relative w-full aspect-[9/13.5] rounded-2xl border border-white/10 bg-[#060b0c] overflow-hidden flex flex-col justify-between shadow-2xl">
       {/* Video top header / overlay */}
       <div className="absolute top-2 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
         <span className="font-mono text-[0.5rem] text-emerald-400 font-bold bg-[#08100d]/80 px-1.5 py-0.5 rounded border border-emerald-500/20 tracking-wider uppercase">
@@ -474,40 +486,33 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
         </span>
       </div>
 
-      {/* Main player content */}
+      {/* Main player content.
+          There was a <video src={`/videos/${type}.mp4`} autoPlay> ahead of this
+          block, with these simulations as its onError fallback. public/videos/
+          does not exist, so every tab switch fired a request that 404'd and then
+          fell through to here — the simulations are what has always actually
+          been on screen. Re-add the element alongside the real files if the
+          walkthrough captures ever land. */}
       <div className="flex-1 w-full relative flex items-center justify-center overflow-hidden">
-        {!videoError ? (
-          <video
-            src={videoSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            onError={() => setVideoError(true)}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          /* High fidelity animated video simulation fallbacks */
-          <div className="w-full h-full p-4 flex flex-col justify-center items-center relative bg-gradient-to-b from-[#08100d] to-[#040708]">
-            {/* Grid overlay for tech look */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
-            
-            <AnimatePresence mode="wait">
-              {type === "scanmark" && (
-                <ScanmarkSimulation progress={progress} key="scanmark-sim" />
-              )}
-              {type === "funaabnb" && (
-                <FunaaBnBSimulation progress={progress} key="funaabnb-sim" />
-              )}
-              {type === "nada" && (
-                <NadaSimulation progress={progress} key="nada-sim" />
-              )}
-              {type === "verity" && (
-                <VeritySimulation progress={progress} key="verity-sim" />
-              )}
-            </AnimatePresence>
-          </div>
-        )}
+        <div className="w-full h-full p-4 flex flex-col justify-center items-center relative bg-gradient-to-b from-[#08100d] to-[#040708]">
+          {/* Grid overlay for tech look */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+
+          <AnimatePresence mode="wait">
+            {type === "scanmark" && (
+              <ScanmarkSimulation progress={progress} key="scanmark-sim" />
+            )}
+            {type === "funaabnb" && (
+              <FunaaBnBSimulation progress={progress} key="funaabnb-sim" />
+            )}
+            {type === "nada" && (
+              <NadaSimulation progress={progress} key="nada-sim" />
+            )}
+            {type === "verity" && (
+              <VeritySimulation progress={progress} key="verity-sim" />
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Action overlay when status is loading or success */}
         {status !== "idle" && (
@@ -776,10 +781,10 @@ export function Sandbox() {
               <div className="flex-1 overflow-y-auto max-h-[360px] pr-1.5 flex flex-col gap-3.5 scrollbar-thin">
                 <AnimatePresence initial={false}>
                   {logs.map((log) => (
-                    <motion.div
+                    <m.div
                       key={log.id}
-                      initial={{ opacity: 0, y: -20, filter: "blur(6px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
                       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                       className={`rounded-2xl border p-4 flex flex-col sm:flex-row sm:items-start justify-between gap-3 ${log.accent}`}
@@ -810,7 +815,7 @@ export function Sandbox() {
                           VERIFIED
                         </span>
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </AnimatePresence>
               </div>

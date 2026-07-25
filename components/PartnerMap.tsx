@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "./Section";
 
 interface UniversityNode {
@@ -80,48 +80,78 @@ const PARTNERS: UniversityNode[] = [
   },
 ];
 
+/** Partner id -> the id of the state path it lights up in the map SVG. */
+const STATE_BY_PARTNER: Record<string, string> = {
+  unilag: "lagos",
+  funaab: "ogun",
+  abu: "kaduna",
+  unn: "enugu",
+  uniport: "rivers",
+};
+
 export function PartnerMap() {
   const [selectedNode, setSelectedNode] = useState<UniversityNode | null>(PARTNERS[0]);
   const [hoveredNode, setHoveredNode] = useState<UniversityNode | null>(null);
   const [svgText, setSvgText] = useState<string>("");
+  const sectionRef = useRef<HTMLElement>(null);
+  const highlighted = useRef<HTMLElement | null>(null);
 
   const activeNode = hoveredNode || selectedNode;
 
-  // Load the detailed states SVG on mount
+  // The states SVG is 66 KB and this section sits well below the fold, so the
+  // request waits until the section is within a screen of the viewport instead
+  // of competing with the hero on first load.
   useEffect(() => {
-    fetch("/nigeria-states.svg")
-      .then((res) => res.text())
-      .then((text) => setSvgText(text))
-      .catch((err) => console.error("Error loading Nigeria map states:", err));
+    const el = sectionRef.current;
+    if (!el) return;
+
+    let cancelled = false;
+    const load = () => {
+      fetch("/nigeria-states.svg")
+        .then((res) => res.text())
+        .then((text) => {
+          if (!cancelled) setSvgText(text);
+        })
+        .catch((err) => console.error("Error loading Nigeria map states:", err));
+    };
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        load();
+      },
+      { rootMargin: "100% 0px" },
+    );
+    io.observe(el);
+
+    return () => {
+      cancelled = true;
+      io.disconnect();
+    };
   }, []);
 
-  // Update map state fills dynamically based on activeNode selection
+  // Highlight the active state.
+  //
+  // This used to walk all 37 paths and rewrite three presentation attributes on
+  // each one every time the hover changed. It was also a no-op: a `fill`
+  // attribute loses to the `#network-map path` rule in the stylesheet below, so
+  // the highlight never appeared. A class the stylesheet knows about both works
+  // and touches at most two elements.
   useEffect(() => {
     if (!svgText) return;
 
-    // Reset all paths
-    const paths = document.querySelectorAll("#network-map path");
-    paths.forEach((p) => {
-      p.setAttribute("fill", "rgba(16, 185, 129, 0.03)");
-      p.setAttribute("stroke", "rgba(16, 185, 129, 0.12)");
-      p.setAttribute("stroke-width", "1.5");
-    });
+    highlighted.current?.classList.remove("is-active");
+    highlighted.current = null;
 
-    // Highlight the active state
-    if (activeNode) {
-      let activeStateId = "";
-      if (activeNode.id === "unilag") activeStateId = "lagos";
-      else if (activeNode.id === "funaab") activeStateId = "ogun";
-      else if (activeNode.id === "abu") activeStateId = "kaduna";
-      else if (activeNode.id === "unn") activeStateId = "enugu";
-      else if (activeNode.id === "uniport") activeStateId = "rivers";
+    if (!activeNode) return;
+    const stateId = STATE_BY_PARTNER[activeNode.id];
+    if (!stateId) return;
 
-      const activePath = document.getElementById(activeStateId);
-      if (activePath) {
-        activePath.setAttribute("fill", "rgba(16, 185, 129, 0.38)");
-        activePath.setAttribute("stroke", "rgba(16, 185, 129, 0.65)");
-        activePath.setAttribute("stroke-width", "2");
-      }
+    const path = document.getElementById(stateId);
+    if (path) {
+      path.classList.add("is-active");
+      highlighted.current = path;
     }
   }, [activeNode, svgText]);
 
@@ -170,7 +200,7 @@ export function PartnerMap() {
   };
 
   return (
-    <section id="network" className="py-[clamp(64px,9vw,118px)] bg-gradient-to-b from-[#08100d] to-[#030712] border-t border-white/[0.05] relative overflow-hidden">
+    <section ref={sectionRef} id="network" className="py-[clamp(64px,9vw,118px)] bg-gradient-to-b from-[#08100d] to-[#030712] border-t border-white/[0.05] relative overflow-hidden">
       {/* CSS Stylesheet specifically for the SVG interaction */}
       <style>{`
         #network-map svg {
@@ -197,6 +227,11 @@ export function PartnerMap() {
         #network-map path[id="rivers"]:hover {
           fill: rgba(16, 185, 129, 0.22) !important;
           stroke: rgba(16, 185, 129, 0.55) !important;
+        }
+        #network-map path.is-active {
+          fill: rgba(16, 185, 129, 0.38);
+          stroke: rgba(16, 185, 129, 0.65);
+          stroke-width: 2;
         }
       `}</style>
 
@@ -263,11 +298,11 @@ export function PartnerMap() {
 
             <AnimatePresence mode="wait">
               {activeNode && (
-                <motion.div
+                <m.div
                   key={activeNode.id}
-                  initial={{ opacity: 0, x: 20, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, x: -20, filter: "blur(6px)" }}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="rounded-3xl border border-white/[0.08] bg-[#070b13]/60 backdrop-blur-md p-6 sm:p-8 shadow-2xl relative"
                 >
@@ -307,7 +342,7 @@ export function PartnerMap() {
                       </span>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { fadeUp, viewport } from "@/lib/motion";
 import { SectionHeading } from "./Section";
@@ -11,7 +11,7 @@ export function InstitutionsCTA() {
   return (
     <section id="institutions" className="py-[clamp(64px,9vw,118px)]">
       <div className="mx-auto max-w-wrap px-[clamp(20px,5vw,56px)]">
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -91,7 +91,7 @@ export function InstitutionsCTA() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

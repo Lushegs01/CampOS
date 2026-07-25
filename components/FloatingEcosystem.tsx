@@ -1,14 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
-  motion,
+  m,
   useSpring,
   useTransform,
   useReducedMotion,
   type MotionValue,
   AnimatePresence,
 } from "framer-motion";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+
+/**
+ * Whether the surrounding tree is the one currently on screen.
+ *
+ * The desktop constellation and the mobile stack are both always in the DOM —
+ * only CSS decides which is shown. `display: none` stops paint, but it does not
+ * stop Framer Motion, so every looping animation in here used to run twice over
+ * regardless of viewport. Panels read this to keep their loops idle in whichever
+ * copy is hidden.
+ */
+const LiveTree = createContext(true);
 
 /* ------------------------------------------------------------------ */
 /*  Accent system                                                      */
@@ -83,6 +96,7 @@ function PanelLabel({ children }: { children: React.ReactNode }) {
 
 function IdentityPanel() {
   const [isOpen, setIsOpen] = useState(false);
+  const live = useContext(LiveTree);
 
   return (
     <>
@@ -128,10 +142,13 @@ function IdentityPanel() {
           onClick={() => setIsOpen(true)}
           className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
         >
-          <img 
-            src="/nada-portal.png" 
-            alt="NADA App" 
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
+          <Image
+            src="/nada-portal.webp"
+            alt="NADA App"
+            fill
+            loading="lazy"
+            sizes="288px"
+            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
           />
           {/* Glass badge for context */}
           <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
@@ -160,9 +177,12 @@ function IdentityPanel() {
                 />
               ))}
             </div>
-            <motion.div
-              className="absolute left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]"
-              animate={{ top: ["4px", "44px", "4px"] }}
+            {/* Driven by `y`, not `top`. Animating `top` put this on the layout
+                path, so a decorative 2px line forced a reflow of the panel on
+                every frame, forever, in both the desktop and mobile copies. */}
+            <m.div
+              className="absolute left-0 right-0 top-0 h-0.5 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]"
+              animate={live ? { y: [4, 44, 4] } : { y: 4 }}
               transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
             />
           </div>
@@ -182,7 +202,7 @@ function IdentityPanel() {
         {isOpen && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
             {/* Backdrop */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -191,7 +211,7 @@ function IdentityPanel() {
             />
 
             {/* Image container */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -215,12 +235,12 @@ function IdentityPanel() {
               {/* Scrollable image area */}
               <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
                 <img 
-                  src="/nada-portal.png" 
+                  src="/nada-portal.webp" 
                   alt="NADA Full App" 
                   className="w-full h-auto object-contain rounded-lg"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
@@ -261,10 +281,13 @@ function AttendancePanel() {
           onClick={() => setIsOpen(true)}
           className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
         >
-          <img 
-            src="/scanmark-portal.png" 
-            alt="ScanMark Portal App" 
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
+          <Image
+            src="/scanmark-portal.webp"
+            alt="ScanMark Portal App"
+            fill
+            loading="lazy"
+            sizes="288px"
+            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
           />
           {/* Glass badge for context */}
           <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
@@ -298,7 +321,7 @@ function AttendancePanel() {
         {isOpen && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
             {/* Backdrop */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -307,7 +330,7 @@ function AttendancePanel() {
             />
 
             {/* Image container */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -331,12 +354,12 @@ function AttendancePanel() {
               {/* Scrollable image area */}
               <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
                 <img 
-                  src="/scanmark-portal.png" 
+                  src="/scanmark-portal.webp" 
                   alt="ScanMark Portal Full App" 
                   className="w-full h-auto object-contain rounded-lg"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
@@ -379,10 +402,13 @@ function VerificationPanel() {
           onClick={() => setIsOpen(true)}
           className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
         >
-          <img 
-            src="/verity-portal.png" 
-            alt="Verity Dashboard App" 
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
+          <Image
+            src="/verity-portal.webp"
+            alt="Verity Dashboard App"
+            fill
+            loading="lazy"
+            sizes="288px"
+            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
           />
           {/* Glass badge for context */}
           <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
@@ -413,7 +439,7 @@ function VerificationPanel() {
         {isOpen && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
             {/* Backdrop */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -422,7 +448,7 @@ function VerificationPanel() {
             />
 
             {/* Image container */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -446,12 +472,12 @@ function VerificationPanel() {
               {/* Scrollable image area */}
               <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
                 <img 
-                  src="/verity-portal.png" 
+                  src="/verity-portal.webp" 
                   alt="Verity Forensic Portal Full App" 
                   className="w-full h-auto object-contain rounded-lg"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
@@ -489,10 +515,13 @@ function IntelligencePanel() {
           onClick={() => setIsOpen(true)}
           className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
         >
-          <img 
-            src="/funaabnb-portal.png" 
-            alt="FunaaBnB App" 
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/preview:scale-105" 
+          <Image
+            src="/funaabnb-portal.webp"
+            alt="FunaaBnB App"
+            fill
+            loading="lazy"
+            sizes="288px"
+            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
           />
           {/* Glass badge for context */}
           <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
@@ -526,7 +555,7 @@ function IntelligencePanel() {
         {isOpen && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
             {/* Backdrop */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -535,7 +564,7 @@ function IntelligencePanel() {
             />
 
             {/* Image container */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -559,12 +588,12 @@ function IntelligencePanel() {
               {/* Scrollable image area */}
               <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
                 <img 
-                  src="/funaabnb-portal.png" 
+                  src="/funaabnb-portal.webp" 
                   alt="FunaaBnB Portal Full App" 
                   className="w-full h-auto object-contain rounded-lg"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
@@ -577,11 +606,14 @@ function IntelligencePanel() {
 /* ------------------------------------------------------------------ */
 
 function CoreHub({ reduced }: { reduced: boolean }) {
+  const live = useContext(LiveTree);
+  const animate = !reduced && live;
+
   return (
     <div className="relative flex h-[150px] w-[150px] items-center justify-center">
       {/* rotating conic halo */}
-      {!reduced && (
-        <motion.div
+      {animate && (
+        <m.div
           className="absolute inset-[-26px] rounded-full opacity-60 [background:conic-gradient(from_0deg,transparent_0%,rgba(16,185,129,0.35)_18%,transparent_38%,rgba(20,184,166,0.3)_60%,transparent_82%)] blur-[12px]"
           animate={{ rotate: 360 }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
@@ -589,9 +621,9 @@ function CoreHub({ reduced }: { reduced: boolean }) {
       )}
 
       {/* pulsing rings */}
-      {!reduced &&
+      {animate &&
         [0, 1, 2].map((i) => (
-          <motion.span
+          <m.span
             key={i}
             className="absolute rounded-full border border-emerald-400/30"
             style={{ width: 150, height: 150 }}
@@ -605,7 +637,7 @@ function CoreHub({ reduced }: { reduced: boolean }) {
 
       {/* core disc */}
       <div className="relative flex h-[110px] w-[110px] flex-col items-center justify-center rounded-full border border-white/15 bg-[radial-gradient(circle_at_50%_30%,rgba(16,185,129,0.35),rgba(10,14,26,0.9))] shadow-[0_0_50px_-8px_rgba(16,185,129,0.6),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl">
-        <img src="/logo.png" alt="CampOS" className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(16,185,129,0.7)]" />
+        <Image src="/logo.webp" alt="CampOS" width={36} height={36} className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(16,185,129,0.7)]" />
         <span className="mt-1 font-mono text-[0.56rem] font-bold uppercase tracking-[0.22em] text-white/80">
           CampOS
         </span>
@@ -730,17 +762,18 @@ function FloatingCard({
 }) {
   const x = useTransform(mx, (v) => v * depth);
   const y = useTransform(my, (v) => v * depth);
+  const live = useContext(LiveTree);
 
   return (
-    <motion.div style={reduced ? undefined : { x, y }} className={`absolute z-10 ${className}`}>
-      <motion.div
-        animate={reduced ? undefined : { y: [0, driftY, 0] }}
+    <m.div style={reduced ? undefined : { x, y }} className={`absolute z-10 ${className}`}>
+      <m.div
+        animate={reduced || !live ? undefined : { y: [0, driftY, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay }}
         whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
       >
         {children}
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -758,6 +791,11 @@ export function FloatingEcosystem({
   const reduced = useReducedMotion() ?? false;
   const stageRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
+
+  // Which of the two layouts CSS is actually showing. Both stay mounted so the
+  // markup is identical on server and client, but only the visible one is
+  // allowed to run its animation loops.
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const mx = useSpring(mouseX, { stiffness: 90, damping: 22, mass: 0.4 });
   const my = useSpring(mouseY, { stiffness: 90, damping: 22, mass: 0.4 });
@@ -777,21 +815,22 @@ export function FloatingEcosystem({
   return (
     <>
       {/* ---------- Desktop: orbiting constellation ---------- */}
+      <LiveTree.Provider value={isDesktop}>
       <div
         ref={stageRef}
         className="relative hidden h-[clamp(560px,54vw,640px)] w-full lg:block"
       >
-        <Connections w={size.w} h={size.h} reduced={reduced} />
+        <Connections w={size.w} h={size.h} reduced={reduced || !isDesktop} />
 
         {/* accent particles */}
-        {!reduced &&
+        {!reduced && isDesktop &&
           [
             { top: "22%", left: "46%", s: 3, d: 0 },
             { top: "62%", left: "30%", s: 4, d: 1.4 },
             { top: "40%", left: "70%", s: 3, d: 2.1 },
             { top: "70%", left: "60%", s: 4, d: 0.7 },
           ].map((p, i) => (
-            <motion.span
+            <m.span
               key={i}
               className="absolute rounded-full bg-emerald-300/40"
               style={{ top: p.top, left: p.left, width: p.s, height: p.s }}
@@ -802,9 +841,9 @@ export function FloatingEcosystem({
 
         {/* central hub */}
         <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-          <motion.div style={reduced ? undefined : { x: hubX, y: hubY }}>
+          <m.div style={reduced ? undefined : { x: hubX, y: hubY }}>
             <CoreHub reduced={reduced} />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* module panels */}
@@ -821,13 +860,15 @@ export function FloatingEcosystem({
           <IntelligencePanel />
         </FloatingCard>
       </div>
+      </LiveTree.Provider>
 
       {/* ---------- Mobile / tablet: clean stack ---------- */}
+      <LiveTree.Provider value={!isDesktop}>
       <div className="lg:hidden">
         <div className="mb-8 flex justify-center">
           <CoreHub reduced={reduced} />
         </div>
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
@@ -836,19 +877,20 @@ export function FloatingEcosystem({
         >
           {[<IdentityPanel key="i" />, <AttendancePanel key="a" />, <VerificationPanel key="v" />, <IntelligencePanel key="n" />].map(
             (panel, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 variants={{
-                  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
-                  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+                  hidden: { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
                 }}
               >
                 {panel}
-              </motion.div>
+              </m.div>
             ),
           )}
-        </motion.div>
+        </m.div>
       </div>
+      </LiveTree.Provider>
     </>
   );
 }
