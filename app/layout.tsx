@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Hanken_Grotesk, Spline_Sans_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // All three are variable fonts, so omitting `weight` ships one file spanning the
@@ -28,6 +29,9 @@ const splineMono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
+  // Without this, Next resolves OpenGraph and Twitter image URLs against
+  // localhost:3000, so every shared link previews as broken.
+  metadataBase: new URL(SITE_URL),
   title: "CampOS",
   applicationName: "CampOS",
   description:
@@ -44,11 +48,20 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
   },
   // Favicon + apple-touch-icon come from app/icon.png and app/apple-icon.png.
+  alternates: { canonical: "/" },
   openGraph: {
     title: "CampOS",
     description:
       "Attendance, housing, records, and identity — unified, verified, and connected.",
     type: "website",
+    url: "/",
+    siteName: "CampOS",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CampOS",
+    description:
+      "Attendance, housing, records, and identity — unified, verified, and connected.",
   },
 };
 

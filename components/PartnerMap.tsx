@@ -11,9 +11,10 @@ interface UniversityNode {
   location: string;
   x: number;
   y: number;
+  /** Publicly reported enrolment for the institution — not a CampOS figure. */
   students: string;
-  fraudReduction: string;
-  sealedLatency: string;
+  /** Which CampOS modules address this campus's stated needs. */
+  modules: string;
   description: string;
 }
 
@@ -26,9 +27,8 @@ const PARTNERS: UniversityNode[] = [
     x: 160,
     y: 840,
     students: "58,000+",
-    fraudReduction: "100%",
-    sealedLatency: "0.41s",
-    description: "Full exam registers and digital student credentials authenticated via Verity Node.",
+    modules: "Verity · NADA",
+    description: "Exam registers and degree credentials that an employer can verify without phoning the registrar.",
   },
   {
     id: "funaab",
@@ -38,9 +38,8 @@ const PARTNERS: UniversityNode[] = [
     x: 130,
     y: 790,
     students: "18,500+",
-    fraudReduction: "100%",
-    sealedLatency: "0.39s",
-    description: "Verified student housing leases and landlord profiles active in FunaaBnB node.",
+    modules: "FunaaBnB · NADA",
+    description: "Off-campus housing with landlords and listings checked before a student pays a deposit.",
   },
   {
     id: "abu",
@@ -50,9 +49,8 @@ const PARTNERS: UniversityNode[] = [
     x: 520,
     y: 350,
     students: "45,000+",
-    fraudReduction: "99.8%",
-    sealedLatency: "0.44s",
-    description: "Instant ledger course registration and student identity verification active campus-wide.",
+    modules: "NADA · ScanMark",
+    description: "Course registration and campus-wide identity running off a single student record.",
   },
   {
     id: "unn",
@@ -62,9 +60,8 @@ const PARTNERS: UniversityNode[] = [
     x: 590,
     y: 750,
     students: "36,000+",
-    fraudReduction: "100%",
-    sealedLatency: "0.38s",
-    description: "Class attendance registers sealed on the ledger using ScanMark proximity beacons.",
+    modules: "ScanMark",
+    description: "Attendance taken by device-bound proximity check-in, so a register cannot be signed by proxy.",
   },
   {
     id: "uniport",
@@ -74,9 +71,8 @@ const PARTNERS: UniversityNode[] = [
     x: 500,
     y: 890,
     students: "28,000+",
-    fraudReduction: "99.9%",
-    sealedLatency: "0.42s",
-    description: "Student identity gate pass system and academic record seals active across all faculties.",
+    modules: "NADA · Verity",
+    description: "One student identity for gate access and academic records across every faculty.",
   },
 ];
 
@@ -242,12 +238,12 @@ export function PartnerMap() {
 
       <div className="mx-auto max-w-wrap px-[clamp(20px,5vw,56px)] relative z-10">
         <SectionHeading
-          eyebrow="CAMPOS NIGERIA NETWORK"
+          eyebrow="BUILT FOR NIGERIAN CAMPUSES"
           title={
             <>
-              Powering Universities
+              Designed Around How
               <br />
-              Across the Country
+              Nigerian Universities Run
             </>
           }
           titleClassName="!text-white"
@@ -322,23 +318,17 @@ export function PartnerMap() {
                     {activeNode.description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-3.5 mt-8 pt-6 border-t border-white/5">
+                  <div className="grid grid-cols-2 gap-3.5 mt-8 pt-6 border-t border-white/5">
                     <div>
-                      <span className="block font-mono text-[0.55rem] uppercase tracking-wider text-white/40">Verified Students</span>
+                      <span className="block font-mono text-[0.68rem] uppercase tracking-wider text-white/60">Enrolment</span>
                       <span className="block font-sans text-[1.28rem] font-extrabold text-white mt-1">
                         {activeNode.students}
                       </span>
                     </div>
                     <div>
-                      <span className="block font-mono text-[0.55rem] uppercase tracking-wider text-white/40">Fraud Reduction</span>
-                      <span className="block font-sans text-[1.28rem] font-extrabold text-emerald-300 mt-1">
-                        {activeNode.fraudReduction}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="block font-mono text-[0.55rem] uppercase tracking-wider text-white/40">Sealed Rate</span>
-                      <span className="block font-sans text-[1.28rem] font-extrabold text-teal-300 mt-1">
-                        {activeNode.sealedLatency}
+                      <span className="block font-mono text-[0.68rem] uppercase tracking-wider text-white/60">Relevant Modules</span>
+                      <span className="block font-sans text-[1.05rem] font-bold text-emerald-300 mt-1">
+                        {activeNode.modules}
                       </span>
                     </div>
                   </div>

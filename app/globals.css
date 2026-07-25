@@ -7,6 +7,37 @@
     background: #059669;
     color: #FFFFFF;
   }
+  /* Visible only to assistive tech — used for labels whose control is already
+     obvious sighted, like the walkthrough scrubber. */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  /* The scrubber draws its own fill via a background gradient, so the native
+     track is transparent and only the thumb is styled. */
+  .scrubber::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: #10b981;
+    cursor: pointer;
+  }
+  .scrubber::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    border-radius: 9999px;
+    background: #10b981;
+    cursor: pointer;
+  }
   a {
     color: inherit;
     text-decoration: none;

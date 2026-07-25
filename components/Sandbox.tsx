@@ -86,8 +86,8 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
             />
           </div>
-          <span className="font-mono text-[0.55rem] text-white/80 font-bold uppercase tracking-wider">Scanning QR Code</span>
-          <p className="mt-1 text-[0.48rem] text-white/40">Searching for class beacon...</p>
+          <span className="font-mono text-[0.68rem] text-white/80 font-bold uppercase tracking-wider">Scanning QR Code</span>
+          <p className="mt-1 text-[0.64rem] text-white/60">Searching for class beacon...</p>
         </m.div>
       )}
 
@@ -106,8 +106,8 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
               <path d="M12 6a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z" />
             </svg>
           </div>
-          <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Verifying Proximity</span>
-          <p className="mt-1 text-[0.48rem] text-white/40">Matching device MAC & Bluetooth...</p>
+          <span className="font-mono text-[0.68rem] text-emerald-400 font-bold uppercase tracking-wider">Verifying Proximity</span>
+          <p className="mt-1 text-[0.64rem] text-white/60">Matching device MAC & Bluetooth...</p>
         </m.div>
       )}
 
@@ -120,13 +120,13 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
         >
           <div className="w-full rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-2.5 text-left mb-3">
             <div className="flex justify-between items-center mb-1.5">
-              <span className="font-mono text-[0.55rem] font-bold text-emerald-400">CHECK-IN MATCH</span>
-              <span className="text-[0.48rem] text-white/40 font-mono">100% Proximity</span>
+              <span className="font-mono text-[0.68rem] font-bold text-emerald-400">CHECK-IN MATCH</span>
+              <span className="text-[0.64rem] text-white/60 font-mono">100% Proximity</span>
             </div>
-            <p className="text-[0.52rem] text-white/80 font-sans leading-tight">Student verified in CSC 401 lecture hall (Room 2B).</p>
+            <p className="text-[0.66rem] text-white/80 font-sans leading-tight">Student verified in CSC 401 lecture hall (Room 2B).</p>
           </div>
-          <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Validating Ticket</span>
-          <p className="mt-1 text-[0.48rem] text-white/40">Matching registrar timetable...</p>
+          <span className="font-mono text-[0.68rem] text-emerald-400 font-bold uppercase tracking-wider">Validating Ticket</span>
+          <p className="mt-1 text-[0.64rem] text-white/60">Matching registrar timetable...</p>
         </m.div>
       )}
 
@@ -142,8 +142,8 @@ function ScanmarkSimulation({ progress }: { progress: number }) {
               <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <span className="font-mono text-[0.58rem] text-emerald-300 font-bold uppercase tracking-wider">Attendance Sealed</span>
-          <p className="mt-1 text-[0.48rem] text-white/50 px-2">Register updated. Permanent block created.</p>
+          <span className="font-mono text-[0.7rem] text-emerald-300 font-bold uppercase tracking-wider">Attendance Sealed</span>
+          <p className="mt-1 text-[0.64rem] text-white/50 px-2">Register updated. Permanent block created.</p>
         </m.div>
       )}
     </div>
@@ -162,15 +162,15 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
         >
           <div className="w-full rounded-xl border border-white/10 bg-white/5 p-2.5 text-left mb-2">
             <div className="h-20 w-full rounded bg-slate-800/80 animate-pulse mb-2 relative overflow-hidden flex items-center justify-center">
-              <span className="text-[0.48rem] text-white/30 font-mono">Loading listing image...</span>
+              <span className="text-[0.64rem] text-white/60 font-mono">Loading listing image...</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="font-sans text-[0.6rem] font-bold text-white">Emerald Heights, Room 14</span>
-              <span className="text-[0.48rem] font-mono text-emerald-400 font-bold">₦12,500/mo</span>
+              <span className="text-[0.64rem] font-mono text-emerald-400 font-bold">₦12,500/mo</span>
             </div>
-            <p className="text-[0.48rem] text-white/40 mt-0.5">Owner: Lanre Davies (ID Verified)</p>
+            <p className="text-[0.64rem] text-white/60 mt-0.5">Owner: Lanre Davies (ID Verified)</p>
           </div>
-          <span className="font-mono text-[0.55rem] text-white/70 font-bold uppercase tracking-wider">Selecting Listing</span>
+          <span className="font-mono text-[0.68rem] text-white/70 font-bold uppercase tracking-wider">Selecting Listing</span>
         </m.div>
       )}
 
@@ -182,7 +182,7 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
           className="w-full px-2 flex flex-col items-center"
         >
           <div className="w-full rounded-xl border border-white/10 bg-[#112018] p-2.5 text-left mb-2">
-            <span className="block font-mono text-[0.45rem] text-emerald-400/60 uppercase mb-1">Contract Signature</span>
+            <span className="block font-mono text-[0.62rem] text-emerald-400/60 uppercase mb-1">Contract Signature</span>
             <div className="h-10 border border-dashed border-white/10 rounded flex items-center justify-center relative overflow-hidden bg-black/30">
               <svg className="w-full h-full absolute inset-0 p-1" viewBox="0 0 100 30">
                 <m.path
@@ -195,11 +195,11 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
                   transition={{ duration: 2.5, ease: "easeInOut" }}
                 />
               </svg>
-              <span className="absolute bottom-1 right-2 text-[0.4rem] font-mono text-white/30">Tenant Sign</span>
+              <span className="absolute bottom-1 right-2 text-[0.6rem] font-mono text-white/60">Tenant Sign</span>
             </div>
           </div>
-          <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Signing Smart Lease</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/40">Binding tenant key to escrow...</p>
+          <span className="font-mono text-[0.68rem] text-emerald-400 font-bold uppercase tracking-wider">Signing Smart Lease</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/60">Binding tenant key to escrow...</p>
         </m.div>
       )}
 
@@ -217,8 +217,8 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
               <path d="M12 11V7a4 4 0 0 1 8 0v4" />
             </svg>
           </div>
-          <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Anchoring Escrow</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/40">Locking deposit into smart escrow...</p>
+          <span className="font-mono text-[0.68rem] text-emerald-400 font-bold uppercase tracking-wider">Anchoring Escrow</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/60">Locking deposit into smart escrow...</p>
         </m.div>
       )}
 
@@ -235,8 +235,8 @@ function FunaaBnBSimulation({ progress }: { progress: number }) {
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           </div>
-          <span className="font-mono text-[0.58rem] text-green-300 font-bold uppercase tracking-wider">Lease Secured</span>
-          <p className="mt-1 text-[0.48rem] text-white/50 px-2">Agreement sealed. Access tokens released.</p>
+          <span className="font-mono text-[0.7rem] text-green-300 font-bold uppercase tracking-wider">Lease Secured</span>
+          <p className="mt-1 text-[0.64rem] text-white/50 px-2">Agreement sealed. Access tokens released.</p>
         </m.div>
       )}
     </div>
@@ -266,13 +266,13 @@ function NadaSimulation({ progress }: { progress: number }) {
           className="w-full px-2"
         >
           <div className="w-full rounded-xl border border-white/10 bg-white/[0.02] p-2.5 text-left mb-2">
-            <p className="font-mono text-[0.55rem] text-white/30 mb-1">Post Anonymously to /csc401</p>
+            <p className="font-mono text-[0.68rem] text-white/60 mb-1">Post Anonymously to /csc401</p>
             <div className="min-h-[60px] bg-transparent text-[0.6rem] text-white font-sans">
               {typedText}
               <span className="animate-pulse">|</span>
             </div>
           </div>
-          <span className="font-mono text-[0.55rem] text-yellow-400 font-bold uppercase tracking-wider">Typing Message</span>
+          <span className="font-mono text-[0.68rem] text-yellow-400 font-bold uppercase tracking-wider">Typing Message</span>
         </m.div>
       )}
 
@@ -298,8 +298,8 @@ function NadaSimulation({ progress }: { progress: number }) {
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
           </div>
-          <span className="font-mono text-[0.55rem] text-yellow-400 font-bold uppercase tracking-wider">Computing ZK-Proof</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/40">Signing anonymously with student root...</p>
+          <span className="font-mono text-[0.68rem] text-yellow-400 font-bold uppercase tracking-wider">Computing ZK-Proof</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/60">Signing anonymously with student root...</p>
         </m.div>
       )}
 
@@ -311,11 +311,11 @@ function NadaSimulation({ progress }: { progress: number }) {
           className="flex flex-col items-center w-full px-2"
         >
           <div className="w-full rounded-xl border border-yellow-500/20 bg-yellow-500/5 p-2 text-left mb-2">
-            <span className="font-mono text-[0.5rem] text-yellow-400 block mb-1">✓ ZERO-KNOWLEDGE PROOF VALID</span>
-            <p className="text-[0.48rem] text-white/50 leading-tight">Public Verification Key: vk_nada_0xf39... validated against root registry.</p>
+            <span className="font-mono text-[0.64rem] text-yellow-400 block mb-1">✓ ZERO-KNOWLEDGE PROOF VALID</span>
+            <p className="text-[0.64rem] text-white/50 leading-tight">Public Verification Key: vk_nada_0xf39... validated against root registry.</p>
           </div>
-          <span className="font-mono text-[0.55rem] text-yellow-400 font-bold uppercase tracking-wider">ZK-Proof Verified</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/40">Zero student identity traces exposed...</p>
+          <span className="font-mono text-[0.68rem] text-yellow-400 font-bold uppercase tracking-wider">ZK-Proof Verified</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/60">Zero student identity traces exposed...</p>
         </m.div>
       )}
 
@@ -327,14 +327,14 @@ function NadaSimulation({ progress }: { progress: number }) {
           className="flex flex-col items-center w-full px-2"
         >
           <div className="w-full rounded-xl border border-white/10 bg-white/[0.03] p-2.5 text-left mb-2">
-            <div className="flex justify-between text-[0.48rem] text-white/40 mb-1">
+            <div className="flex justify-between text-[0.64rem] text-white/60 mb-1">
               <span>Anon #382</span>
               <span>1s ago</span>
             </div>
-            <p className="text-[0.55rem] text-white/80">{textToWrite}</p>
+            <p className="text-[0.68rem] text-white/80">{textToWrite}</p>
           </div>
-          <span className="font-mono text-[0.58rem] text-yellow-400 font-bold uppercase tracking-wider">Post Published</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/50">Post added with cryptographic seal.</p>
+          <span className="font-mono text-[0.7rem] text-yellow-400 font-bold uppercase tracking-wider">Post Published</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/50">Post added with cryptographic seal.</p>
         </m.div>
       )}
     </div>
@@ -353,15 +353,15 @@ function VeritySimulation({ progress }: { progress: number }) {
         >
           <div className="w-full aspect-[16/10] rounded-lg border border-white/10 bg-white/5 p-2 flex flex-col justify-between text-left mb-2">
             <div>
-              <span className="block font-mono text-[0.45rem] text-white/40 uppercase">University of Lagos</span>
+              <span className="block font-mono text-[0.62rem] text-white/60 uppercase">University of Lagos</span>
               <span className="block font-sans text-[0.62rem] font-bold text-white leading-tight">B.Sc. Computer Science</span>
             </div>
             <div className="flex justify-between items-end">
-              <span className="font-mono text-[0.45rem] text-white/40">Ada Okafor</span>
-              <span className="font-mono text-[0.42rem] text-rose-400 bg-rose-500/10 px-1 border border-rose-500/25 rounded uppercase">UNVERIFIED</span>
+              <span className="font-mono text-[0.62rem] text-white/60">Ada Okafor</span>
+              <span className="font-mono text-[0.6rem] text-rose-400 bg-rose-500/10 px-1 border border-rose-500/25 rounded uppercase">UNVERIFIED</span>
             </div>
           </div>
-          <span className="font-mono text-[0.55rem] text-white/70 font-bold uppercase tracking-wider">Uploading Certificate</span>
+          <span className="font-mono text-[0.68rem] text-white/70 font-bold uppercase tracking-wider">Uploading Certificate</span>
         </m.div>
       )}
 
@@ -380,8 +380,8 @@ function VeritySimulation({ progress }: { progress: number }) {
               <path d="M17 10.5a5.5 5.5 0 0 0-10.5-2.2 4 4 0 0 0-.5 7.7" />
             </svg>
           </div>
-          <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Verifying Signature</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/40">Matching registrar digital key...</p>
+          <span className="font-mono text-[0.68rem] text-emerald-400 font-bold uppercase tracking-wider">Verifying Signature</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/60">Matching registrar digital key...</p>
         </m.div>
       )}
 
@@ -394,13 +394,13 @@ function VeritySimulation({ progress }: { progress: number }) {
         >
           <div className="w-full rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-2 text-left mb-2">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-mono text-[0.5rem] text-emerald-300 font-bold">SIGNATURE VALID</span>
-              <span className="text-[0.45rem] text-white/40 font-mono">0x2f8a...e911</span>
+              <span className="font-mono text-[0.64rem] text-emerald-300 font-bold">SIGNATURE VALID</span>
+              <span className="text-[0.62rem] text-white/60 font-mono">0x2f8a...e911</span>
             </div>
-            <p className="text-[0.48rem] text-white/50 leading-tight">UNILAG Registrar credential seal matches root key. Ready to write block.</p>
+            <p className="text-[0.64rem] text-white/50 leading-tight">UNILAG Registrar credential seal matches root key. Ready to write block.</p>
           </div>
-          <span className="font-mono text-[0.55rem] text-emerald-400 font-bold uppercase tracking-wider">Validating Registrar</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/40">Matching registry credentials...</p>
+          <span className="font-mono text-[0.68rem] text-emerald-400 font-bold uppercase tracking-wider">Validating Registrar</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/60">Matching registry credentials...</p>
         </m.div>
       )}
 
@@ -413,16 +413,16 @@ function VeritySimulation({ progress }: { progress: number }) {
         >
           <div className="w-full aspect-[16/10] rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-2 flex flex-col justify-between text-left mb-2">
             <div>
-              <span className="block font-mono text-[0.45rem] text-emerald-400 uppercase">University of Lagos</span>
+              <span className="block font-mono text-[0.62rem] text-emerald-400 uppercase">University of Lagos</span>
               <span className="block font-sans text-[0.62rem] font-bold text-white leading-tight">B.Sc. Computer Science</span>
             </div>
             <div className="flex justify-between items-end">
-              <span className="font-mono text-[0.45rem] text-white/40">Ada Okafor</span>
-              <span className="font-mono text-[0.42rem] text-emerald-400 bg-emerald-500/20 px-1 border border-emerald-500/35 rounded uppercase">VERIFIED</span>
+              <span className="font-mono text-[0.62rem] text-white/60">Ada Okafor</span>
+              <span className="font-mono text-[0.6rem] text-emerald-400 bg-emerald-500/20 px-1 border border-emerald-500/35 rounded uppercase">VERIFIED</span>
             </div>
           </div>
-          <span className="font-mono text-[0.58rem] text-emerald-300 font-bold uppercase tracking-wider">Credential Sealed</span>
-          <p className="mt-0.5 text-[0.48rem] text-white/50">Diploma anchored on secure block.</p>
+          <span className="font-mono text-[0.7rem] text-emerald-300 font-bold uppercase tracking-wider">Credential Sealed</span>
+          <p className="mt-0.5 text-[0.64rem] text-white/50">Diploma anchored on secure block.</p>
         </m.div>
       )}
     </div>
@@ -477,10 +477,10 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
     <div ref={rootRef} className="relative w-full aspect-[9/13.5] rounded-2xl border border-white/10 bg-[#060b0c] overflow-hidden flex flex-col justify-between shadow-2xl">
       {/* Video top header / overlay */}
       <div className="absolute top-2 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
-        <span className="font-mono text-[0.5rem] text-emerald-400 font-bold bg-[#08100d]/80 px-1.5 py-0.5 rounded border border-emerald-500/20 tracking-wider uppercase">
+        <span className="font-mono text-[0.64rem] text-emerald-400 font-bold bg-[#08100d]/80 px-1.5 py-0.5 rounded border border-emerald-500/20 tracking-wider uppercase">
           {type === "scanmark" ? "Scanmark API" : type === "funaabnb" ? "Housing Contracts" : type === "nada" ? "Nada ZKP" : "Verity Registry"}
         </span>
-        <span className="flex items-center gap-1 font-mono text-[0.5rem] text-rose-500 font-bold bg-[#08100d]/80 px-1.5 py-0.5 rounded border border-rose-500/20">
+        <span className="flex items-center gap-1 font-mono text-[0.64rem] text-rose-500 font-bold bg-[#08100d]/80 px-1.5 py-0.5 rounded border border-rose-500/20">
           <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
           WALKTHROUGH
         </span>
@@ -524,7 +524,7 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
                   <span className="h-8 w-8 rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-transparent border-l-transparent animate-spin" />
                 </div>
                 <span className="mt-3 font-mono text-[0.6rem] text-emerald-400 tracking-wider uppercase">Sealing ledger block...</span>
-                <span className="mt-1 font-mono text-[0.5rem] text-white/40">Broadcasting cryptographic proof</span>
+                <span className="mt-1 font-mono text-[0.64rem] text-white/60">Broadcasting cryptographic proof</span>
               </div>
             ) : (
               <div className="flex flex-col items-center">
@@ -534,7 +534,7 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
                   </svg>
                 </div>
                 <span className="font-mono text-[0.62rem] text-emerald-300 font-bold uppercase tracking-widest">TRANSACTION SEALED</span>
-                <span className="mt-1 font-mono text-[0.5rem] text-white/50">Block verified successfully</span>
+                <span className="mt-1 font-mono text-[0.64rem] text-white/50">Block verified successfully</span>
               </div>
             )}
           </div>
@@ -543,7 +543,7 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
 
       {/* Video player controls bar */}
       <div className="bg-[#040809] border-t border-white/10 p-2 px-3 flex flex-col gap-1.5 relative z-20">
-        <div className="flex items-center justify-between font-mono text-[0.45rem] text-white/50 select-none">
+        <div className="flex items-center justify-between font-mono text-[0.62rem] text-white/50 select-none">
           <div className="flex items-center gap-2">
             <button onClick={() => setIsPlaying(!isPlaying)} className="hover:text-white transition-colors">
               {isPlaying ? (
@@ -562,18 +562,25 @@ function SimulatorVideo({ type, status }: SimulatorVideoProps) {
           <span className="text-emerald-400/80">1080p HD</span>
         </div>
 
-        {/* Video progress track */}
-        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden cursor-pointer" onClick={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const clickX = e.clientX - rect.left;
-          const percentage = (clickX / rect.width) * 100;
-          setProgress(percentage);
-        }}>
-          <div
-            className="h-full bg-emerald-500 transition-all duration-100 ease-linear"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+        {/* Walkthrough scrubber. A slider rather than a clickable div, so it
+            can be reached and moved with a keyboard and reports its position. */}
+        <label className="sr-only" htmlFor={`scrub-${type}`}>
+          Walkthrough position
+        </label>
+        <input
+          id={`scrub-${type}`}
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={Math.round(progress)}
+          onChange={(e) => setProgress(Number(e.target.value))}
+          aria-valuetext={timeString}
+          className="scrubber h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400"
+          style={{
+            background: `linear-gradient(to right, #10b981 ${progress}%, rgba(255,255,255,0.1) ${progress}%)`,
+          }}
+        />
       </div>
     </div>
   );
@@ -695,7 +702,7 @@ export function Sandbox() {
 
               {/* Phone Content Header */}
               <div className="pt-8 pb-3 border-b border-white/[0.05] text-center relative z-10">
-                <span className="font-mono text-[0.55rem] font-bold text-white/40 tracking-widest uppercase">CampOS Simulator</span>
+                <span className="font-mono text-[0.68rem] font-bold text-white/60 tracking-widest uppercase">CampOS Simulator</span>
               </div>
 
               {/* Tabs list inside device */}
@@ -706,10 +713,10 @@ export function Sandbox() {
                     onClick={() => {
                       if (status === "idle") setActiveTab(tab);
                     }}
-                    className={`py-1.5 px-0.5 rounded-md font-mono text-[0.5rem] font-bold uppercase tracking-wider transition-all duration-300 ${
+                    className={`py-1.5 px-0.5 rounded-md font-mono text-[0.64rem] font-bold uppercase tracking-wider transition-all duration-300 ${
                       activeTab === tab
                         ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
-                        : "text-white/45 hover:text-white hover:bg-white/5"
+                        : "text-white/60 hover:text-white hover:bg-white/5"
                     }`}
                   >
                     {tab === "scanmark" ? "Scan" : tab === "funaabnb" ? "Housing" : tab === "nada" ? "Social" : "Verify"}
@@ -772,7 +779,7 @@ export function Sandbox() {
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   CAMPOS VERIFIED LEDGER STREAM
                 </span>
-                <span className="text-[0.55rem] bg-emerald-500/10 text-emerald-300 border border-emerald-500/25 px-2 py-0.5 rounded-full font-bold">
+                <span className="text-[0.68rem] bg-emerald-500/10 text-emerald-300 border border-emerald-500/25 px-2 py-0.5 rounded-full font-bold">
                   ACTIVE
                 </span>
               </div>
@@ -794,21 +801,21 @@ export function Sandbox() {
                           <span className="font-mono text-[0.64rem] font-bold uppercase tracking-wider">
                             {log.title}
                           </span>
-                          <span className="font-mono text-[0.52rem] text-white/40">
+                          <span className="font-mono text-[0.66rem] text-white/60">
                             {log.timestamp}
                           </span>
                         </div>
                         <p className="text-[0.74rem] text-white/75 font-sans leading-relaxed">
                           {log.details}
                         </p>
-                        <div className="mt-2 flex items-center gap-1 font-mono text-[0.58rem] text-white/40">
+                        <div className="mt-2 flex items-center gap-1 font-mono text-[0.7rem] text-white/60">
                           <span>TX HASH:</span>
                           <span className="select-all font-semibold tracking-wide text-white/60">{log.hash}</span>
                         </div>
                       </div>
 
                       <div className="flex-none self-end sm:self-start">
-                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[0.52rem] font-bold text-emerald-300 tracking-wider">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[0.66rem] font-bold text-emerald-300 tracking-wider">
                           <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4">
                             <path d="M20 6 9 17l-5-5" />
                           </svg>
@@ -821,7 +828,7 @@ export function Sandbox() {
               </div>
 
               {/* Ledger summary banner */}
-              <div className="border-t border-white/5 mt-4 pt-4 flex items-center justify-between text-[0.66rem] text-white/40 font-mono">
+              <div className="border-t border-white/5 mt-4 pt-4 flex items-center justify-between text-[0.66rem] text-white/60 font-mono">
                 <span>TOTAL TRANSACTIONS: {logs.length + 14820}</span>
                 <span className="text-emerald-300/80">SEAL RATE: ~0.4s · POS AGREEMENT</span>
               </div>

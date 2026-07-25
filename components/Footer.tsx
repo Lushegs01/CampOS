@@ -110,7 +110,7 @@ export function Footer() {
 
           {/* Bottom copyright line */}
           <div className="mt-[80px] flex items-center justify-between border-t border-white/10 pt-6">
-            <p className="text-[0.8rem] text-white/40 font-mono">
+            <p className="text-[0.8rem] text-white/60 font-mono">
               © {year} CampOS Inc. All rights reserved.
             </p>
             <div className="flex items-center gap-2">

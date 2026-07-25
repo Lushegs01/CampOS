@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { useModal } from "@/context/ModalContext";
+import { Dialog } from "./Dialog";
 
 export function BookingModal() {
   const { isOpen, closeModal } = useModal();
@@ -10,19 +11,13 @@ export function BookingModal() {
   const [formData, setFormData] = useState({ name: "", email: "", institution: "" });
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Lock body scroll when open
+  // Reset the form each time the modal opens. Scroll locking, focus handling
+  // and Escape all come from <Dialog>.
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      setStatus("idle");
-      setErrorMessage("");
-      setFormData({ name: "", email: "", institution: "" });
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
+    if (!isOpen) return;
+    setStatus("idle");
+    setErrorMessage("");
+    setFormData({ name: "", email: "", institution: "" });
   }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,24 +51,11 @@ export function BookingModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
-          {/* Backdrop */}
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
-            className="absolute inset-0 bg-obsidian/40 backdrop-blur-md"
-          />
-
-          {/* Modal Container */}
-          <m.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-[500px] overflow-hidden rounded-[24px] border border-white/40 glass-light shadow-premium"
-          >
+        <Dialog
+          onClose={closeModal}
+          label="Book a demo"
+          className="w-full max-w-[500px] overflow-hidden rounded-[24px] border border-white/40 glass-light shadow-premium"
+        >
             {/* Close Button */}
             <button
               onClick={closeModal}
@@ -95,6 +77,7 @@ export function BookingModal() {
                 <m.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
+                  role="status"
                   className="flex flex-col items-center justify-center py-8 text-center"
                 >
                   <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-glow/20 text-emerald-glow">
@@ -108,10 +91,16 @@ export function BookingModal() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div>
-                    <label className="mb-1 block text-[0.8rem] font-semibold text-slate-deep">
+                    <label
+                      htmlFor="booking-name"
+                      className="mb-1 block text-[0.8rem] font-semibold text-slate-deep"
+                    >
                       Full Name
                     </label>
                     <input
+                      id="booking-name"
+                      name="name"
+                      autoComplete="name"
                       required
                       type="text"
                       value={formData.name}
@@ -121,10 +110,16 @@ export function BookingModal() {
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-[0.8rem] font-semibold text-slate-deep">
+                    <label
+                      htmlFor="booking-email"
+                      className="mb-1 block text-[0.8rem] font-semibold text-slate-deep"
+                    >
                       Work Email
                     </label>
                     <input
+                      id="booking-email"
+                      name="email"
+                      autoComplete="email"
                       required
                       type="email"
                       value={formData.email}
@@ -134,10 +129,16 @@ export function BookingModal() {
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-[0.8rem] font-semibold text-slate-deep">
+                    <label
+                      htmlFor="booking-institution"
+                      className="mb-1 block text-[0.8rem] font-semibold text-slate-deep"
+                    >
                       Institution Name
                     </label>
                     <input
+                      id="booking-institution"
+                      name="institution"
+                      autoComplete="organization"
                       required
                       type="text"
                       value={formData.institution}
@@ -147,7 +148,7 @@ export function BookingModal() {
                     />
                   </div>
                   {status === "error" && (
-                    <div className="text-[0.85rem] text-red-500 font-medium">
+                    <div role="alert" className="text-[0.85rem] font-medium text-red-600">
                       {errorMessage}
                     </div>
                   )}
@@ -161,8 +162,7 @@ export function BookingModal() {
                 </form>
               )}
             </div>
-          </m.div>
-        </div>
+        </Dialog>
       )}
     </AnimatePresence>
   );

@@ -6,79 +6,33 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  useReducedMotion,
 } from "framer-motion";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 import { useModal } from "@/context/ModalContext";
 import { FloatingEcosystem } from "./FloatingEcosystem";
 import { AuroraBackground } from "./AuroraBackground";
 import { ParticleField } from "./ParticleField";
 import { MagneticButton } from "./MagneticButton";
-import { CountUp } from "./CountUp";
 
-/* ---- university wordmark placeholders ---- */
 
-const UNIS: { name: string; icon: React.ReactNode }[] = [
-  {
-    name: "UNILAG",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v12M6 12h12M8 8l8 8M16 8l-8 8" />
-      </svg>
-    ),
-  },
-  {
-    name: "ASHESI",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="4" y="4" width="16" height="16" rx="2" />
-        <path d="M12 4v16M4 12h16" />
-      </svg>
-    ),
-  },
-  {
-    name: "MAKERERE",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-    ),
-  },
-  {
-    name: "CAPE TOWN",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M12 3 2 12h3v9h14v-9h3L12 3z" />
-      </svg>
-    ),
-  },
-  {
-    name: "NAIROBI",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <circle cx="12" cy="12" r="8" />
-        <path d="M12 2v20M2 12h20" />
-      </svg>
-    ),
-  },
-];
-
-const METRICS: {
-  to: number;
-  decimals?: number;
-  suffix: string;
-  label: string;
-  gradient?: boolean;
-}[] = [
-  { to: 50, suffix: "+", label: "Universities Onboarded" },
-  { to: 250000, suffix: "+", label: "Students Verified" },
-  { to: 1, suffix: "M+", label: "Credentials Secured" },
-  { to: 99.99, decimals: 2, suffix: "%", label: "Platform Reliability", gradient: true },
+/**
+ * What the platform is, rather than how many people use it.
+ *
+ * This row previously animated four adoption figures — 50+ universities
+ * onboarded, 250,000+ students verified, 1M+ credentials secured, 99.99%
+ * reliability. None of them were measurements of anything; presenting them as
+ * fact on a public page is a claim the product cannot currently support.
+ */
+const PILLARS: { title: string; body: string }[] = [
+  { title: "One student identity", body: "Issued once, recognised by every module on campus." },
+  { title: "Four connected modules", body: "Attendance, housing, records and verification in one system." },
+  { title: "Verifiable by design", body: "Every record carries a check an outside party can run." },
+  { title: "Built for African campuses", body: "Designed around how these institutions actually operate." },
 ];
 
 export function Hero() {
   const { openModal } = useModal();
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotionSafe();
   const sectionRef = useRef<HTMLElement>(null);
 
   // Normalised cursor position shared across the hero (-1..1).
@@ -215,45 +169,21 @@ export function Hero() {
           <FloatingEcosystem mouseX={mouseX} mouseY={mouseY} />
         </m.div>
 
-        {/* ---------- Trust bar ---------- */}
-        <div className="mx-auto mt-[clamp(24px,4vw,48px)] grid max-w-4xl grid-cols-2 gap-x-4 gap-y-8 border-t border-white/[0.06] pt-10 md:grid-cols-4">
-          {METRICS.map((m) => (
-            <div key={m.label} className="flex flex-col items-center gap-1 text-center">
-              <CountUp
-                to={m.to}
-                decimals={m.decimals}
-                suffix={m.suffix}
-                className={`font-sans text-[clamp(1.9rem,3.2vw,2.6rem)] font-bold leading-none tracking-tight ${
-                  m.gradient
-                    ? "bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent"
-                    : "text-white"
-                }`}
-              />
-              <span className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-white/60">
-                {m.label}
-              </span>
+        {/* ---------- What the platform is ----------
+             This replaced a row of university wordmarks under the line
+             "Trusted by forward-thinking universities across Africa". The
+             wordmarks were placeholder geometry, not logos, and the named
+             institutions are not customers — the page was claiming
+             relationships that do not exist. */}
+        <div className="mx-auto mt-[clamp(32px,5vw,56px)] grid max-w-5xl grid-cols-1 gap-x-8 gap-y-8 border-t border-white/[0.06] pt-10 sm:grid-cols-2 md:grid-cols-4">
+          {PILLARS.map((pillar) => (
+            <div key={pillar.title} className="text-center md:text-left">
+              <h2 className="font-sans text-[1.02rem] font-bold leading-snug tracking-tight text-white">
+                {pillar.title}
+              </h2>
+              <p className="mt-2 text-[0.86rem] leading-relaxed text-white/60">{pillar.body}</p>
             </div>
           ))}
-        </div>
-
-        {/* ---------- Social proof ---------- */}
-        <div className="mt-[clamp(40px,6vw,72px)] text-center">
-          <p className="mb-8 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-white/60">
-            Trusted by forward-thinking universities across Africa
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:gap-x-16">
-            {UNIS.map((u) => (
-              <div
-                key={u.name}
-                className="flex items-center gap-2 text-white/30 transition-colors duration-300 hover:text-white/70"
-              >
-                {u.icon}
-                <span className="font-mono text-[0.72rem] font-bold uppercase tracking-[0.16em]">
-                  {u.name}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

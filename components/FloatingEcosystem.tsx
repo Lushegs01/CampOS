@@ -6,11 +6,12 @@ import {
   m,
   useSpring,
   useTransform,
-  useReducedMotion,
   type MotionValue,
   AnimatePresence,
 } from "framer-motion";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { Dialog } from "./Dialog";
 
 /**
  * Whether the surrounding tree is the one currently on screen.
@@ -90,17 +91,103 @@ function PanelLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * A screenshot thumbnail that opens the full image in a dialog.
+ *
+ * The trigger is a real <button>: it was a <div onClick>, which meant keyboard
+ * users could not open any of the four app previews at all.
+ */
+function AppPreview({
+  src,
+  alt,
+  badge,
+  title,
+  panelClass,
+}: {
+  src: string;
+  alt: string;
+  badge: string;
+  title: string;
+  panelClass: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        aria-haspopup="dialog"
+        className="group/preview relative mb-3 block h-[135px] w-full cursor-pointer overflow-hidden rounded-lg border border-white/10 bg-[#08100d] text-left shadow-inner focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          loading="lazy"
+          sizes="288px"
+          className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
+        />
+        <span className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full border border-white/10 bg-[#08100d]/80 px-2 py-0.5 backdrop-blur-md">
+          <span className="h-1 w-1 rounded-full bg-emerald-400" />
+          <span className="font-mono text-[0.62rem] font-bold uppercase tracking-wider text-white">
+            {badge}
+          </span>
+        </span>
+        <span className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover/preview:opacity-100 group-focus-visible/preview:opacity-100">
+          <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[0.72rem] font-medium text-white backdrop-blur-sm">
+            Expand
+          </span>
+        </span>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <Dialog
+            onClose={() => setIsOpen(false)}
+            label={`${title} screenshot`}
+            panelMotion={{
+              initial: { opacity: 0, scale: 0.95, y: 15 },
+              animate: { opacity: 1, scale: 1, y: 0 },
+              exit: { opacity: 0, scale: 0.95, y: 15 },
+              transition: { type: "spring", damping: 25, stiffness: 350 },
+            }}
+            className={`flex max-h-[85vh] max-w-[90vw] flex-col overflow-hidden rounded-[20px] border border-white/10 bg-[#08100d] shadow-2xl ${panelClass}`}
+          >
+            <div className="flex flex-none items-center justify-between border-b border-white/5 bg-[#08100d] px-5 py-3 text-white">
+              <span className="font-sans text-xs font-bold tracking-wider text-white">{title}</span>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400"
+                aria-label="Close preview"
+              >
+                <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex max-h-[calc(85vh-45px)] justify-center overflow-y-auto bg-[#fafafa] p-2">
+              {/* Deliberately a plain <img>: this is the full-resolution view,
+                  and it only mounts once the dialog is open. */}
+              <img src={src} alt={`${alt}, full view`} className="h-auto w-full rounded-lg object-contain" />
+            </div>
+          </Dialog>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /*  Module panels                                                      */
 /* ------------------------------------------------------------------ */
 
 function IdentityPanel() {
-  const [isOpen, setIsOpen] = useState(false);
   const live = useContext(LiveTree);
 
   return (
-    <>
-      <Panel accent="indigo">
+    <Panel accent="indigo">
         <div className="mb-4 flex items-center justify-between">
           <PanelLabel>Student Identity</PanelLabel>
           <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5">
@@ -136,32 +223,13 @@ function IdentityPanel() {
           <span className="font-sans font-medium text-white/75">University of Lagos</span>
           <span className="font-mono text-[0.64rem] text-white/50">Dept. of Computer Science</span>
         </div>
-
-        {/* Preview block */}
-        <div
-          onClick={() => setIsOpen(true)}
-          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
-        >
-          <Image
-            src="/nada-portal.webp"
-            alt="NADA App"
-            fill
-            loading="lazy"
-            sizes="288px"
-            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
-          />
-          {/* Glass badge for context */}
-          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
-            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">NADA App</span>
-          </div>
-          {/* Hover magnifier overlay hint */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
-              Click to Expand
-            </span>
-          </div>
-        </div>
+        <AppPreview
+          src="/nada-portal.webp"
+          alt="NADA App"
+          badge="NADA App"
+          title="NADA"
+          panelClass="md:max-w-[800px]"
+        />
 
         <div className="flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] p-2.5">
           <div className="relative h-12 w-12 flex-none overflow-hidden rounded-lg bg-white p-0.5 shadow-inner">
@@ -195,65 +263,14 @@ function IdentityPanel() {
             </span>
           </div>
         </div>
-      </Panel>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
-            {/* Backdrop */}
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
-            />
-
-            {/* Image container */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[800px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
-            >
-              {/* Top title bar */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
-                <span className="font-sans text-xs font-bold tracking-wider text-white/90">NADA</span>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="Close preview"
-                >
-                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Scrollable image area */}
-              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
-                <img 
-                  src="/nada-portal.webp" 
-                  alt="NADA Full App" 
-                  className="w-full h-auto object-contain rounded-lg"
-                />
-              </div>
-            </m.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+    </Panel>
   );
 }
 
 function AttendancePanel() {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      <Panel accent="cyan">
+    <Panel accent="cyan">
         <div className="mb-4 flex items-center justify-between">
           <PanelLabel>Smart Attendance</PanelLabel>
           <span className="flex items-center gap-1 font-mono text-[0.62rem] font-semibold text-teal-300">
@@ -276,31 +293,13 @@ function AttendancePanel() {
             Verified via secure proximity beacon
           </span>
         </p>
-
-        <div
-          onClick={() => setIsOpen(true)}
-          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
-        >
-          <Image
-            src="/scanmark-portal.webp"
-            alt="ScanMark Portal App"
-            fill
-            loading="lazy"
-            sizes="288px"
-            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
-          />
-          {/* Glass badge for context */}
-          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
-            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">ScanMark App</span>
-          </div>
-          {/* Hover magnifier overlay hint */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
-              Click to Expand
-            </span>
-          </div>
-        </div>
+        <AppPreview
+          src="/scanmark-portal.webp"
+          alt="ScanMark Portal App"
+          badge="ScanMark App"
+          title="SCANMARK"
+          panelClass="md:max-w-[500px]"
+        />
 
         <div className="flex items-center justify-between gap-2">
           {[
@@ -310,69 +309,18 @@ function AttendancePanel() {
           ].map((s) => (
             <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
               <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
-              <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/50">{s.k}</div>
+              <div className="font-mono text-[0.68rem] uppercase tracking-wider text-white/50">{s.k}</div>
             </div>
           ))}
         </div>
-      </Panel>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
-            {/* Backdrop */}
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
-            />
-
-            {/* Image container */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[500px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
-            >
-              {/* Top title bar */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
-                <span className="font-sans text-xs font-bold tracking-wider text-white/90">SCANMARK</span>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="Close preview"
-                >
-                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Scrollable image area */}
-              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
-                <img 
-                  src="/scanmark-portal.webp" 
-                  alt="ScanMark Portal Full App" 
-                  className="w-full h-auto object-contain rounded-lg"
-                />
-              </div>
-            </m.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+    </Panel>
   );
 }
 
 function VerificationPanel() {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      <Panel accent="emerald">
+    <Panel accent="emerald">
         <div className="mb-4 flex items-center justify-between">
           <PanelLabel>Credential Verification</PanelLabel>
           <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-emerald-300">
@@ -396,32 +344,13 @@ function VerificationPanel() {
             </span>
           </div>
         </div>
-
-        {/* Preview block */}
-        <div
-          onClick={() => setIsOpen(true)}
-          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
-        >
-          <Image
-            src="/verity-portal.webp"
-            alt="Verity Dashboard App"
-            fill
-            loading="lazy"
-            sizes="288px"
-            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
-          />
-          {/* Glass badge for context */}
-          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
-            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">Verity Portal</span>
-          </div>
-          {/* Hover magnifier overlay hint */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
-              Click to Expand
-            </span>
-          </div>
-        </div>
+        <AppPreview
+          src="/verity-portal.webp"
+          alt="Verity Dashboard App"
+          badge="Verity Portal"
+          title="VERIFY"
+          panelClass="md:max-w-[800px]"
+        />
 
         <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3 text-[0.68rem]">
           <span className="font-sans text-white/50">Instant verification</span>
@@ -432,65 +361,14 @@ function VerificationPanel() {
             SUCCESS
           </span>
         </div>
-      </Panel>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
-            {/* Backdrop */}
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
-            />
-
-            {/* Image container */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[800px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
-            >
-              {/* Top title bar */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
-                <span className="font-sans text-xs font-bold tracking-wider text-white/90">VERIFY</span>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="Close preview"
-                >
-                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Scrollable image area */}
-              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
-                <img 
-                  src="/verity-portal.webp" 
-                  alt="Verity Forensic Portal Full App" 
-                  className="w-full h-auto object-contain rounded-lg"
-                />
-              </div>
-            </m.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+    </Panel>
   );
 }
 
 function IntelligencePanel() {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      <Panel accent="violet">
+    <Panel accent="violet">
         <div className="mb-4 flex items-center justify-between">
           <PanelLabel>Verified Housing</PanelLabel>
           <span className="rounded-full border border-green-500/20 bg-green-500/10 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-green-300">
@@ -509,32 +387,13 @@ function IntelligencePanel() {
             Zero scams · secure lease booking
           </span>
         </p>
-
-        {/* Preview block */}
-        <div
-          onClick={() => setIsOpen(true)}
-          className="relative mb-3 h-[135px] w-full overflow-hidden rounded-lg border border-white/10 bg-[#08100d] shadow-inner cursor-pointer group/preview"
-        >
-          <Image
-            src="/funaabnb-portal.webp"
-            alt="FunaaBnB App"
-            fill
-            loading="lazy"
-            sizes="288px"
-            className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-105"
-          />
-          {/* Glass badge for context */}
-          <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-full bg-[#08100d]/80 px-2 py-0.5 border border-white/10 backdrop-blur-md">
-            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[0.55rem] font-bold text-white/95 uppercase tracking-wider">FunaaBnB App</span>
-          </div>
-          {/* Hover magnifier overlay hint */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-[0.68rem] font-medium text-white border border-white/20 backdrop-blur-sm">
-              Click to Expand
-            </span>
-          </div>
-        </div>
+        <AppPreview
+          src="/funaabnb-portal.webp"
+          alt="FunaaBnB App"
+          badge="FunaaBnB App"
+          title="FUNAABNB"
+          panelClass="md:max-w-[800px]"
+        />
 
         <div className="flex items-center justify-between gap-2">
           {[
@@ -544,60 +403,11 @@ function IntelligencePanel() {
           ].map((s) => (
             <div key={s.k} className="flex-1 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 text-center">
               <div className="font-sans text-[0.82rem] font-bold text-white">{s.v}</div>
-              <div className="font-mono text-[0.56rem] uppercase tracking-wider text-white/50">{s.k}</div>
+              <div className="font-mono text-[0.68rem] uppercase tracking-wider text-white/50">{s.k}</div>
             </div>
           ))}
         </div>
-      </Panel>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <div className="fixed inset-0 z-[150] flex items-center justify-center p-[clamp(16px,4vw,32px)]">
-            {/* Backdrop */}
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
-            />
-
-            {/* Image container */}
-            <m.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative z-10 max-h-[85vh] max-w-[90vw] md:max-w-[800px] overflow-hidden rounded-[20px] border border-white/10 shadow-2xl bg-[#08100d] flex flex-col"
-            >
-              {/* Top title bar */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-[#08100d] text-white flex-none">
-                <span className="font-sans text-xs font-bold tracking-wider text-white/90">FUNAABNB</span>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="Close preview"
-                >
-                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Scrollable image area */}
-              <div className="overflow-y-auto max-h-[calc(85vh-45px)] p-2 flex justify-center bg-[#fafafa]">
-                <img 
-                  src="/funaabnb-portal.webp" 
-                  alt="FunaaBnB Portal Full App" 
-                  className="w-full h-auto object-contain rounded-lg"
-                />
-              </div>
-            </m.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+    </Panel>
   );
 }
 
@@ -638,10 +448,10 @@ function CoreHub({ reduced }: { reduced: boolean }) {
       {/* core disc */}
       <div className="relative flex h-[110px] w-[110px] flex-col items-center justify-center rounded-full border border-white/15 bg-[radial-gradient(circle_at_50%_30%,rgba(16,185,129,0.35),rgba(10,14,26,0.9))] shadow-[0_0_50px_-8px_rgba(16,185,129,0.6),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl">
         <Image src="/logo.webp" alt="CampOS" width={36} height={36} className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(16,185,129,0.7)]" />
-        <span className="mt-1 font-mono text-[0.56rem] font-bold uppercase tracking-[0.22em] text-white/80">
+        <span className="mt-1 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-white/80">
           CampOS
         </span>
-        <span className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-emerald-300/80">
+        <span className="font-mono text-[0.64rem] uppercase tracking-[0.2em] text-emerald-300/80">
           Core OS
         </span>
       </div>
@@ -788,7 +598,7 @@ export function FloatingEcosystem({
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
 }) {
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useReducedMotionSafe();
   const stageRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
 

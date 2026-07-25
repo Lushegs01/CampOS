@@ -6,9 +6,9 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  useReducedMotion,
   type MotionValue,
 } from "framer-motion";
+import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 interface AuroraBackgroundProps {
   /** Normalised cursor position (-1..1). Optional; enables parallax drift. */
@@ -24,7 +24,7 @@ const blobSpring = { stiffness: 50, damping: 20, mass: 0.6 };
  * different axes to build depth. All motion stops under reduced-motion.
  */
 export function AuroraBackground({ mouseX, mouseY }: AuroraBackgroundProps) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotionSafe();
 
   const zeroX = useMotionValue(0);
   const zeroY = useMotionValue(0);
