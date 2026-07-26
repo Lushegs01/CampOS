@@ -93,9 +93,17 @@ export default function RootLayout({
       <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
         <SmoothScroll />
         <ServiceWorkerRegister />
+        {/* BookingModal has to live *inside* MotionProvider. Its panel is built
+            from `m` components, which only receive animation features from the
+            surrounding LazyMotion — rendered outside it they keep their
+            `initial` styles forever, so the modal mounted at opacity 0 and the
+            page just appeared to freeze. ModalProvider stays outermost so the
+            navbar triggers and the modal still share the same context. */}
         <ModalProvider>
-          <MotionProvider>{children}</MotionProvider>
-          <BookingModal />
+          <MotionProvider>
+            {children}
+            <BookingModal />
+          </MotionProvider>
         </ModalProvider>
 
         {/* Fine grain noise overlay for premium cinematic texture. A pre-baked

@@ -54,6 +54,7 @@ export function BookingModal() {
         <Dialog
           onClose={closeModal}
           label="Book a demo"
+          backdropClassName="bg-obsidian/40 backdrop-blur-md"
           className="w-full max-w-[500px] overflow-hidden rounded-[24px] border border-white/40 glass-light shadow-premium"
         >
             {/* Close Button */}

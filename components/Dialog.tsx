@@ -13,6 +13,8 @@ interface DialogProps {
   label: string;
   /** Applied to the panel, not the backdrop. */
   className?: string;
+  /** Overrides the scrim. Defaults to the heavy one used by image lightboxes. */
+  backdropClassName?: string;
   children: React.ReactNode;
   /** Panel entry/exit animation. Defaults to a gentle scale + rise. */
   panelMotion?: Pick<MotionProps, "initial" | "animate" | "exit" | "transition">;
@@ -37,6 +39,7 @@ export function Dialog({
   onClose,
   label,
   className = "",
+  backdropClassName = "bg-black/85 backdrop-blur-md cursor-zoom-out",
   children,
   panelMotion = DEFAULT_MOTION,
 }: DialogProps) {
@@ -108,7 +111,7 @@ export function Dialog({
         exit={{ opacity: 0 }}
         onClick={onClose}
         aria-hidden
-        className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
+        className={`absolute inset-0 ${backdropClassName}`}
       />
       <m.div
         ref={panelRef}
