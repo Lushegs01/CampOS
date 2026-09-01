@@ -59,7 +59,7 @@ export function MobileMenu() {
           className="fixed inset-0 top-0 z-50 flex flex-col bg-paper"
         >
           <div className="flex h-16 items-center justify-between border-b border-line px-gutter">
-            <a href="/" onClick={() => setOpen(false)} className="text-forest">
+            <a href="/" onClick={() => setOpen(false)} className="-my-2 group flex items-center py-2 text-forest" aria-label="CampOS — home">
               <Wordmark />
             </a>
             <button

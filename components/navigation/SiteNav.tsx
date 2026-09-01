@@ -11,7 +11,7 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-[6px]">
       <div className="shell flex h-16 items-center justify-between gap-6">
-        <a href="/" className="-my-2 flex items-center py-2 text-forest" aria-label="CampOS — home">
+        <a href="/" className="-my-2 group flex items-center py-2 text-forest" aria-label="CampOS — home">
           <Wordmark />
         </a>
 

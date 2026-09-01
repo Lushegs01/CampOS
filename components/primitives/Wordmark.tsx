@@ -1,20 +1,27 @@
+import Image from "next/image";
+
 /**
- * The CampOS mark — three interlocking blocks forming an open C — redrawn as a
- * single vector path so it stays crisp at any size and takes the colour of
- * whatever ground it sits on.
+ * The CampOS mark — 3D emerald emblem paired with the brand wordmark.
  */
 export function Wordmark({
   className = "",
   showName = true,
+  size = 24,
 }: {
   className?: string;
   showName?: boolean;
+  size?: number;
 }) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" className="flex-none">
-        <path d="M9 3 H21 V9 H11 V15 H21 V21 H9 V16 H3 V8 H9 Z" fill="currentColor" />
-      </svg>
+      <Image
+        src="/logo.png"
+        alt=""
+        width={size}
+        height={size}
+        className="h-6 w-6 flex-none object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-transform duration-200 group-hover:scale-105"
+        priority
+      />
       {showName ? (
         <span className="text-[1.06rem] font-semibold tracking-[-0.02em]">CampOS</span>
       ) : null}

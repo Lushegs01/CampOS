@@ -14,6 +14,7 @@ export function StructuredData() {
         "@id": `${SITE.url}/#organization`,
         name: SITE.name,
         url: SITE.url,
+        logo: `${SITE.url}/logo.png`,
         description: SITE.description,
       },
       {
@@ -31,6 +32,7 @@ export function StructuredData() {
         applicationSubCategory: "University infrastructure platform",
         operatingSystem: "Web",
         description: SITE.description,
+        image: `${SITE.url}/logo.png`,
         publisher: { "@id": `${SITE.url}/#organization` },
       },
       {
