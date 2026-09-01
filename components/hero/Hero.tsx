@@ -27,12 +27,7 @@ export function Hero() {
       <div className="shell relative py-12 md:py-16 lg:py-20">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-14">
           <div>
-            <p className="label inline-flex items-center gap-2.5 rounded-full border border-line bg-paper px-3 py-2 text-faint">
-              <span className="h-1.5 w-1.5 rounded-full bg-forest" aria-hidden />
-              CampOS Core · the institutional layer
-            </p>
-
-            <h1 className="display mt-6 max-w-[19ch] text-balance">
+            <h1 className="display max-w-[19ch] text-balance">
               The digital infrastructure behind the modern university.
             </h1>
 
