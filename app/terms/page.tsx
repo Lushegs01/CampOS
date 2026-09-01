@@ -1,36 +1,61 @@
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import type { Metadata } from "next";
+import { PageShell } from "@/components/primitives/Prose";
 
-export const metadata = {
-  title: "Terms of Service | CampOS",
-  description: "Terms and conditions for using CampOS.",
+export const metadata: Metadata = {
+  title: "Terms",
+  description: "Terms of service for the CampOS platform.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
   return (
-    <>
-      <div className="relative z-10 bg-paper shadow-[0_20px_40px_rgba(0,0,0,0.1)] min-h-screen">
-        <Navbar />
-        <main className="pt-32 pb-24 px-[clamp(20px,5vw,56px)] max-w-[800px] mx-auto">
-          <h1 className="display text-4xl mb-8">Terms of Service</h1>
-          <div className="text-[1.1rem] leading-relaxed text-ink-soft space-y-6">
-            <p>Last updated: June 2026</p>
-            <h2 className="text-2xl font-bold text-ink mt-8 mb-4">1. Acceptance of Terms</h2>
-            <p>
-              By accessing or using the CampOS platform, including the ScanMark, FunaaBnB, and Nada modules, you agree to be bound by these Terms of Service and all applicable laws and regulations.
-            </p>
-            <h2 className="text-2xl font-bold text-ink mt-8 mb-4">2. User Responsibilities</h2>
-            <p>
-              Users are responsible for maintaining the confidentiality of their account credentials. You agree not to misuse the platform, forge identities, or engage in any fraudulent activity, particularly regarding attendance marking and housing leases.
-            </p>
-            <h2 className="text-2xl font-bold text-ink mt-8 mb-4">3. Institutional Agreements</h2>
-            <p>
-              For universities and institutions, specific service level agreements (SLAs) and data processing addendums (DPAs) supersede these general terms where explicitly stated in your deployment contract.
-            </p>
-          </div>
-        </main>
-      </div>
-      <Footer />
-    </>
+    <PageShell
+      eyebrow="Legal · Last updated June 2026"
+      title="Terms of service"
+      intro="These general terms cover use of the CampOS platform and its modules. Where an institution has a signed deployment agreement, that agreement governs."
+    >
+      <h2>1. Acceptance</h2>
+      <p>
+        By accessing CampOS or any of its modules — ScanMark, UniReg, NADA or Clearr — you
+        agree to these terms and to the applicable laws and institutional policies that govern
+        your account.
+      </p>
+
+      <h2>2. Accounts and identity</h2>
+      <p>
+        CampOS accounts are issued by institutions, not by individuals. You are responsible for
+        keeping your credentials confidential and for activity carried out under your account.
+        Impersonating another person, forging attendance or misrepresenting academic or
+        financial status is a breach of these terms and of your institution&apos;s own rules.
+      </p>
+
+      <h2>3. Acceptable use</h2>
+      <p>
+        Do not attempt to access data belonging to another person or another institution,
+        interfere with the operation of the platform, or probe its security without written
+        authorisation. Responsible disclosure of a suspected vulnerability is welcome and will
+        not be treated as a breach.
+      </p>
+
+      <h2>4. Institutional agreements</h2>
+      <p>
+        For universities, the deployment contract — including service levels, data processing
+        terms and support commitments — supersedes these general terms wherever the two
+        differ.
+      </p>
+
+      <h2>5. Availability and changes</h2>
+      <p>
+        We may update the platform and these terms as the product develops. Material changes
+        affecting a deployed institution are communicated to that institution rather than
+        applied silently.
+      </p>
+
+      <h2>6. Liability</h2>
+      <p>
+        CampOS is provided to institutions under the terms of their agreement with us. Nothing
+        here excludes liability that cannot lawfully be excluded.
+      </p>
+    </PageShell>
   );
 }

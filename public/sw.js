@@ -1,9 +1,9 @@
 /* CampOS service worker.
  * Enables installability and basic offline support. Bump CACHE_VERSION to ship
  * a new cache (old caches are cleaned up on activate). */
-// v2: the PNG screenshots were replaced by WebP at different filenames, so any
-// client still holding the v1 cache needs it dropped rather than revalidated.
-const CACHE_VERSION = "campos-v2";
+// v3: the site was rebuilt, so every asset a v2 client holds is stale. Bumping
+// the version drops the old cache on activate rather than revalidating it.
+const CACHE_VERSION = "campos-v3";
 const OFFLINE_URL = "/";
 
 // Warm the cache with the shell so the app opens offline.
