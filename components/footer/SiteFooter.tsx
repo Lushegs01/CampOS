@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FOOTER_COLUMNS, SOCIAL_LINKS } from "@/lib/site";
 import { Wordmark } from "@/components/primitives/Wordmark";
 import { ContactButton } from "@/components/cta/ContactButton";
@@ -25,12 +26,12 @@ export function SiteFooter() {
                 <ul className="mt-3 space-y-1.5">
                   {column.links.map((link) => (
                     <li key={link.label + link.href}>
-                      <a
+                      <Link
                         href={link.href}
                         className="inline-block py-1 text-[0.92rem] text-muted-invert transition-colors duration-200 ease-system hover:text-paper"
                       >
                         {link.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -44,18 +45,18 @@ export function SiteFooter() {
             © {year} CampOS. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <a
+            <Link
               href="/privacy"
               className="mono-xs inline-block py-1.5 text-faint-invert transition-colors duration-200 ease-system hover:text-paper"
             >
               Privacy
-            </a>
-            <a
+            </Link>
+            <Link
               href="/terms"
               className="mono-xs inline-block py-1.5 text-faint-invert transition-colors duration-200 ease-system hover:text-paper"
             >
               Terms
-            </a>
+            </Link>
             {SOCIAL_LINKS.map((link) => (
               <a
                 key={link.label}

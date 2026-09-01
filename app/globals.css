@@ -68,7 +68,7 @@
 
   /* ---------- type scale ---------- */
   .display {
-    font-size: clamp(2.35rem, 5.4vw, 4.05rem);
+    font-size: clamp(2.3rem, 5vw, 3.75rem);
     line-height: 0.98;
     letter-spacing: -0.032em;
     font-weight: 500;
@@ -366,6 +366,407 @@
   }
 }
 
+
+
+/* ------------------------------------------------------------------ */
+/* The estate: fragmented → connected                                  */
+/* Two states on one tree. Only transform and opacity change.          */
+/* ------------------------------------------------------------------ */
+
+.estate-tile {
+  --k: 0.4;
+  transform: translate3d(
+      calc(var(--sx) * var(--k) * 1px),
+      calc(var(--sy) * var(--k) * 1px),
+      0
+    )
+    rotate(calc(var(--sr) * var(--k) * 1deg));
+  transition: transform 0.7s var(--ease-system), border-color 0.5s var(--ease-system),
+    box-shadow 0.5s var(--ease-system);
+  transition-delay: var(--tile-delay, 0ms);
+}
+
+@media (min-width: 640px) {
+  .estate-tile {
+    --k: 1;
+  }
+}
+
+.estate[data-connected="true"] .estate-tile {
+  transform: none;
+  border-color: rgba(17, 73, 53, 0.3);
+}
+
+.estate-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: #b4573a;
+  box-shadow: 0 0 0 3px rgba(180, 87, 58, 0.14);
+  transition: background 0.45s var(--ease-system), box-shadow 0.45s var(--ease-system);
+}
+
+.estate[data-connected="true"] .estate-dot {
+  background: #114935;
+  box-shadow: 0 0 0 3px rgba(17, 73, 53, 0.14);
+}
+
+.estate-after,
+.estate[data-connected="true"] .estate-before {
+  display: none;
+}
+
+.estate[data-connected="true"] .estate-after {
+  display: inline;
+}
+
+.estate-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  height: 2.75rem;
+}
+
+.estate-link {
+  justify-self: center;
+  width: 1px;
+  height: 100%;
+  background: rgba(10, 13, 12, 0.2);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease-system);
+}
+
+.estate-link:nth-child(n + 3) {
+  display: none;
+}
+
+.estate[data-connected="true"] .estate-link {
+  transform: scaleY(1);
+  background: #114935;
+}
+
+.estate[data-connected="true"] .estate-link:nth-child(2) {
+  transition-delay: 90ms;
+}
+
+.estate-core {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 0.5s var(--ease-system), transform 0.5s var(--ease-system);
+  transition-delay: 0.18s;
+}
+
+.estate[data-connected="true"] .estate-core {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 768px) {
+  .estate-links {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .estate-link:nth-child(n + 3) {
+    display: block;
+  }
+
+  .estate[data-connected="true"] .estate-link:nth-child(2) {
+    transition-delay: 60ms;
+  }
+
+  .estate[data-connected="true"] .estate-link:nth-child(3) {
+    transition-delay: 120ms;
+  }
+
+  .estate[data-connected="true"] .estate-link:nth-child(4) {
+    transition-delay: 180ms;
+  }
+}
+
+
+/* The request travelling toward the tenant boundary. */
+.packet {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 999px;
+  background: #aec0b6;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+.packet[data-state="moving"] {
+  opacity: 1;
+  animation: packet-run 0.62s var(--ease-system) forwards;
+}
+
+@keyframes packet-run {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
+  }
+  70% {
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(calc(50% + 1.6rem), 0, 0);
+    opacity: 0;
+  }
+}
+
+
+/* The request descending the architecture stack. One transform, one element. */
+.descent-rail {
+  position: absolute;
+  left: -13px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: rgba(10, 13, 12, 0.14);
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .descent-rail {
+    display: block;
+  }
+}
+
+.descent-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 20%;
+  background: linear-gradient(to bottom, transparent, #114935, transparent);
+  animation: descend 5.5s var(--ease-system) infinite;
+}
+
+/* The beam is a fifth of the rail, so travelling 400% of itself covers it. */
+@keyframes descend {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 400%, 0);
+    opacity: 0;
+  }
+}
+
+/* Sticky header, once the page has moved. */
+.site-header {
+  transition: box-shadow 0.3s var(--ease-system), background-color 0.3s var(--ease-system);
+}
+
+.site-header .header-row {
+  transition: height 0.3s var(--ease-system);
+}
+
+[data-scrolled="true"] .site-header {
+  box-shadow: 0 10px 30px -26px rgba(10, 13, 12, 0.65);
+}
+
+[data-scrolled="true"] .site-header .header-row {
+  height: 3.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* System map                                                          */
+/* One selected route at a time: everything is a colour transition on   */
+/* stroke and fill, plus one travelling dash on the live route.         */
+/* ------------------------------------------------------------------ */
+
+.route path {
+  fill: none;
+  stroke: rgba(10, 13, 12, 0.22);
+  stroke-width: 1;
+  transition: stroke 0.35s var(--ease-system), stroke-width 0.35s var(--ease-system);
+}
+
+.route-on path {
+  stroke: #114935;
+  stroke-width: 1.6;
+}
+
+.route-signal {
+  fill: none;
+  stroke: #1c6b4e;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 5 320;
+  animation: route-run 2.8s linear infinite;
+}
+
+@keyframes route-run {
+  from {
+    stroke-dashoffset: 325;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.node-meta,
+.core-op .node-meta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.node .node-shell {
+  fill: #f7f6f2;
+  stroke: rgba(10, 13, 12, 0.2);
+  stroke-width: 1;
+  transition: fill 0.3s var(--ease-system), stroke 0.3s var(--ease-system);
+}
+
+.node .node-title {
+  fill: #0a0d0c;
+  transition: fill 0.3s var(--ease-system);
+}
+
+.node .node-sub {
+  fill: #6b726e;
+  transition: fill 0.3s var(--ease-system);
+}
+
+.node .node-focus {
+  fill: none;
+  stroke: none;
+}
+
+.node-tap {
+  cursor: pointer;
+}
+
+.node-tap:focus {
+  outline: none;
+}
+
+.node-tap:focus-visible .node-focus {
+  stroke: #1c6b4e;
+  stroke-width: 2;
+}
+
+.node:not(.node-on) {
+  opacity: 0.7;
+  transition: opacity 0.35s var(--ease-system);
+}
+
+.node-on .node-shell {
+  fill: #e6efea;
+  stroke: #114935;
+}
+
+.node-on .node-title {
+  fill: #114935;
+}
+
+.node-on .node-sub {
+  fill: #1c6b4e;
+}
+
+
+/* Core architecture — the same interaction language on the dark ground. */
+.arch-link {
+  fill: none;
+  stroke: rgba(247, 246, 242, 0.16);
+  stroke-width: 1;
+  transition: stroke 0.35s var(--ease-system), stroke-width 0.35s var(--ease-system);
+}
+
+.arch-link-on {
+  stroke: #7b968a;
+  stroke-width: 1.6;
+}
+
+.arch-node {
+  cursor: pointer;
+}
+
+.arch-node:focus {
+  outline: none;
+}
+
+.arch-hit {
+  fill: transparent;
+  stroke: none;
+  transition: fill 0.3s var(--ease-system);
+}
+
+.arch-node:hover .arch-hit,
+.arch-node-on .arch-hit {
+  fill: rgba(247, 246, 242, 0.05);
+}
+
+.arch-node:focus-visible .arch-hit {
+  fill: rgba(247, 246, 242, 0.05);
+  stroke: #aec0b6;
+  stroke-width: 1.5;
+}
+
+.arch-label {
+  fill: #a6b0ab;
+  font-size: 12.5px;
+  transition: fill 0.3s var(--ease-system);
+}
+
+.arch-pin {
+  fill: rgba(247, 246, 242, 0.3);
+  transition: fill 0.3s var(--ease-system);
+}
+
+.arch-node-on .arch-label {
+  fill: #f7f6f2;
+}
+
+.arch-node-on .arch-pin {
+  fill: #7b968a;
+}
+
+.arch-chip-shell {
+  fill: #1a211d;
+  stroke: rgba(247, 246, 242, 0.13);
+  stroke-width: 1;
+  transition: stroke 0.3s var(--ease-system), fill 0.3s var(--ease-system);
+}
+
+.arch-chip {
+  opacity: 0.5;
+  transition: opacity 0.3s var(--ease-system);
+}
+
+.arch-chip-on {
+  opacity: 1;
+}
+
+.arch-chip-on .arch-chip-shell {
+  stroke: #7b968a;
+}
+
+.arch-chip-title {
+  fill: #f7f6f2;
+}
+
+.arch-chip-sub {
+  fill: #7b968a;
+}
+
 /* ------------------------------------------------------------------ */
 /* Reveal system                                                       */
 /* An IntersectionObserver sets data-reveal="in" once. Everything below */
@@ -463,7 +864,9 @@
     opacity: 1;
   }
 
-  .signal {
+  .signal,
+  .route-signal,
+  .descent-beam {
     display: none;
   }
 }

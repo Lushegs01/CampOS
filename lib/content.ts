@@ -3,136 +3,19 @@
  * customer, a metric or a partnership that has not been verified.
  */
 
-export type Capability = { name: string; detail: string };
-
-/** The functions a university runs — the rail under the hero. */
-export const DOMAINS = [
-  "Identity",
-  "Academics",
-  "Attendance",
-  "Finance",
-  "Records",
-  "Services",
-] as const;
-
 /** Section 01 — the fragmented estate. */
 export const FRAGMENTS = [
-  { name: "Attendance", note: "Paper sheets, proxies" },
-  { name: "Registration", note: "Portal + spreadsheets" },
-  { name: "Finance", note: "Bank slips, receipts" },
-  { name: "Identity", note: "Re-keyed per system" },
-  { name: "Housing", note: "Departmental lists" },
-  { name: "Records", note: "Reconciled by hand" },
-  { name: "Notifications", note: "Noticeboards, groups" },
-  { name: "Analytics", note: "Assembled on request" },
+  { name: "Attendance", note: "Paper sheets, proxies", connected: "Verified against enrolment" },
+  { name: "Registration", note: "Portal + spreadsheets", connected: "One enrolment record" },
+  { name: "Finance", note: "Bank slips, receipts", connected: "Resolves against records" },
+  { name: "Identity", note: "Re-keyed per system", connected: "Issued once, read everywhere" },
+  { name: "Housing", note: "Departmental lists", connected: "Reads institutional identity" },
+  { name: "Records", note: "Reconciled by hand", connected: "Written, never reconciled" },
+  { name: "Notifications", note: "Noticeboards, groups", connected: "Addressed by identity" },
+  { name: "Analytics", note: "Assembled on request", connected: "Reads live institutional state" },
 ] as const;
 
-/** Section 02 — what CampOS Core actually provides. */
-export const CORE_INPUTS = [
-  "Identity",
-  "Security",
-  "Institutions",
-  "Permissions",
-  "Records",
-  "Finance",
-  "Analytics",
-  "Notifications",
-] as const;
-
-export const CORE_CAPABILITIES: Capability[] = [
-  {
-    name: "Institutional structure",
-    detail:
-      "Faculties, departments, programmes, levels and academic sessions are modelled once. Every module reads the same structure instead of maintaining its own.",
-  },
-  {
-    name: "Verified identity",
-    detail:
-      "A student, lecturer or administrator exists once in the institution and is issued a single institutional identity that every application authenticates against.",
-  },
-  {
-    name: "Permissions and roles",
-    detail:
-      "Roles are defined per institution and scoped to what a person is responsible for — a course, a department, a faculty — and enforced consistently across modules.",
-  },
-  {
-    name: "Records and interoperability",
-    detail:
-      "Enrolment, attendance, payment and academic records are written to one data layer, and exposed to modules through documented, permissioned APIs.",
-  },
-];
-
-/** Section 03 — the ecosystem. */
-export type Product = {
-  slug: string;
-  name: string;
-  role: string;
-  problem: string;
-  inCore: string;
-  institution: string;
-  student: string;
-  status: "Live in the ecosystem" | "Outside the current core rollout";
-};
-
-export const PRODUCTS: Product[] = [
-  {
-    slug: "scanmark",
-    name: "ScanMark",
-    role: "Attendance and presence verification",
-    problem:
-      "Attendance is signed on paper, passed down a row, or reconstructed weeks later. Nobody can defend the number.",
-    inCore:
-      "Verifies presence against the enrolment record registration already created, and writes attendance back to the same record.",
-    institution:
-      "Attendance that holds up per course, department and session — without a clerk retyping sheets.",
-    student:
-      "Check in from your own device and see your own attendance as it accumulates.",
-    status: "Live in the ecosystem",
-  },
-  {
-    slug: "unireg",
-    name: "UniReg",
-    role: "Registration and academic administration",
-    problem:
-      "Course registration is spread across forms, a portal and departmental spreadsheets that disagree with each other.",
-    inCore:
-      "Writes enrolment into CampOS Core, where attendance, finance and records read it rather than copy it.",
-    institution:
-      "A live view of registration by programme and level, and one definition of who is enrolled.",
-    student:
-      "Register once. It holds everywhere else you are expected to appear.",
-    status: "Live in the ecosystem",
-  },
-  {
-    slug: "nada",
-    name: "NADA",
-    role: "Verified student communication",
-    problem:
-      "Campus conversation happens on platforms with no link to the institution, where nobody can tell a student from an outsider.",
-    inCore:
-      "Membership is proven through institutional identity, while the conversation itself stays anonymous by design.",
-    institution:
-      "A channel that is genuinely of the university, with verified membership and no identity register to leak.",
-    student:
-      "Speak as a verified student on your campus without publishing who you are.",
-    status: "Live in the ecosystem",
-  },
-  {
-    slug: "clearr",
-    name: "Clearr",
-    role: "Student finance and clearance",
-    problem:
-      "Fees, receipts and clearance stamps sit apart from academic status, so clearance becomes a queue and a signature hunt.",
-    inCore:
-      "Reads the same enrolment and academic records the rest of the ecosystem writes, so a clearance decision resolves against real state.",
-    institution:
-      "Clearance that resolves against live data, with a trail behind every decision.",
-    student:
-      "One place to see what is owed, what is paid and what is cleared.",
-    status: "Live in the ecosystem",
-  },
-];
-
+/** Section 03 — the one ecosystem member that is not integrated. */
 export const HALOFT = {
   name: "Haloft",
   role: "Campus and student housing",
@@ -236,17 +119,6 @@ export const LEADER_OUTCOMES = [
     detail:
       "New modules and new campuses join the same foundation instead of starting another integration project.",
   },
-] as const;
-
-/** Section 08 — the student's view. */
-export const STUDENT_JOURNEY = [
-  { step: "Sign in", detail: "One login for everything the university runs." },
-  { step: "Identity", detail: "Your verified student identity, issued by your institution." },
-  { step: "Academics", detail: "Programme, level and registered courses in one place." },
-  { step: "Attendance", detail: "Check in, and see your own record as it builds." },
-  { step: "Finance", detail: "What is owed, what is paid, what is cleared." },
-  { step: "Records", detail: "Results and academic history that follow you." },
-  { step: "Campus services", detail: "The rest of campus, behind the same identity." },
 ] as const;
 
 /** Section 09 — onboarding, in plain English. */

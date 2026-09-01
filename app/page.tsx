@@ -1,14 +1,14 @@
 import { SiteNav } from "@/components/navigation/SiteNav";
 import { Hero } from "@/components/hero/Hero";
-import { Fragmentation } from "@/components/platform/Fragmentation";
-import { CoreLayer } from "@/components/platform/CoreLayer";
+import { Fragmentation } from "@/components/core/Fragmentation";
+import { CoreLayer } from "@/components/core/CoreLayer";
 import { Ecosystem } from "@/components/ecosystem/Ecosystem";
-import { IdentityThread } from "@/components/identity/IdentityThread";
+import { IdentityJourney } from "@/components/identity/IdentityJourney";
 import { Security } from "@/components/security/Security";
 import { MultiInstitution } from "@/components/institutions/MultiInstitution";
 import { ForLeaders } from "@/components/institutions/ForLeaders";
-import { StudentExperience } from "@/components/experience/StudentExperience";
-import { HowItWorks } from "@/components/platform/HowItWorks";
+import { StudentDay } from "@/components/experience/StudentDay";
+import { HowItWorks } from "@/components/core/HowItWorks";
 import { Proof } from "@/components/institutions/Proof";
 import { Demonstration } from "@/components/experience/Demonstration";
 import { Architecture } from "@/components/architecture/Architecture";
@@ -18,8 +18,9 @@ import { SiteFooter } from "@/components/footer/SiteFooter";
 import { StructuredData } from "@/components/seo/StructuredData";
 
 /**
- * The argument, in order: a fragmented estate, the foundation that replaces it,
- * what the foundation makes possible, why it can be trusted, and what to do next.
+ * The argument, in order, with the ground alternating under it: a fragmented
+ * estate, the foundation that replaces it, what the foundation makes possible,
+ * why it can be trusted, and what to do next.
  */
 export default function Page() {
   return (
@@ -31,11 +32,11 @@ export default function Page() {
         <Fragmentation />
         <CoreLayer />
         <Ecosystem />
-        <IdentityThread />
+        <IdentityJourney />
         <Security />
         <MultiInstitution />
         <ForLeaders />
-        <StudentExperience />
+        <StudentDay />
         <HowItWorks />
         <Proof />
         <Demonstration />

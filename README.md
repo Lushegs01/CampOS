@@ -18,18 +18,28 @@ works, why it can be trusted, and what to do next — in that order.
 - **next/font** — Instrument Sans (interface), Instrument Serif (accent), Geist Mono (labels)
 - **Resend** for the "Talk to CampOS" enquiry route
 
-No animation library, no scroll library, no UI kit. Four small client components
-carry every interaction on the page:
+No animation library, no scroll library, no UI kit. The page is interactive
+where interaction explains something, and static everywhere else:
 
-| Component | Why it is client-side |
+| Client component | What it does |
 | --- | --- |
-| `primitives/Reveal` | one shared IntersectionObserver flips `data-reveal`; the animation itself is CSS |
+| `hero/CoreSystem` | the system map: selecting an application lights its route through Core, selecting Identity lights the whole system, and the map cycles itself until you take over |
+| `core/Fragmentation` | eight scattered systems snap onto the foundation, on scroll or from the toggle |
+| `core/CoreArchitecture` | choose a Core capability, see which applications depend on it |
+| `institutions/TenantSwitch` | pick a tenant, see its own structure and module set while the others recede |
+| `ecosystem/demos` | ScanMark check-ins, UniReg registration, Clearr clearance, NADA's two points of view |
+| `identity/IdentityJourney` | the ID card fills in as the seven stages scroll past it |
+| `security/TenantBoundary` | a request sent across the tenant boundary, and what the database answers |
+| `experience/RoleConsole` | three seats, five areas each, both levels of navigation live |
 | `navigation/MobileMenu` | drawer state, Escape, scroll lock |
 | `cta/ContactDialogProvider` | native `<dialog>` + the enquiry form |
-| `experience/RoleConsole` | the student / lecturer / administrator tablist |
+| `primitives/Reveal` | one shared IntersectionObserver flips `data-reveal`; the animation is CSS |
+| `navigation/HeaderScrollState` | a one-pixel sentinel, so the sticky header tightens once the page moves — no scroll listener |
 
-Everything else — including all fifteen sections, every diagram and the FAQ
-(native `<details>`) — is a server component.
+Every demo is a small state machine over a fixed script — deterministic, so the
+server and client agree and nothing can be mistaken for live institutional
+data. Timers are cleared on unmount. Everything else — the remaining sections,
+the FAQ (native `<details>`), all diagrams — is a server component.
 
 ## Getting started
 
@@ -37,6 +47,7 @@ Everything else — including all fifteen sections, every diagram and the FAQ
 npm install
 npm run dev            # http://localhost:3000
 npm run build && npm start
+npm run lint           # eslint, flat config, next/core-web-vitals
 npm run og             # regenerate app/opengraph-image.png
 ```
 
@@ -68,10 +79,12 @@ Type: `.display`, `.heading`, `.subheading`, `.lede`, `.body`, `.label`,
 marks), `.grid-wash`. All in `app/globals.css`; colours and fonts in
 `tailwind.config.ts`. Every text/background pair meets WCAG AA.
 
-Motion is one shared curve, one-shot, and CSS-only: reveals on entry, diagram
-paths that draw themselves, and two travelling signal dashes. Above the fold
-nothing fades in — a transition on the headline would delay LCP.
-`prefers-reduced-motion: reduce` removes all of it.
+Motion is one shared curve and CSS-only: reveals on entry, diagram paths that
+draw themselves, one travelling dash on the live route, and state transitions
+on colour and transform. Above the fold nothing fades in — a transition on the
+headline would delay LCP. `prefers-reduced-motion: reduce` removes all of it,
+stops the hero cycling, and settles the fragmented estate into its connected
+state so nothing depends on animation to be understood.
 
 ## Structure
 
@@ -84,8 +97,8 @@ app/
 ├── about/ privacy/ terms/ sign-in/
 └── api/book/route.ts     # enquiry relay (Resend)
 components/
-├── primitives/           # Reveal, Button, Section, Panel, Wordmark, PageShell
-├── navigation/ hero/ platform/ ecosystem/ identity/
+├── primitives/           # Reveal, Button, Section, Wordmark, PageShell
+├── navigation/ hero/ core/ ecosystem/ identity/
 ├── security/ institutions/ experience/ architecture/ faq/ cta/ footer/
 lib/                      # site constants + all page copy as typed data
 scripts/generate-og.mjs   # builds the social card
@@ -93,6 +106,10 @@ scripts/generate-og.mjs   # builds the social card
 
 Page copy lives in `lib/content.ts`, `lib/faq.ts` and `lib/roles.ts` as typed
 data, so sections stay presentational and wording can be edited in one place.
+`lib/system.ts` holds the model the interactive pieces share: four applications,
+the university function each serves, the identity layer they all pass through,
+and what each one reads from and writes to Core. The hero map, the architecture view and the closing diagram all render
+from it, which is why they agree with each other.
 
 ## Claims policy
 

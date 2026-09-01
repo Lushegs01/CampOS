@@ -1,6 +1,7 @@
 import { SECURITY_CONTROLS } from "@/lib/content";
 import { Reveal } from "@/components/primitives/Reveal";
 import { SectionIndex } from "@/components/primitives/Section";
+import { TenantBoundary } from "./TenantBoundary";
 
 /**
  * Section 05 — security. Described as architecture, with no absolute claims:
@@ -33,7 +34,18 @@ export function Security() {
           </Reveal>
 
           <div>
-            <ul className="grid gap-px overflow-hidden rounded-panel border border-line-invert bg-line-invert sm:grid-cols-2">
+            <Reveal>
+              <p className="label text-sage">ISOLATION, DEMONSTRATED</p>
+              <p className="body mt-3 max-w-prose text-[0.95rem] text-muted-invert">
+                A session belongs to one institution. Send it across the boundary and the
+                database answers with nothing at all.
+              </p>
+              <div className="mt-5">
+                <TenantBoundary />
+              </div>
+            </Reveal>
+
+            <ul className="mt-10 grid gap-px overflow-hidden rounded-panel border border-line-invert bg-line-invert sm:grid-cols-2">
               {SECURITY_CONTROLS.map((control, index) => (
                 <Reveal
                   as="li"

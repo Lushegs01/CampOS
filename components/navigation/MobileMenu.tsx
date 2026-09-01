@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { NAV_LINKS, SIGN_IN_HREF } from "@/lib/site";
 import { Wordmark } from "@/components/primitives/Wordmark";
@@ -59,9 +60,14 @@ export function MobileMenu() {
           className="fixed inset-0 top-0 z-50 flex flex-col bg-paper"
         >
           <div className="flex h-16 items-center justify-between border-b border-line px-gutter">
-            <a href="/" onClick={() => setOpen(false)} className="-my-2 group flex items-center py-2 text-forest" aria-label="CampOS — home">
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className="group -my-2 flex items-center py-2 text-forest"
+              aria-label="CampOS — home"
+            >
               <Wordmark />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setOpen(false)}
@@ -104,13 +110,13 @@ export function MobileMenu() {
             >
               Talk to CampOS
             </button>
-            <a
+            <Link
               href={SIGN_IN_HREF}
               onClick={() => setOpen(false)}
               className="btn btn-secondary mt-3 w-full"
             >
               Sign in
-            </a>
+            </Link>
           </div>
         </div>
       ) : null}
