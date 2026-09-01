@@ -8,14 +8,18 @@ import { ProductWindow, Row } from "./ProductWindow";
 export function ScanMarkVisual() {
   return (
     <ProductWindow module="ScanMark" state="Live app">
-      <div className="overflow-hidden rounded-lg border border-line bg-paper-2 shadow-xs">
+      <div className="relative h-[205px] w-full overflow-hidden rounded-lg border border-line bg-paper-2">
         <Image
           src="/scanmark-app.png"
           alt="ScanMark live student portal interface"
           width={480}
           height={1024}
-          className="h-auto w-full object-contain"
+          className="w-full object-cover object-top"
           priority
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-paper to-transparent"
         />
       </div>
       <p className="mono-xs mt-3 text-faint">
