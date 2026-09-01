@@ -1,83 +1,107 @@
-# CampOS — Landing Page
+# CampOS — website
 
-> One operating system for the whole campus.
+> The digital infrastructure behind the modern university.
 
-A production-ready marketing site for **CampOS**, the operating system for modern
-universities — unifying attendance (**ScanMark**), housing (**Krib**), records
-(**Nada**), and a single student identity into one verified ecosystem.
+The public site for **CampOS**, the institutional infrastructure layer universities
+run on: one verified identity, one permission model and one record of truth,
+connecting registration (**UniReg**), attendance (**ScanMark**), student
+communication (**NADA**), finance and clearance (**Clearr**) — and the wider
+ecosystem around them.
 
-The design is warm and editorial — paper textures, a sage-and-honey palette, and
-Fraunces as a variable serif — deliberately humane for something so infrastructural.
+The page is written for a decision-maker: what CampOS is, what it replaces, how it
+works, why it can be trusted, and what to do next — in that order.
 
 ## Stack
 
-- **Next.js 15** (App Router) · **React 19** · **TypeScript** (strict)
+- **Next.js 15** (App Router, React Server Components) · **React 19** · **TypeScript** (strict)
 - **Tailwind CSS** 3.4
-- **Framer Motion** 11 (scroll reveals + the cycling hero card)
-- **next/font** — Fraunces (display), Hanken Grotesk (body), Spline Sans Mono (labels)
+- **next/font** — Instrument Sans (interface), Instrument Serif (accent), Geist Mono (labels)
+- **Resend** for the "Talk to CampOS" enquiry route
+
+No animation library, no scroll library, no UI kit. Four small client components
+carry every interaction on the page:
+
+| Component | Why it is client-side |
+| --- | --- |
+| `primitives/Reveal` | one shared IntersectionObserver flips `data-reveal`; the animation itself is CSS |
+| `navigation/MobileMenu` | drawer state, Escape, scroll lock |
+| `cta/ContactDialogProvider` | native `<dialog>` + the enquiry form |
+| `experience/RoleConsole` | the student / lecturer / administrator tablist |
+
+Everything else — including all fifteen sections, every diagram and the FAQ
+(native `<details>`) — is a server component.
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev
+npm run dev            # http://localhost:3000
+npm run build && npm start
+npm run og             # regenerate app/opengraph-image.png
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+### Environment
 
-```bash
-npm run build && npm run start   # production
-```
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Absolute origin for canonical URLs, Open Graph and the sitemap. **Set this in production** — the fallback in `lib/site.ts` is a development placeholder. |
+| `RESEND_API_KEY` | Sends the "Talk to CampOS" enquiry. Without it the form returns a handled error. |
+| `CONTACT_TO` / `CONTACT_FROM` | Enquiry recipient and verified sender. |
 
 ## Design system
 
-| Token | Value |
-| --- | --- |
-| Paper (bg) | `#FBF9F5` |
-| Paper 2 | `#F3EFE6` |
-| Ink (text) | `#18241E` |
-| Ink soft | `#425047` |
-| Sage / Sage deep | `#5A7363` / `#36473C` |
-| Honey / Honey deep | `#D79744` / `#BC7E2E` |
-| Blush | `#E8CBB9` |
-| Hairline | `rgba(24,36,30,0.12)` |
+Two grounds and one institutional green. Colour is a signal, not a surface:
+forest for the platform and anything connected, clay for the fragmented "before"
+state, sage for supporting structure.
 
-Type tokens (`.display`, `.display-sm`, `.serif-em`, `.eyebrow`) and the button
-classes live in `app/globals.css`; colors, fonts, and the `scan` / `pulse-ring`
-keyframes live in `tailwind.config.ts`. Motion shares one easing curve,
-`[0.2, 0.8, 0.2, 1]`, and everything respects `prefers-reduced-motion`.
+| Token | Value | Used for |
+| --- | --- | --- |
+| `ink` / `ink-2` / `ink-3` | `#0A0D0C` `#101512` `#1A211D` | dark sections, the Core, the console |
+| `paper` / `paper-2` / `paper-3` | `#F7F6F2` `#EFEEE7` `#E3E2D9` | the primary ground |
+| `forest` / `forest-deep` / `forest-bright` | `#114935` `#0A2E22` `#1C6B4E` | primary actions, connected state, focus |
+| `sage` / `sage-soft` | `#7B968A` `#AEC0B6` | labels and structure on ink |
+| `clay` / `clay-deep` / `clay-light` | `#B4573A` `#98462C` `#CE7856` | fragmentation, blocking states |
+| `muted` / `faint` | `#585F5B` `#6B726E` | body and label text on paper |
+
+Type: `.display`, `.heading`, `.subheading`, `.lede`, `.body`, `.label`,
+`.mono-xs`, `.em-serif`. Structure: `.shell`, `.ticks` (corner registration
+marks), `.grid-wash`. All in `app/globals.css`; colours and fonts in
+`tailwind.config.ts`. Every text/background pair meets WCAG AA.
+
+Motion is one shared curve, one-shot, and CSS-only: reveals on entry, diagram
+paths that draw themselves, and two travelling signal dashes. Above the fold
+nothing fades in — a transition on the headline would delay LCP.
+`prefers-reduced-motion: reduce` removes all of it.
 
 ## Structure
 
 ```
-campos/
-├── app/
-│   ├── globals.css        # warm base + display/eyebrow/button classes
-│   ├── layout.tsx         # fonts, metadata, MotionProvider
-│   └── page.tsx           # section composition
-├── components/
-│   ├── Navbar.tsx         # sticky, blur, mobile drawer
-│   ├── Hero.tsx           # headline + HeroCard
-│   ├── HeroCard.tsx       # cycling identity card (ScanMark QR / Krib / Nada)
-│   ├── ProofStrip.tsx
-│   ├── Modules.tsx        # ScanMark · Krib · Nada (last card dark)
-│   ├── Trust.tsx          # dark "verified once" band
-│   ├── QuestionsWall.tsx  # masonry of registrar questions
-│   ├── InstitutionsCTA.tsx
-│   ├── Footer.tsx
-│   ├── Section.tsx        # Eyebrow + SectionHeading
-│   ├── Logo.tsx           # mark + wordmark
-│   └── MotionProvider.tsx
-├── lib/motion.ts          # easing, variants, viewport
-├── tailwind.config.ts
-└── package.json
+app/
+├── layout.tsx            # fonts, metadata, contact dialog provider
+├── page.tsx              # the fifteen-section composition
+├── globals.css           # design system
+├── sitemap.ts robots.ts manifest.ts
+├── about/ privacy/ terms/ sign-in/
+└── api/book/route.ts     # enquiry relay (Resend)
+components/
+├── primitives/           # Reveal, Button, Section, Panel, Wordmark, PageShell
+├── navigation/ hero/ platform/ ecosystem/ identity/
+├── security/ institutions/ experience/ architecture/ faq/ cta/ footer/
+lib/                      # site constants + all page copy as typed data
+scripts/generate-og.mjs   # builds the social card
 ```
 
-## Notes
+Page copy lives in `lib/content.ts`, `lib/faq.ts` and `lib/roles.ts` as typed
+data, so sections stay presentational and wording can be edited in one place.
 
-- **Signature element** — the hero card cycles one verified student (Ada Okafor)
-  through three CampOS surfaces: a live ScanMark QR check-in, a verified Krib
-  lease, and a sealed Nada transcript. The QR matrix is generated deterministically
-  so server and client render identically (no hydration shift).
-- **No image assets** — every visual is markup, CSS, and inline SVG.
-- A standalone `preview.html` mirrors the design with zero install.
+## Claims policy
+
+The site displays no customer logos, adoption figures, uptime numbers, security
+certifications or testimonials, because none have been verified. Where proof
+would normally sit, the page says what CampOS can actually show an evaluator
+today, and marks the space reserved for verified proof. Interface visuals are
+captioned as illustrations, and tenant names are neutral placeholders.
+
+Two things are deliberately left unset rather than invented: `SOCIAL_LINKS` in
+`lib/site.ts` (add real profile URLs and the footer renders them) and
+`NEXT_PUBLIC_SITE_URL`.

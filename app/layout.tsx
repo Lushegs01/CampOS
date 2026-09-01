@@ -1,96 +1,106 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Hanken_Grotesk, Spline_Sans_Mono } from "next/font/google";
-import { MotionProvider } from "@/components/MotionProvider";
+import { Instrument_Sans, Instrument_Serif, Geist_Mono } from "next/font/google";
+import { SITE } from "@/lib/site";
+import { ContactDialogProvider } from "@/components/cta/ContactDialogProvider";
+import { ServiceWorkerRegister } from "@/components/pwa/ServiceWorkerRegister";
 import "./globals.css";
 
-// All three are variable fonts, so omitting `weight` ships one file spanning the
-// whole axis instead of a static instance per weight. The italic axis of
-// Fraunces is not requested — `.serif-em` is the only italic style in the sheet
-// and nothing uses it.
-const fraunces = Fraunces({
+/*
+ * Three families, each loaded once. Instrument Sans carries the whole
+ * interface; the serif is an accent used a handful of times below the fold and
+ * the mono is small-label only, so neither is preloaded — that keeps the
+ * critical font payload to a single variable file.
+ */
+const sans = Instrument_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-fraunces",
+  variable: "--font-sans",
 });
 
-const hanken = Hanken_Grotesk({
+const serif = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
+  style: ["italic"],
   display: "swap",
-  variable: "--font-hanken",
+  preload: false,
+  variable: "--font-serif",
 });
 
-// Only ever used for small uppercase labels, so it can wait for first paint.
-const splineMono = Spline_Sans_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   preload: false,
-  variable: "--font-spline-mono",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "CampOS",
-  applicationName: "CampOS",
-  description:
-    "CampOS unifies attendance, housing, records, and identity into one verified ecosystem. One student login opens every door on campus — and nothing along the way can be forged.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: "CampOS — The digital infrastructure behind the modern university",
+    template: "%s — CampOS",
+  },
+  description: SITE.description,
+  applicationName: SITE.name,
+  keywords: [
+    "CampOS",
+    "university operating system",
+    "university digital infrastructure",
+    "student management platform",
+    "higher education technology",
+    "university administration software",
+    "campus operating system",
+  ],
+  alternates: { canonical: "/" },
   manifest: "/manifest.webmanifest",
-  appleWebApp: {
-    capable: true,
-    title: "CampOS",
-    statusBarStyle: "black-translucent",
+  appleWebApp: { capable: true, title: SITE.name, statusBarStyle: "default" },
+  openGraph: {
+    type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: "CampOS — The digital infrastructure behind the modern university",
+    description: SITE.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CampOS — The digital infrastructure behind the modern university",
+    description: SITE.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   other: {
-    // Next only emits the modern `mobile-web-app-capable`; older iOS (< 15.4)
-    // still needs the Apple-prefixed tag to launch full-screen from the home screen.
     "apple-mobile-web-app-capable": "yes",
-  },
-  // Favicon + apple-touch-icon come from app/icon.png and app/apple-icon.png.
-  openGraph: {
-    title: "CampOS",
-    description:
-      "Attendance, housing, records, and identity — unified, verified, and connected.",
-    type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  // Matches the dark hero the app opens on, so the mobile browser bar and the
-  // installed-app status bar blend into the page.
-  themeColor: "#030712",
+  themeColor: "#F7F6F2",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
-import { ModalProvider } from "@/context/ModalContext";
-import { BookingModal } from "@/components/BookingModal";
-import { SmoothScroll } from "@/components/SmoothScroll";
-import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // No `scroll-smooth` on <html>: it fights Lenis for control of programmatic
-    // scrolling, which is what made anchor jumps stutter.
-    <html
-      lang="en"
-      className={`${fraunces.variable} ${hanken.variable} ${splineMono.variable}`}
-    >
-      <body className="overflow-x-hidden bg-paper font-body text-ink antialiased">
-        <SmoothScroll />
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
+      <head>
+        {/* Without JavaScript the reveal system never flips, so make everything
+            visible up front rather than shipping an invisible page. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}.draw{stroke-dashoffset:0!important}.fade-node{opacity:1!important}`}</style>
+        </noscript>
+      </head>
+      <body className="overflow-x-hidden bg-paper font-sans text-ink antialiased">
+        <a
+          href="#main"
+          className="sr-only left-4 top-4 z-50 rounded-tile bg-ink px-4 py-2.5 text-paper focus:not-sr-only focus:absolute"
+        >
+          Skip to content
+        </a>
+        <ContactDialogProvider>{children}</ContactDialogProvider>
         <ServiceWorkerRegister />
-        <ModalProvider>
-          <MotionProvider>{children}</MotionProvider>
-          <BookingModal />
-        </ModalProvider>
-
-        {/* Fine grain noise overlay for premium cinematic texture. A pre-baked
-            tiling texture rather than an feTurbulence filter: the filter had to
-            be procedurally rasterised across the full viewport on every resize
-            and zoom, which alone cost more than the rest of the page combined
-            on mid-range phones. */}
-        <div className="noise-overlay" aria-hidden />
       </body>
     </html>
   );

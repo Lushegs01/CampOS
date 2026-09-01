@@ -1,35 +1,51 @@
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import type { Metadata } from "next";
+import { PageShell } from "@/components/primitives/Prose";
 
-export const metadata = {
-  title: "About Us | CampOS",
-  description: "The mission behind CampOS.",
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Why CampOS is building one digital foundation for universities, and what we are trying to fix.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
   return (
-    <>
-      <div className="relative z-10 bg-paper shadow-[0_20px_40px_rgba(0,0,0,0.1)] min-h-screen">
-        <Navbar />
-        <main className="pt-32 pb-24 px-[clamp(20px,5vw,56px)] max-w-[800px] mx-auto">
-          <h1 className="display text-4xl mb-8">About CampOS</h1>
-          <div className="text-[1.1rem] leading-relaxed text-ink-soft space-y-6">
-            <p>
-              CampOS was founded on a simple premise: a university should run on a single, unified operating system.
-            </p>
-            <p>
-              For decades, higher education institutions have suffered from fragmented software. Students use one portal for housing, another to register for classes, and rely on physical cards or disjointed apps to prove their identity. This leads to fraud, administrative bloat, and a frustrating student experience.
-            </p>
-            <p>
-              We built CampOS to solve this. By giving every student a single verified identity, we put attendance tracking (ScanMark), housing (FunaaBnB), and records (Nada) on one seamless platform. No new hardware, no fragmented ledgers.
-            </p>
-            <p>
-              We are a team of engineers and educators working across Nigeria, Ghana, and the United Kingdom, building the definitive operating system for modern campuses.
-            </p>
-          </div>
-        </main>
-      </div>
-      <Footer />
-    </>
+    <PageShell
+      eyebrow="About"
+      title="A university should run on one foundation."
+      intro="CampOS exists because the hardest problems in university administration are not inside any single system — they are in the space between systems."
+    >
+      <h2>What we are fixing</h2>
+      <p>
+        Universities have no shortage of software. What they lack is a shared foundation
+        underneath it: one verified identity per person, one model of the institution, one
+        place where records are written. Without that, every new system adds another copy of
+        the student and another reconciliation job for someone in an office.
+      </p>
+
+      <h2>How we build</h2>
+      <p>
+        CampOS Core came first, and the applications followed from it. ScanMark, UniReg, NADA
+        and Clearr are useful on their own, but each is deliberately built on the same
+        identity, structure and permissions — which is what makes them a platform rather than
+        a portfolio. Haloft, our housing product, sits in the wider ecosystem and is outside
+        the current core integration rollout.
+      </p>
+
+      <h2>What we will not do</h2>
+      <p>
+        We will not publish an institution as a partner before that partnership is agreed and
+        announced by the institution. We will not put invented adoption numbers on a page
+        aimed at people who are accountable for public money. And we will not describe a
+        security control we cannot demonstrate to your ICT team.
+      </p>
+
+      <h2>Where we work</h2>
+      <p>
+        We are building for African tertiary institutions first — universities with real
+        constraints on budget, connectivity and staffing, where the cost of fragmentation is
+        highest and the benefit of a shared foundation is most immediate.
+      </p>
+    </PageShell>
   );
 }

@@ -1,77 +1,90 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * CampOS design system.
+ *
+ * Two grounds — ink and paper — and a single institutional green. Colour is a
+ * signal, not a surface: forest for the platform and anything connected, clay
+ * for the fragmented "before" state, sage for supporting structure. Everything
+ * else is neutral so the diagrams can carry the meaning.
+ */
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        paper: "#FFFFFF",
-        "paper-2": "#F8FAFC",
-        ink: "#0F172A",
-        "ink-soft": "#475569",
-        slate: "#64748B",
-        "slate-deep": "#142d22",
-        primary: "#059669",
-        "primary-deep": "#047857",
-        "accent-light": "#ECFDF5",
-        "slate-light": "#E2E8F0",
-        line: "rgba(15,23,42,0.12)",
-        "line-soft": "rgba(15,23,42,0.06)",
-        // Hybrid Additions
-        obsidian: "#08100d",
-        "obsidian-soft": "#112018",
-        "neon-indigo": "#10B981",
-        "neon-violet": "#8B5CF6",
-        "emerald-glow": "#10B981",
-        "glass-white": "rgba(255, 255, 255, 0.7)",
-        "glass-dark": "rgba(11, 15, 25, 0.6)",
-        platinum: "#F1F5F9",
-        "silver-glow": "#CBD5E1",
+        ink: {
+          DEFAULT: "#0A0D0C", // page ground for dark sections
+          2: "#101512", // raised surface on ink
+          3: "#1A211D", // hairline-bounded panels on ink
+        },
+        paper: {
+          DEFAULT: "#F7F6F2", // warm white, the primary ground
+          2: "#EFEEE7",
+          3: "#E3E2D9",
+        },
+        forest: {
+          DEFAULT: "#114935", // primary — CampOS green, institutional not neon
+          deep: "#0A2E22",
+          bright: "#1C6B4E", // interaction / focus only
+          tint: "#E6EFEA",
+        },
+        sage: {
+          DEFAULT: "#7B968A",
+          soft: "#AEC0B6",
+          dim: "#546862",
+        },
+        clay: {
+          DEFAULT: "#B4573A", // restrained accent — status, "before" state
+          deep: "#98462C", // small text on paper (AA)
+          light: "#CE7856", // small text on ink (AA)
+          tint: "#F4E5DE",
+        },
+        muted: "#585F5B", // body copy on paper (AA on paper)
+        faint: "#6B726E", // labels on paper (AA at small sizes)
+        "muted-invert": "#A6B0AB", // body copy on ink
+        "faint-invert": "#79837E",
+        line: {
+          DEFAULT: "rgba(10,13,12,0.11)",
+          strong: "rgba(10,13,12,0.20)",
+          diagram: "rgba(10,13,12,0.28)",
+          invert: "rgba(247,246,242,0.13)",
+          "invert-strong": "rgba(247,246,242,0.24)",
+        },
       },
       fontFamily: {
-        display: ["var(--font-fraunces)", "Georgia", "serif"],
-        body: ["var(--font-hanken)", "ui-sans-serif", "system-ui", "sans-serif"],
-        sans: ["var(--font-hanken)", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: ["var(--font-spline-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       maxWidth: {
-        wrap: "1180px",
+        shell: "1180px",
+        prose: "62ch",
       },
       borderRadius: {
-        card: "18px",
+        panel: "14px",
+        tile: "10px",
+      },
+      spacing: {
+        gutter: "clamp(1.25rem, 4vw, 2.5rem)",
+        section: "clamp(4.5rem, 9vw, 8.5rem)",
+      },
+      fontSize: {
+        label: ["0.6875rem", { lineHeight: "1", letterSpacing: "0.16em" }],
+        micro: ["0.75rem", { lineHeight: "1.45", letterSpacing: "0.01em" }],
+      },
+      transitionTimingFunction: {
+        // One curve for the whole site.
+        system: "cubic-bezier(0.22, 0.61, 0.24, 1)",
       },
       keyframes: {
-        pulseRing: {
-          "0%": { transform: "scale(.6)", opacity: "0.7" },
-          "80%": { transform: "scale(1.9)", opacity: "0" },
-          "100%": { transform: "scale(1.9)", opacity: "0" },
+        signal: {
+          "0%": { strokeDashoffset: "240" },
+          "100%": { strokeDashoffset: "-240" },
         },
-        scan: {
-          "0%": { top: "9px", opacity: "0" },
-          "12%": { opacity: "1" },
-          "88%": { opacity: "1" },
-          "100%": { top: "calc(100% - 9px)", opacity: "0" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        glow: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.6" },
-        },
-        mesh: {
-          "0%": { backgroundPosition: "0% 0%" },
-          "50%": { backgroundPosition: "100% 100%" },
-          "100%": { backgroundPosition: "0% 0%" },
-        }
       },
       animation: {
-        "pulse-ring": "pulseRing 2.4s ease-out infinite",
-        scan: "scan 2.6s cubic-bezier(.5,0,.5,1) infinite",
-        float: "float 6s ease-in-out infinite",
-        glow: "glow 4s ease-in-out infinite",
-        mesh: "mesh 15s ease infinite",
+        signal: "signal 5.5s linear infinite",
       },
     },
   },
