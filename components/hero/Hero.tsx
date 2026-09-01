@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/primitives/Reveal";
 import { ArrowRight, ButtonLink } from "@/components/primitives/Button";
 import { ContactButton } from "@/components/cta/ContactButton";
-import { SystemMapDesktop, SystemMapMobile } from "./SystemMap";
+import { CoreSystem } from "./CoreSystem";
 
 const FOUNDATIONS = [
   "Multi-institution by design",
@@ -25,9 +25,9 @@ export function Hero() {
       />
 
       <div className="shell relative py-12 md:py-16 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-14">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
           <div>
-            <h1 className="display max-w-[19ch] text-balance">
+            <h1 className="display max-w-[17ch]">
               The digital infrastructure behind the modern university.
             </h1>
 
@@ -69,13 +69,12 @@ export function Hero() {
           </div>
 
           <Reveal delay={80} className="lg:pl-4">
-            <figure className="ticks border border-line bg-paper/70 p-4 sm:p-6">
-              <SystemMapDesktop />
-              <SystemMapMobile />
-              <figcaption className="mono-xs mt-4 flex items-center justify-between gap-4 border-t border-line pt-3 text-faint">
+            <figure className="ticks border border-line bg-paper/70 p-4 sm:p-5">
+              <figcaption className="mono-xs mb-3 flex items-center justify-between gap-4 border-b border-line pb-3 text-faint">
                 <span>System map · CampOS Core</span>
                 <span className="hidden sm:inline">Many functions. One foundation.</span>
               </figcaption>
+              <CoreSystem />
             </figure>
           </Reveal>
         </div>

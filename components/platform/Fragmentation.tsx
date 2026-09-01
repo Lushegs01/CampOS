@@ -1,78 +1,164 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { FRAGMENTS } from "@/lib/content";
-import { Reveal } from "@/components/primitives/Reveal";
 import { SectionIndex } from "@/components/primitives/Section";
 
 /**
- * Section 01 — the estate as it actually is. Every tile is its own island: a
- * severed connector, a note about where the work goes, and no shared spine.
- * The disorder is deliberate and structural, not decorative.
+ * Section 01 — the estate, before and after.
+ *
+ * Eight systems start scattered and unconnected. Scrolling into the section
+ * aligns them and drops the foundation underneath; a toggle lets anyone move
+ * between the two states directly, which is also what makes the moment work
+ * without motion or without scrolling.
+ *
+ * Everything animated here is transform and opacity on eleven elements.
  */
+
+/**
+ * Fixed scatter — deterministic, so server and client render identically. The
+ * numbers are composed in CSS against a scale factor, which is smaller on
+ * narrow screens so a tile can never push the page sideways.
+ */
+const SCATTER: [number, number, number][] = [
+  [-14, 18, -2.2],
+  [20, -12, 1.8],
+  [-8, -20, 1.2],
+  [16, 14, -1.4],
+  [-20, -10, 2],
+  [10, 20, -2],
+  [-16, 12, 1.6],
+  [18, -16, -1.1],
+];
+
 export function Fragmentation() {
+  const [connected, setConnected] = useState(false);
+  const touched = useRef(false);
+  const stage = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = stage.current;
+    if (!node) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setConnected(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (touched.current) return;
+        // Connect once the visual is properly on screen, not on first pixel.
+        if (entry.intersectionRatio > 0.55) {
+          setConnected(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: [0, 0.55, 1] }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  function choose(next: boolean) {
+    touched.current = true;
+    setConnected(next);
+  }
+
   return (
     <section className="border-b border-line bg-paper-2 py-section">
       <div className="shell">
-        <Reveal className="max-w-3xl">
-          <SectionIndex index="01" eyebrow="The problem" />
-          <h2 className="heading mt-6 max-w-[22ch] text-balance">
-            Universities don&apos;t lack systems. They lack a foundation.
-          </h2>
-          <p className="lede mt-5 max-w-prose text-muted">
-            Attendance runs in one place, registration in another, fees in a third. Each
-            keeps its own copy of the student, its own idea of who has permission, and its
-            own definition of enrolled.
-          </p>
-        </Reveal>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <SectionIndex index="01" eyebrow="The problem" />
+            <h2 className="heading mt-6 max-w-[20ch] text-balance">
+              Universities have systems for everything.
+            </h2>
+            <p className="lede mt-5 max-w-prose text-muted">
+              They were rarely designed to work as one. Each keeps its own copy of the
+              student, its own idea of who has permission, and its own definition of
+              enrolled — and the gaps between them become the work.
+            </p>
+          </div>
 
-        <Reveal delay={80} className="mt-12">
-          <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line md:grid-cols-4">
+          <div
+            role="group"
+            aria-label="System state"
+            className="inline-flex flex-none rounded-panel border border-line bg-paper p-1"
+          >
+            {[
+              { label: "Fragmented", value: false },
+              { label: "On CampOS", value: true },
+            ].map((option) => (
+              <button
+                key={option.label}
+                type="button"
+                aria-pressed={connected === option.value}
+                onClick={() => choose(option.value)}
+                className={`min-h-[2.5rem] rounded-tile px-4 text-[0.9rem] font-medium transition-colors duration-200 ease-system ${
+                  connected === option.value
+                    ? "bg-ink text-paper"
+                    : "text-muted hover:text-ink"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div
+          ref={stage}
+          data-connected={connected ? "true" : "false"}
+          className="estate mt-12"
+        >
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
             {FRAGMENTS.map((fragment, index) => (
               <li
                 key={fragment.name}
-                className="group relative bg-paper px-4 py-6 sm:px-5 sm:py-7"
+                className="estate-tile rounded-panel border border-line bg-paper px-4 py-5"
+                style={
+                  {
+                    "--sx": SCATTER[index][0],
+                    "--sy": SCATTER[index][1],
+                    "--sr": SCATTER[index][2],
+                  } as React.CSSProperties
+                }
               >
-                {/* A connector that leaves the tile and stops. */}
-                <svg
-                  viewBox="0 0 40 20"
-                  width="40"
-                  height="20"
-                  aria-hidden
-                  className={`absolute right-4 top-4 text-clay ${index % 2 ? "rotate-180" : ""}`}
-                >
-                  <path
-                    d="M2 10 H26"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeDasharray="3 3"
-                    opacity="0.75"
-                  />
-                  <path d="m30 6 6 8M36 6l-6 8" stroke="currentColor" strokeWidth="1" opacity="0.75" />
-                </svg>
-
-                <p className="label text-faint">{String(index + 1).padStart(2, "0")}</p>
-                <p className="mt-8 text-[1.02rem] font-medium tracking-[-0.015em]">
-                  {fragment.name}
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-[0.98rem] font-medium tracking-[-0.015em]">
+                    {fragment.name}
+                  </p>
+                  <span className="estate-dot" aria-hidden />
+                </div>
+                <p className="mono-xs mt-2 text-faint">
+                  <span className="estate-before">{fragment.note}</span>
+                  <span className="estate-after">{fragment.connected}</span>
                 </p>
-                <p className="mono-xs mt-1.5 text-faint">{fragment.note}</p>
               </li>
             ))}
           </ul>
-        </Reveal>
 
-        <div className="mt-12 grid gap-8 border-t border-line pt-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-14">
-          <Reveal>
-            <p className="subheading max-w-[30ch] text-balance">
-              The gaps between systems become the work.
-            </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <p className="body max-w-prose text-muted">
-              Spreadsheets that reconcile one system against another. Clearance queues that
-              exist because finance cannot read academic status. Identities re-keyed at every
-              desk, and records nobody fully trusts because there are four versions of them.
-              None of this is a software problem in any single system —{" "}
-              <span className="em-serif text-ink">it is the absence of a foundation.</span>
-            </p>
-          </Reveal>
+          {/* the drop into the foundation */}
+          <div aria-hidden className="estate-links">
+            {[0, 1, 2, 3].map((column) => (
+              <span key={column} className="estate-link" />
+            ))}
+          </div>
+
+          <div className="estate-core rounded-panel bg-ink px-5 py-5 text-paper sm:px-7">
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+              <p className="text-[1.05rem] font-medium tracking-[-0.015em]">CampOS Core</p>
+              <p className="label text-sage">ONE RECORD OF TRUTH</p>
+            </div>
+          </div>
+
+          <p className="estate-caption mono-xs mt-5 text-center text-faint">
+            <span className="estate-before">
+              Eight systems. Eight versions of the same student.
+            </span>
+            <span className="estate-after">
+              Eight systems. One identity, one record, one permission model.
+            </span>
+          </p>
         </div>
       </div>
     </section>
