@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CORE_CAPABILITIES, CORE_INPUTS } from "@/lib/content";
 import { Reveal } from "@/components/primitives/Reveal";
 import { SectionIndex } from "@/components/primitives/Section";
@@ -73,14 +74,21 @@ function ConvergenceDiagram() {
           className="fill-ink-3 stroke-line-invert-strong"
           strokeWidth={1}
         />
-        <text x="397" y="160" textAnchor="middle" className="fill-paper text-[14px] font-medium">
+        <image
+          href="/logo.png"
+          x="379"
+          y="136"
+          width="36"
+          height="36"
+          preserveAspectRatio="xMidYMid meet"
+        />
+        <text
+          x="397"
+          y="190"
+          textAnchor="middle"
+          className="fill-paper text-[13.5px] font-medium tracking-[-0.01em]"
+        >
           CampOS Core
-        </text>
-        <text x="397" y="180" textAnchor="middle" className="label fill-sage">
-          ONE DATA LAYER
-        </text>
-        <text x="397" y="196" textAnchor="middle" className="label fill-faint-invert">
-          ONE PERMISSION MODEL
         </text>
       </g>
 
@@ -122,9 +130,15 @@ function ConvergenceStack() {
       </ul>
       <div className="flex flex-col items-center">
         <span aria-hidden className="h-8 w-px bg-line-invert-strong" />
-        <div className="w-full rounded-panel border border-line-invert-strong bg-ink-3 px-5 py-5 text-center">
-          <p className="text-[1.05rem] font-medium">CampOS Core</p>
-          <p className="label mt-2 text-sage">ONE DATA LAYER · ONE PERMISSION MODEL</p>
+        <div className="flex w-full flex-col items-center rounded-panel border border-line-invert-strong bg-ink-3 px-5 py-5 text-center">
+          <Image
+            src="/logo.png"
+            alt="CampOS"
+            width={38}
+            height={38}
+            className="h-[38px] w-[38px] object-contain drop-shadow-sm"
+          />
+          <p className="mt-2 text-[1.05rem] font-medium text-paper">CampOS Core</p>
         </div>
         <span aria-hidden className="h-8 w-px bg-line-invert-strong" />
         <p className="label text-faint-invert">UNIVERSITY ECOSYSTEM</p>
