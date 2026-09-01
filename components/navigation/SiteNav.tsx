@@ -3,6 +3,7 @@ import { NAV_LINKS, SIGN_IN_HREF } from "@/lib/site";
 import { Wordmark } from "@/components/primitives/Wordmark";
 import { ContactButton } from "@/components/cta/ContactButton";
 import { MobileMenu } from "./MobileMenu";
+import { NavLinks } from "./NavLinks";
 import { HeaderScrollState } from "./HeaderScrollState";
 
 /**
@@ -23,18 +24,7 @@ export function SiteNav() {
         </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-7">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-[0.92rem] font-medium text-muted transition-colors duration-200 ease-system hover:text-ink"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <NavLinks />
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -47,7 +37,12 @@ export function SiteNav() {
           <ContactButton className="btn btn-primary h-10 min-h-0 text-[0.9rem]" />
         </div>
 
-        <MobileMenu />
+        <div className="flex items-center gap-1 lg:hidden">
+          <ContactButton className="btn btn-primary h-10 min-h-0 px-3.5 text-[0.86rem]">
+            Talk to us
+          </ContactButton>
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );

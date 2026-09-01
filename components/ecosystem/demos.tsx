@@ -143,14 +143,14 @@ export function ScanMarkDemo() {
 /** The real ScanMark student app, beside the live session. */
 export function ScanMarkApp() {
   return (
-    <figure className="mx-auto w-full max-w-[212px]">
+    <figure className="mx-auto w-full max-w-[150px] sm:max-w-[212px]">
       <div className="overflow-hidden rounded-[22px] border border-line bg-paper-2 p-2">
         <Image
           src="/scanmark-app.webp"
           alt="The ScanMark student app showing a course list and check-in screen"
           width={480}
           height={1024}
-          sizes="212px"
+          sizes="(max-width: 640px) 150px, 212px"
           className="w-full rounded-[14px] object-cover"
         />
       </div>

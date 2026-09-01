@@ -29,9 +29,9 @@ const PRODUCTS: Product[] = [
     name: "ScanMark",
     statement: "Presence, verified.",
     problem:
-      "Attendance is signed on paper, passed down a row, or reconstructed weeks later. Nobody can defend the number.",
+      "Signed on paper, passed down a row, reconstructed weeks later. Nobody can defend the number.",
     mechanism:
-      "Every check-in resolves against the enrolment UniReg wrote to Core, so attendance becomes a live institutional record instead of a paper trail. A student not registered for the course cannot appear in it.",
+      "Every check-in resolves against the enrolment UniReg wrote to Core — a live institutional record, not a paper trail. A student who is not registered cannot appear in it.",
     demo: <ScanMarkDemo />,
     aside: <ScanMarkApp />,
   },
@@ -40,9 +40,9 @@ const PRODUCTS: Product[] = [
     name: "UniReg",
     statement: "Register once. It holds everywhere.",
     problem:
-      "Registration is spread across forms, a portal and departmental spreadsheets that disagree with each other.",
+      "Spread across forms, a portal and departmental spreadsheets that disagree with each other.",
     mechanism:
-      "Enrolment is written to Core a single time. Attendance, finance and academic records read that record rather than keeping their own copy of it.",
+      "Enrolment is written to Core once. Attendance, finance and records read it there instead of keeping copies.",
     demo: <UniRegDemo />,
   },
   {
@@ -50,9 +50,9 @@ const PRODUCTS: Product[] = [
     name: "Clearr",
     statement: "Clearance, resolved — not stamped.",
     problem:
-      "Fees, receipts and clearance sit apart from academic status, so clearance becomes a queue and a signature hunt.",
+      "Fees and receipts sit apart from academic status, so clearance becomes a queue and a signature hunt.",
     mechanism:
-      "A clearance decision is computed against live finance and academic state, then published back to Core so every office reads the same answer.",
+      "The decision is computed against live finance and academic state, then published to Core so every office reads the same answer.",
     demo: <ClearrDemo />,
   },
   {
@@ -60,9 +60,9 @@ const PRODUCTS: Product[] = [
     name: "NADA",
     statement: "Verified student. Unnamed voice.",
     problem:
-      "Campus conversation happens on platforms with no link to the institution, where nobody can tell a student from an outsider.",
+      "Campus conversation happens where nobody can tell a student from an outsider.",
     mechanism:
-      "Your institution knows you are a student; other students do not need to know who you are. NADA asks Core one question — is this person a member of this institution — and is never told whose answer it is.",
+      "Your institution knows you are a student; other students do not need to know who you are. NADA asks Core one question — is this a member of this institution — and is never told whose answer it is.",
     demo: <NadaDemo />,
   },
 ];
@@ -83,7 +83,7 @@ export function Ecosystem() {
           </p>
         </Reveal>
 
-        <div className="mt-14 space-y-16 lg:space-y-24">
+        <div className="mt-12 space-y-12 lg:space-y-16">
           {PRODUCTS.map((product, index) => {
             const flow = SYSTEM_FLOWS.find((item) => item.id === product.slug);
             const flip = index % 2 === 1;
@@ -92,9 +92,9 @@ export function Ecosystem() {
               <article
                 key={product.slug}
                 id={product.slug}
-                className="scroll-mt-24 border-t border-line pt-10"
+                className="scroll-mt-24 border-t border-line pt-8"
               >
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
+                <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
                   <Reveal className={`min-w-0 ${flip ? "lg:order-2" : ""}`}>
                     <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
                       <h3 className="text-[1.6rem] font-medium tracking-[-0.03em]">
@@ -105,11 +105,11 @@ export function Ecosystem() {
                       </span>
                     </div>
 
-                    <p className="mt-4 max-w-[16ch] text-[2rem] font-medium leading-[1.05] tracking-[-0.035em] text-balance">
+                    <p className="mt-3 max-w-[16ch] text-[1.9rem] font-medium leading-[1.05] tracking-[-0.035em] text-balance">
                       {product.statement}
                     </p>
 
-                    <dl className="mt-7 space-y-5 border-t border-line pt-6">
+                    <dl className="mt-6 space-y-4 border-t border-line pt-5">
                       <div>
                         <dt className="label text-clay-deep">THE PROBLEM</dt>
                         <dd className="body mt-2 max-w-prose text-[0.95rem] text-muted">
@@ -152,7 +152,7 @@ export function Ecosystem() {
           })}
         </div>
 
-        <Reveal delay={60} className="mt-16">
+        <Reveal delay={60} className="mt-12">
           <div className="rounded-panel border border-line bg-paper-2 px-6 py-6 sm:px-8 sm:py-7">
             <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
               <h3 className="subheading">{HALOFT.name}</h3>

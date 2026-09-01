@@ -25,9 +25,9 @@ export function Hero() {
       />
 
       <div className="shell relative py-12 md:py-16 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12">
           <div>
-            <h1 className="display max-w-[17ch]">
+            <h1 className="display max-w-[17ch] text-balance">
               The digital infrastructure behind the modern university.
             </h1>
 

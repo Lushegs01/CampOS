@@ -66,9 +66,30 @@ export function IdentityJourney() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          {/* mobile: the record as a sticky readout that fills while you scroll */}
+          <div className="sticky top-16 z-20 -mx-gutter mb-2 border-y border-line bg-paper-2/95 px-gutter py-3 backdrop-blur-[6px] lg:hidden">
+            <div className="flex items-center justify-between gap-4">
+              <p className="label text-faint">
+                CAMPOS ID · <span className="text-forest">CS/21/0418</span>
+              </p>
+              <p className="mono-xs text-forest">
+                {String(active + 1).padStart(2, "0")} / {IDENTITY_JOURNEY.length}
+              </p>
+            </div>
+            <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-paper-3">
+              <div
+                className="h-full rounded-full bg-forest transition-[width] duration-500 ease-system"
+                style={{ width: `${((active + 1) / IDENTITY_JOURNEY.length) * 100}%` }}
+              />
+            </div>
+            <p className="mono-xs mt-2 truncate text-muted">
+              {RECORD_ROWS[active].term}: {RECORD_ROWS[active].value}
+            </p>
+          </div>
+
           {/* the record */}
-          <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
             <div className="ticks overflow-hidden rounded-panel border border-line bg-paper">
               <div className="flex items-center justify-between gap-3 border-b border-line bg-ink px-4 py-3 text-paper">
                 <span className="label text-sage">CAMPOS INSTITUTIONAL IDENTITY</span>
@@ -140,11 +161,11 @@ export function IdentityJourney() {
                   ref={(node) => {
                     stages.current[index] = node;
                   }}
-                  className="relative py-8 first:pt-0 last:pb-0 lg:py-12"
+                  className="relative py-6 first:pt-0 last:pb-0 lg:py-9"
                 >
                   <span
                     aria-hidden
-                    className={`absolute -left-[calc(1.5rem+5px)] top-9 h-2.5 w-2.5 rounded-full ring-4 ring-paper-2 transition-colors duration-300 ease-system first:top-1 sm:-left-[calc(2rem+5px)] lg:top-[3.4rem] ${
+                    className={`absolute -left-[calc(1.5rem+5px)] top-9 h-2.5 w-2.5 rounded-full ring-4 ring-paper-2 transition-colors duration-300 ease-system first:top-1 sm:-left-[calc(2rem+5px)] lg:top-[2.6rem] ${
                       on ? "bg-forest" : passed ? "bg-sage" : "bg-line-strong"
                     }`}
                   />

@@ -68,7 +68,7 @@
 
   /* ---------- type scale ---------- */
   .display {
-    font-size: clamp(2.3rem, 5vw, 3.75rem);
+    font-size: clamp(2.3rem, 4.6vw, 3.4rem);
     line-height: 0.98;
     letter-spacing: -0.032em;
     font-weight: 500;
@@ -97,13 +97,6 @@
   .body {
     font-size: 1rem;
     line-height: 1.65;
-  }
-
-  .em-serif {
-    font-family: var(--font-serif), Georgia, serif;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: -0.01em;
   }
 
   .label {
@@ -652,6 +645,15 @@
 
 .node-tap {
   cursor: pointer;
+}
+
+/* An affordance, so a static screenshot still reads as something you can touch. */
+.node-tap .node-shell {
+  stroke-dasharray: 0;
+}
+
+.node-tap:hover .node-shell {
+  stroke: #114935;
 }
 
 .node-tap:focus {
