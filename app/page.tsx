@@ -1,14 +1,14 @@
 import { SiteNav } from "@/components/navigation/SiteNav";
 import { Hero } from "@/components/hero/Hero";
-import { Fragmentation } from "@/components/platform/Fragmentation";
-import { CoreLayer } from "@/components/platform/CoreLayer";
+import { Fragmentation } from "@/components/core/Fragmentation";
+import { CoreLayer } from "@/components/core/CoreLayer";
 import { Ecosystem } from "@/components/ecosystem/Ecosystem";
 import { IdentityJourney } from "@/components/identity/IdentityJourney";
 import { Security } from "@/components/security/Security";
 import { MultiInstitution } from "@/components/institutions/MultiInstitution";
 import { ForLeaders } from "@/components/institutions/ForLeaders";
 import { StudentDay } from "@/components/experience/StudentDay";
-import { HowItWorks } from "@/components/platform/HowItWorks";
+import { HowItWorks } from "@/components/core/HowItWorks";
 import { Proof } from "@/components/institutions/Proof";
 import { Demonstration } from "@/components/experience/Demonstration";
 import { Architecture } from "@/components/architecture/Architecture";

@@ -3,6 +3,7 @@ import { NAV_LINKS, SIGN_IN_HREF } from "@/lib/site";
 import { Wordmark } from "@/components/primitives/Wordmark";
 import { ContactButton } from "@/components/cta/ContactButton";
 import { MobileMenu } from "./MobileMenu";
+import { HeaderScrollState } from "./HeaderScrollState";
 
 /**
  * Sticky header. No scroll listener and no theme switching: the bar is opaque
@@ -10,8 +11,9 @@ import { MobileMenu } from "./MobileMenu";
  */
 export function SiteNav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-[6px]">
-      <div className="shell flex h-16 items-center justify-between gap-6">
+    <header className="site-header sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-[6px]">
+      <HeaderScrollState />
+      <div className="header-row shell flex h-16 items-center justify-between gap-6">
         <Link
           href="/"
           className="group -my-2 flex items-center py-2 text-forest"

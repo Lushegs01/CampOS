@@ -521,6 +521,69 @@
   }
 }
 
+
+/* The request descending the architecture stack. One transform, one element. */
+.descent-rail {
+  position: absolute;
+  left: -13px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: rgba(10, 13, 12, 0.14);
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .descent-rail {
+    display: block;
+  }
+}
+
+.descent-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 20%;
+  background: linear-gradient(to bottom, transparent, #114935, transparent);
+  animation: descend 5.5s var(--ease-system) infinite;
+}
+
+/* The beam is a fifth of the rail, so travelling 400% of itself covers it. */
+@keyframes descend {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 400%, 0);
+    opacity: 0;
+  }
+}
+
+/* Sticky header, once the page has moved. */
+.site-header {
+  transition: box-shadow 0.3s var(--ease-system), background-color 0.3s var(--ease-system);
+}
+
+.site-header .header-row {
+  transition: height 0.3s var(--ease-system);
+}
+
+[data-scrolled="true"] .site-header {
+  box-shadow: 0 10px 30px -26px rgba(10, 13, 12, 0.65);
+}
+
+[data-scrolled="true"] .site-header .header-row {
+  height: 3.5rem;
+}
+
 /* ------------------------------------------------------------------ */
 /* System map                                                          */
 /* One selected route at a time: everything is a colour transition on   */
@@ -802,7 +865,8 @@
   }
 
   .signal,
-  .route-signal {
+  .route-signal,
+  .descent-beam {
     display: none;
   }
 }

@@ -25,7 +25,12 @@ export function Architecture() {
           </Reveal>
 
           <Reveal delay={80}>
-            <ol className="overflow-hidden rounded-panel border border-line">
+            <div className="relative">
+              {/* the request, descending: every layer resolves on the way down */}
+              <span aria-hidden className="descent-rail">
+                <span className="descent-beam" />
+              </span>
+              <ol className="overflow-hidden rounded-panel border border-line">
               {ARCHITECTURE_LAYERS.map((layer, index) => {
                 const isCore = layer.layer === "CampOS Core";
                 return (
@@ -74,7 +79,8 @@ export function Architecture() {
                   </li>
                 );
               })}
-            </ol>
+              </ol>
+            </div>
 
             <p className="mono-xs mt-4 text-faint">
               Deeper documentation — data model, integration contracts and the security

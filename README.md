@@ -23,9 +23,10 @@ where interaction explains something, and static everywhere else:
 
 | Client component | What it does |
 | --- | --- |
-| `hero/CoreSystem` | the system map: selecting an application lights its route through Core, and the map cycles itself until you take over |
-| `platform/Fragmentation` | eight scattered systems snap onto the foundation, on scroll or from the toggle |
-| `platform/CoreArchitecture` | choose a Core capability, see which applications depend on it |
+| `hero/CoreSystem` | the system map: selecting an application lights its route through Core, selecting Identity lights the whole system, and the map cycles itself until you take over |
+| `core/Fragmentation` | eight scattered systems snap onto the foundation, on scroll or from the toggle |
+| `core/CoreArchitecture` | choose a Core capability, see which applications depend on it |
+| `institutions/TenantSwitch` | pick a tenant, see its own structure and module set while the others recede |
 | `ecosystem/demos` | ScanMark check-ins, UniReg registration, Clearr clearance, NADA's two points of view |
 | `identity/IdentityJourney` | the ID card fills in as the seven stages scroll past it |
 | `security/TenantBoundary` | a request sent across the tenant boundary, and what the database answers |
@@ -33,6 +34,7 @@ where interaction explains something, and static everywhere else:
 | `navigation/MobileMenu` | drawer state, Escape, scroll lock |
 | `cta/ContactDialogProvider` | native `<dialog>` + the enquiry form |
 | `primitives/Reveal` | one shared IntersectionObserver flips `data-reveal`; the animation is CSS |
+| `navigation/HeaderScrollState` | a one-pixel sentinel, so the sticky header tightens once the page moves — no scroll listener |
 
 Every demo is a small state machine over a fixed script — deterministic, so the
 server and client agree and nothing can be mistaken for live institutional
@@ -96,7 +98,7 @@ app/
 └── api/book/route.ts     # enquiry relay (Resend)
 components/
 ├── primitives/           # Reveal, Button, Section, Wordmark, PageShell
-├── navigation/ hero/ platform/ ecosystem/ identity/
+├── navigation/ hero/ core/ ecosystem/ identity/
 ├── security/ institutions/ experience/ architecture/ faq/ cta/ footer/
 lib/                      # site constants + all page copy as typed data
 scripts/generate-og.mjs   # builds the social card
@@ -105,8 +107,8 @@ scripts/generate-og.mjs   # builds the social card
 Page copy lives in `lib/content.ts`, `lib/faq.ts` and `lib/roles.ts` as typed
 data, so sections stay presentational and wording can be edited in one place.
 `lib/system.ts` holds the model the interactive pieces share: four applications,
-the university function each serves, and what each one reads from and writes to
-Core. The hero map, the architecture view and the closing diagram all render
+the university function each serves, the identity layer they all pass through,
+and what each one reads from and writes to Core. The hero map, the architecture view and the closing diagram all render
 from it, which is why they agree with each other.
 
 ## Claims policy

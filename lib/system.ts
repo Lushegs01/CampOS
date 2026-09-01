@@ -63,6 +63,21 @@ export const SYSTEM_FLOWS: SystemFlow[] = [
   },
 ];
 
+/**
+ * The fifth selectable route in the hero map. Identity is not an application —
+ * it is the layer every application passes through, so selecting it lights the
+ * whole system rather than one column.
+ */
+export const IDENTITY_ROUTE = {
+  module: "Identity",
+  domain: "Every function",
+  role: "The constant",
+  writes: "identity record",
+  reads: "institution · role · status",
+  caption:
+    "One identity is issued at admission and read by every application. That is what lets attendance, registration, finance and records describe the same student rather than four versions of them.",
+} as const;
+
 /** Everything Core holds, used by the architecture view. */
 export type CoreCapability = {
   id: string;

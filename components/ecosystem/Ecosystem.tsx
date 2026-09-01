@@ -31,7 +31,7 @@ const PRODUCTS: Product[] = [
     problem:
       "Attendance is signed on paper, passed down a row, or reconstructed weeks later. Nobody can defend the number.",
     mechanism:
-      "Every check-in is resolved against the enrolment UniReg wrote to Core. A student who is not registered for the course cannot appear in the record.",
+      "Every check-in resolves against the enrolment UniReg wrote to Core, so attendance becomes a live institutional record instead of a paper trail. A student not registered for the course cannot appear in it.",
     demo: <ScanMarkDemo />,
     aside: <ScanMarkApp />,
   },
@@ -62,7 +62,7 @@ const PRODUCTS: Product[] = [
     problem:
       "Campus conversation happens on platforms with no link to the institution, where nobody can tell a student from an outsider.",
     mechanism:
-      "NADA asks Core one question — is this person a member of this institution — and is never told which student the answer belongs to.",
+      "Your institution knows you are a student; other students do not need to know who you are. NADA asks Core one question — is this person a member of this institution — and is never told whose answer it is.",
     demo: <NadaDemo />,
   },
 ];

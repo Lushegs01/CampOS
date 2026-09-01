@@ -94,6 +94,15 @@ export function ScanMarkDemo() {
         </div>
       </div>
 
+      <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+        {["Live", "Verified against enrolment", "Session-bound"].map((chip) => (
+          <li key={chip} className="label flex items-center gap-2 text-faint">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-forest" />
+            {chip.toUpperCase()}
+          </li>
+        ))}
+      </ul>
+
       <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-paper-3">
         <div
           className="h-full rounded-full bg-forest transition-[width] duration-500 ease-system"
@@ -428,8 +437,8 @@ export function ClearrDemo() {
         ) : phase === "clear" ? (
           <div className="rounded-tile border border-forest/30 bg-forest-tint px-3.5 py-3">
             <p className="mono-xs text-forest">
-              Clear for registration. The state is published to Core, so UniReg and the registry
-              read the same answer.
+              Clear for registration. The state is published to Core — so UniReg unblocks
+              registration and the registry reads the same answer, without anyone re-checking.
             </p>
           </div>
         ) : (
