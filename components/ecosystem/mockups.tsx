@@ -1,34 +1,23 @@
+import Image from "next/image";
 import { ProductWindow, Row } from "./ProductWindow";
 
 /**
- * Interface illustrations. Every figure is captioned as illustrative — none of
- * this is presented as a screenshot of a live institution.
+ * Interface illustrations and real product screenshots.
  */
 
 export function ScanMarkVisual() {
   return (
-    <ProductWindow module="ScanMark" state="Session open">
-      <div className="flex items-baseline justify-between gap-4">
-        <div>
-          <p className="text-[1.05rem] font-medium tracking-[-0.015em]">CSC 401</p>
-          <p className="mono-xs mt-1 text-faint">Distributed Systems · Mon 10:00</p>
-        </div>
-        <div className="text-right">
-          <p className="text-[1.35rem] font-medium tabular-nums tracking-[-0.02em]">118</p>
-          <p className="label mt-1 text-faint">OF 132</p>
-        </div>
+    <ProductWindow module="ScanMark" state="Live app">
+      <div className="overflow-hidden rounded-lg border border-line bg-paper-2 shadow-xs">
+        <Image
+          src="/scanmark-app.png"
+          alt="ScanMark live student portal interface"
+          width={480}
+          height={1024}
+          className="h-auto w-full object-contain"
+          priority
+        />
       </div>
-
-      <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-paper-3">
-        <div className="h-full rounded-full bg-forest" style={{ width: "89%" }} />
-      </div>
-
-      <div className="mt-4">
-        <Row left="Verified check-in" meta="10:02" right="Enrolment matched" tone="positive" />
-        <Row left="Verified check-in" meta="10:03" right="Enrolment matched" tone="positive" />
-        <Row left="Rejected" meta="10:04" right="Not enrolled in CSC 401" tone="pending" />
-      </div>
-
       <p className="mono-xs mt-3 text-faint">
         Presence is checked against the enrolment UniReg wrote to Core.
       </p>

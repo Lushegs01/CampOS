@@ -68,8 +68,9 @@ export function Ecosystem() {
                     <figure>
                       {Visual ? <Visual /> : null}
                       <figcaption className="mono-xs mt-3 text-faint">
-                        Interface illustration. Figures are illustrative, not measured from a
-                        live institution.
+                        {product.slug === "scanmark"
+                          ? "ScanMark live mobile interface · student attendance portal."
+                          : "Interface illustration. Figures are illustrative, not measured from a live institution."}
                       </figcaption>
                     </figure>
                   </Reveal>
