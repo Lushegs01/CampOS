@@ -1,18 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { IDENTITY_ROUTE, SYSTEM_FLOWS } from "@/lib/system";
 
 /**
- * The signature object of the site: the CampOS Core system map.
+ * The CampOS Core system map.
  *
  * University functions run down through one institutional identity into Core,
  * and back out to the applications built on it. Selecting an application lights
  * its route and names the operation Core performs for it; selecting Identity
  * lights the whole system, because identity is the part every route shares.
  *
- * The selected route lives one level up, in HeroStage, so the campus plan
- * behind the map can light the part of the institution the module touches.
+ * Nothing moves on its own — the map changes only when someone points at it.
  */
 
 const X = (index: number) => 16 + index * 156;
@@ -20,23 +20,17 @@ const CX = (index: number) => X(index) + 70;
 
 export const IDENTITY = -1;
 
-export function CoreSystem({
-  active,
-  cycling,
-  onSelect,
-}: {
-  active: number;
-  cycling: boolean;
-  onSelect: (next: number) => void;
-}) {
+export function CoreSystem() {
+  const [active, setActive] = useState<number>(IDENTITY);
+
   const all = active === IDENTITY;
   const flow = all ? IDENTITY_ROUTE : SYSTEM_FLOWS[active];
   const lit = (index: number) => all || index === active;
 
   return (
     <div className="core-system">
-      <SystemMapDesktop active={active} all={all} lit={lit} onSelect={onSelect} />
-      <SystemMapMobile active={active} all={all} lit={lit} onSelect={onSelect} />
+      <SystemMapDesktop active={active} all={all} lit={lit} onSelect={setActive} />
+      <SystemMapMobile active={active} all={all} lit={lit} onSelect={setActive} />
 
       <div className="mt-4 border-t border-line pt-4">
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
@@ -44,11 +38,8 @@ export function CoreSystem({
             ACTIVE ROUTE · <span className="text-forest">{flow.module.toUpperCase()}</span>
           </p>
           <p className="mono-xs inline-flex items-center gap-2 rounded-full border border-line px-2.5 py-1.5 text-faint">
-            <span
-              aria-hidden
-              className={`h-1.5 w-1.5 rounded-full ${cycling ? "bg-clay" : "bg-forest"}`}
-            />
-            {cycling ? "Tracing routes — tap any node" : "Tap any node to trace it"}
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-forest" />
+            Tap any node to trace it
           </p>
         </div>
         <p aria-live="polite" className="body mt-3 text-[0.95rem] text-muted sm:min-h-[3.25rem]">
@@ -89,14 +80,6 @@ function SystemMapDesktop({ active, all, lit, onSelect }: MapProps) {
       <g className="route route-on">
         <path d="M320 138 V156" />
       </g>
-      {!all ? (
-        <path
-          key={`signal-${active}`}
-          d={`M${CX(active)} 62 V104 M320 138 V156 M${CX(active)} 250 V302 M${CX(active)} 354 V396`}
-          className="route-signal"
-          aria-hidden
-        />
-      ) : null}
 
       {/* university functions */}
       {SYSTEM_FLOWS.map((flow, index) => (
