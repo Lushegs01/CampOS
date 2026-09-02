@@ -2,13 +2,13 @@ import { HOW_IT_WORKS } from "@/lib/content";
 import { Reveal } from "@/components/primitives/Reveal";
 import { SectionIndex } from "@/components/primitives/Section";
 
-/** Section 09 — onboarding in plain English. Three steps, no jargon. */
+/** Section 07 — onboarding in plain English. Three steps, no jargon. */
 export function HowItWorks() {
   return (
     <section className="border-b border-line bg-paper-2 py-section">
       <div className="shell">
         <Reveal className="max-w-3xl">
-          <SectionIndex index="09" eyebrow="How it works" />
+          <SectionIndex index="07" eyebrow="How it works" />
           <h2 className="heading mt-6 max-w-[20ch] text-balance">
             Three steps from decision to running.
           </h2>

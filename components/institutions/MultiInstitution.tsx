@@ -10,7 +10,7 @@ const ISOLATION_FACTS = [
 ];
 
 /**
- * Section 06 — multi-institution architecture. Institution names are neutral
+ * Section 05 — multi-institution architecture. Institution names are neutral
  * placeholders: nothing here implies a customer we have not announced.
  */
 export function MultiInstitution() {
@@ -18,7 +18,7 @@ export function MultiInstitution() {
     <section id="institutions" className="scroll-mt-16 border-b border-line bg-paper py-section">
       <div className="shell">
         <Reveal className="max-w-3xl">
-          <SectionIndex index="06" eyebrow="Multi-institution architecture" />
+          <SectionIndex index="05" eyebrow="Multi-institution architecture" />
           <h2 className="heading mt-6 max-w-[20ch] text-balance">
             Many institutions. Separate by construction.
           </h2>

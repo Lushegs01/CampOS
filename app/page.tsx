@@ -4,14 +4,11 @@ import { Fragmentation } from "@/components/core/Fragmentation";
 import { CoreLayer } from "@/components/core/CoreLayer";
 import { Ecosystem } from "@/components/ecosystem/Ecosystem";
 import { IdentityJourney } from "@/components/identity/IdentityJourney";
-import { Security } from "@/components/security/Security";
 import { MultiInstitution } from "@/components/institutions/MultiInstitution";
 import { ForLeaders } from "@/components/institutions/ForLeaders";
-import { StudentDay } from "@/components/experience/StudentDay";
 import { HowItWorks } from "@/components/core/HowItWorks";
 import { Proof } from "@/components/institutions/Proof";
 import { Demonstration } from "@/components/experience/Demonstration";
-import { Architecture } from "@/components/architecture/Architecture";
 import { Faq } from "@/components/faq/Faq";
 import { FinalCta } from "@/components/cta/FinalCta";
 import { SiteFooter } from "@/components/footer/SiteFooter";
@@ -33,14 +30,11 @@ export default function Page() {
         <CoreLayer />
         <Ecosystem />
         <IdentityJourney />
-        <Security />
         <MultiInstitution />
         <ForLeaders />
-        <StudentDay />
         <HowItWorks />
         <Proof />
         <Demonstration />
-        <Architecture />
         <Faq />
         <FinalCta />
       </main>
@@ -48,3 +42,4 @@ export default function Page() {
     </>
   );
 }
+
