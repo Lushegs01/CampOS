@@ -39,7 +39,6 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "CampOS Core", href: "/#platform" },
       { label: "Identity", href: "/#platform" },
-      { label: "How it works", href: "/#institutions" },
     ],
   },
   {
@@ -55,7 +54,6 @@ export const FOOTER_COLUMNS = [
     title: "Institutions",
     links: [
       { label: "For university leaders", href: "/#institutions" },
-      { label: "Multi-institution", href: "/#institutions" },
       { label: "See it in use", href: "/#demo" },
     ],
   },

@@ -4,10 +4,7 @@ import { Fragmentation } from "@/components/core/Fragmentation";
 import { CoreLayer } from "@/components/core/CoreLayer";
 import { Ecosystem } from "@/components/ecosystem/Ecosystem";
 import { IdentityJourney } from "@/components/identity/IdentityJourney";
-import { MultiInstitution } from "@/components/institutions/MultiInstitution";
 import { ForLeaders } from "@/components/institutions/ForLeaders";
-import { HowItWorks } from "@/components/core/HowItWorks";
-import { Proof } from "@/components/institutions/Proof";
 import { Demonstration } from "@/components/experience/Demonstration";
 import { Faq } from "@/components/faq/Faq";
 import { FinalCta } from "@/components/cta/FinalCta";
@@ -30,10 +27,7 @@ export default function Page() {
         <CoreLayer />
         <Ecosystem />
         <IdentityJourney />
-        <MultiInstitution />
         <ForLeaders />
-        <HowItWorks />
-        <Proof />
         <Demonstration />
         <Faq />
         <FinalCta />
