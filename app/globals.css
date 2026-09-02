@@ -367,49 +367,61 @@
 /* ------------------------------------------------------------------ */
 
 .hero-plan {
-  /* Below the fold of the copy: the plan lives under the map, and is gone
-     before it reaches the headline or the calls to action. */
-  -webkit-mask-image: radial-gradient(78% 92% at 50% 82%, #000 8%, transparent 68%);
-  mask-image: radial-gradient(78% 92% at 50% 82%, #000 8%, transparent 68%);
-  opacity: 0.4;
-  animation: plan-in 1.4s var(--ease-system) 0.1s both;
+  /* Present, not hidden: the drawing runs the width of the hero and only
+     steps back where the copy sits. */
+  -webkit-mask-image: linear-gradient(
+    100deg,
+    transparent 12%,
+    rgba(0, 0, 0, 0.22) 34%,
+    #000 60%
+  );
+  mask-image: linear-gradient(
+    100deg,
+    transparent 12%,
+    rgba(0, 0, 0, 0.22) 34%,
+    #000 60%
+  );
+  animation: plan-in 1.6s var(--ease-system) 0.1s both;
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1023px) {
   .hero-plan {
-    -webkit-mask-image: radial-gradient(72% 82% at 80% 52%, #000 6%, transparent 66%);
-    mask-image: radial-gradient(72% 82% at 80% 52%, #000 6%, transparent 66%);
-    opacity: 0.5;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 4%, #000 42%);
+    mask-image: linear-gradient(to bottom, transparent 4%, #000 42%);
+    opacity: 0.75;
   }
 }
 
 @keyframes plan-in {
   from {
     opacity: 0;
-    transform: scale(1.02);
+    transform: scale(1.03);
   }
   to {
+    opacity: 1;
     transform: none;
   }
 }
 
 .plan-line {
-  stroke: rgba(10, 13, 12, 0.22);
+  stroke: rgba(10, 13, 12, 0.3);
 }
 
 .plan-block {
-  fill: rgba(10, 13, 12, 0.045);
-  stroke: rgba(10, 13, 12, 0.24);
-  stroke-width: 1;
+  fill: rgba(10, 13, 12, 0.05);
+  stroke: rgba(10, 13, 12, 0.3);
+  stroke-width: 1.2;
+  /* The lights coming on across a part of campus. */
+  transition: fill 0.7s var(--ease-system), stroke 0.7s var(--ease-system);
 }
 
-.plan-block-core {
-  fill: rgba(17, 73, 53, 0.1);
-  stroke: rgba(17, 73, 53, 0.4);
+.plan-block-live {
+  fill: rgba(17, 73, 53, 0.16);
+  stroke: rgba(17, 73, 53, 0.62);
 }
 
 .plan-tree {
-  fill: rgba(17, 73, 53, 0.16);
+  fill: rgba(17, 73, 53, 0.22);
 }
 
 /* The hero composes itself once: ground, then frame, then the live system. */
