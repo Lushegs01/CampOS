@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
 import { IDENTITY_ROUTE, SYSTEM_FLOWS } from "@/lib/system";
 
 /**
@@ -12,50 +11,32 @@ import { IDENTITY_ROUTE, SYSTEM_FLOWS } from "@/lib/system";
  * its route and names the operation Core performs for it; selecting Identity
  * lights the whole system, because identity is the part every route shares.
  *
- * Until someone takes over, the map cycles itself so the system reads as live.
- * All of it is one piece of state over a static SVG: no canvas, no library, no
- * per-frame work, and no cycling under prefers-reduced-motion.
+ * The selected route lives one level up, in HeroStage, so the campus plan
+ * behind the map can light the part of the institution the module touches.
  */
 
 const X = (index: number) => 16 + index * 156;
 const CX = (index: number) => X(index) + 70;
-const CYCLE_MS = 3800;
 
-/** -1 is the identity route; 0-3 are the applications. */
-type Active = number;
-const IDENTITY: Active = -1;
-const ORDER: Active[] = [IDENTITY, 0, 1, 2, 3];
+export const IDENTITY = -1;
 
-export function CoreSystem() {
-  const [active, setActive] = useState<Active>(IDENTITY);
-  const [cycling, setCycling] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setCycling(true);
-  }, []);
-
-  useEffect(() => {
-    if (!cycling) return;
-    const id = window.setInterval(() => {
-      setActive((current) => ORDER[(ORDER.indexOf(current) + 1) % ORDER.length]);
-    }, CYCLE_MS);
-    return () => window.clearInterval(id);
-  }, [cycling]);
-
-  const select = useCallback((next: Active) => {
-    setCycling(false);
-    setActive(next);
-  }, []);
-
+export function CoreSystem({
+  active,
+  cycling,
+  onSelect,
+}: {
+  active: number;
+  cycling: boolean;
+  onSelect: (next: number) => void;
+}) {
   const all = active === IDENTITY;
   const flow = all ? IDENTITY_ROUTE : SYSTEM_FLOWS[active];
   const lit = (index: number) => all || index === active;
 
   return (
     <div className="core-system">
-      <SystemMapDesktop active={active} all={all} lit={lit} onSelect={select} />
-      <SystemMapMobile active={active} all={all} lit={lit} onSelect={select} />
+      <SystemMapDesktop active={active} all={all} lit={lit} onSelect={onSelect} />
+      <SystemMapMobile active={active} all={all} lit={lit} onSelect={onSelect} />
 
       <div className="mt-4 border-t border-line pt-4">
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
@@ -79,10 +60,10 @@ export function CoreSystem() {
 }
 
 type MapProps = {
-  active: Active;
+  active: number;
   all: boolean;
   lit: (index: number) => boolean;
-  onSelect: (next: Active) => void;
+  onSelect: (next: number) => void;
 };
 
 function SystemMapDesktop({ active, all, lit, onSelect }: MapProps) {
