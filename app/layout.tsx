@@ -1,29 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, Instrument_Serif, Geist_Mono } from "next/font/google";
+import { Instrument_Sans, Geist_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { ContactDialogProvider } from "@/components/cta/ContactDialogProvider";
 import { ServiceWorkerRegister } from "@/components/pwa/ServiceWorkerRegister";
 import "./globals.css";
 
 /*
- * Three families, each loaded once. Instrument Sans carries the whole
- * interface; the serif is an accent used a handful of times below the fold and
- * the mono is small-label only, so neither is preloaded — that keeps the
- * critical font payload to a single variable file.
+ * Two families, each loaded once. Instrument Sans carries the whole interface;
+ * the mono is small-label only and is not preloaded, so the critical font
+ * payload is a single variable file.
  */
 const sans = Instrument_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
-});
-
-const serif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["italic"],
-  display: "swap",
-  preload: false,
-  variable: "--font-serif",
 });
 
 const mono = Geist_Mono({
@@ -84,7 +74,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <head>
         {/* Without JavaScript the reveal system never flips, so make everything
             visible up front rather than shipping an invisible page. */}

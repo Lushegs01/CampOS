@@ -68,7 +68,7 @@
 
   /* ---------- type scale ---------- */
   .display {
-    font-size: clamp(2.3rem, 5vw, 3.75rem);
+    font-size: clamp(2.3rem, 4.6vw, 3.4rem);
     line-height: 0.98;
     letter-spacing: -0.032em;
     font-weight: 500;
@@ -97,13 +97,6 @@
   .body {
     font-size: 1rem;
     line-height: 1.65;
-  }
-
-  .em-serif {
-    font-family: var(--font-serif), Georgia, serif;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: -0.01em;
   }
 
   .label {
@@ -367,6 +360,73 @@
 }
 
 
+
+
+/* ------------------------------------------------------------------ */
+/* Hero ground: the campus plan the system map sits on                 */
+/* ------------------------------------------------------------------ */
+
+.hero-plan {
+  /* Below the fold of the copy: the plan lives under the map, and is gone
+     before it reaches the headline or the calls to action. */
+  -webkit-mask-image: radial-gradient(78% 92% at 50% 82%, #000 8%, transparent 68%);
+  mask-image: radial-gradient(78% 92% at 50% 82%, #000 8%, transparent 68%);
+  opacity: 0.4;
+  animation: plan-in 1.4s var(--ease-system) 0.1s both;
+}
+
+@media (min-width: 1024px) {
+  .hero-plan {
+    -webkit-mask-image: radial-gradient(72% 82% at 80% 52%, #000 6%, transparent 66%);
+    mask-image: radial-gradient(72% 82% at 80% 52%, #000 6%, transparent 66%);
+    opacity: 0.5;
+  }
+}
+
+@keyframes plan-in {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.plan-line {
+  stroke: rgba(10, 13, 12, 0.22);
+}
+
+.plan-block {
+  fill: rgba(10, 13, 12, 0.045);
+  stroke: rgba(10, 13, 12, 0.24);
+  stroke-width: 1;
+}
+
+.plan-block-core {
+  fill: rgba(17, 73, 53, 0.1);
+  stroke: rgba(17, 73, 53, 0.4);
+}
+
+.plan-tree {
+  fill: rgba(17, 73, 53, 0.16);
+}
+
+/* The hero composes itself once: ground, then frame, then the live system. */
+.hero-figure {
+  animation: hero-rise 0.75s var(--ease-system) 0.28s both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 /* ------------------------------------------------------------------ */
 /* The estate: fragmented → connected                                  */
@@ -654,6 +714,15 @@
   cursor: pointer;
 }
 
+/* An affordance, so a static screenshot still reads as something you can touch. */
+.node-tap .node-shell {
+  stroke-dasharray: 0;
+}
+
+.node-tap:hover .node-shell {
+  stroke: #114935;
+}
+
 .node-tap:focus {
   outline: none;
 }
@@ -868,5 +937,13 @@
   .route-signal,
   .descent-beam {
     display: none;
+  }
+
+  .hero-plan {
+    animation: none;
+  }
+
+  .hero-figure {
+    animation: none;
   }
 }

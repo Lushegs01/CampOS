@@ -38,42 +38,42 @@ export const SECURITY_CONTROLS = [
   {
     name: "Tenant isolation",
     detail:
-      "Every record belongs to exactly one institution, and every query is scoped to it. Institutions are separated by construction, not by convention.",
+      "Every record belongs to one institution, and every query is scoped to it. Separation by construction, not convention.",
   },
   {
     name: "PostgreSQL Row-Level Security",
     detail:
-      "Isolation policies are enforced by the database itself, so an application-level mistake cannot return another institution's rows.",
+      "Policies are enforced by the database, so an application-level mistake cannot return another institution's rows.",
   },
   {
     name: "Role-based access control",
     detail:
-      "Roles are defined per institution and carry scoped permissions. A lecturer's access ends at their courses; a bursar's ends at finance.",
+      "Roles are per institution and scoped: a lecturer's access ends at their courses, a bursar's at finance.",
   },
   {
     name: "Secure module SSO",
     detail:
-      "Modules never handle credentials. A signed hand-off issues a short-lived, single-use authorization code that is exchanged for a scoped session.",
+      "Modules never handle credentials. A signed hand-off issues a short-lived, single-use code, exchanged for a scoped session.",
   },
   {
     name: "Session security and revocation",
     detail:
-      "Sessions are server-tracked and bound to their institution and role, so access can be revoked immediately rather than waiting for expiry.",
+      "Sessions are server-tracked and bound to institution and role, so access can be revoked immediately rather than expiring.",
   },
   {
     name: "Audit trails",
     detail:
-      "Privileged actions are recorded with actor, institution, target and time, so administrative decisions can be reviewed after the fact.",
+      "Privileged actions are recorded with actor, institution, target and time, and can be reviewed long after.",
   },
   {
     name: "Encrypted secrets",
     detail:
-      "Module credentials and integration secrets are stored encrypted and issued per institution, so a rotation is contained to one tenant.",
+      "Integration secrets are encrypted and issued per institution, so a rotation is contained to one tenant.",
   },
   {
     name: "Controlled onboarding",
     detail:
-      "Institutions are provisioned deliberately by CampOS, with verified administrators. There is no self-serve route into an institution's data.",
+      "Institutions are provisioned by CampOS with verified administrators. There is no self-serve route into their data.",
   },
 ] as const;
 
@@ -82,42 +82,42 @@ export const LEADER_OUTCOMES = [
   {
     title: "Fewer disconnected systems",
     detail:
-      "One foundation to govern and fund, instead of a growing estate of tools that each need their own integration.",
+      "One foundation to govern and fund, instead of an estate of tools that each need their own integration.",
   },
   {
     title: "Clearer institutional data",
     detail:
-      "Registration, attendance and finance describe the same students, so a figure means the same thing in every office.",
+      "Registration, attendance and finance describe the same students — a figure means the same thing in every office.",
   },
   {
     title: "Faster administration",
     detail:
-      "Work that exists only to reconcile systems — re-keying, cross-checking, clearance queues — stops being necessary.",
+      "Work that exists only to reconcile systems — re-keying, clearance queues — stops being necessary.",
   },
   {
     title: "Stronger identity control",
     detail:
-      "One institutional identity per person, issued and revoked centrally, rather than a login per department.",
+      "One identity per person, issued and revoked centrally, rather than a login per department.",
   },
   {
     title: "Operational visibility",
     detail:
-      "Leadership can see the state of registration, attendance and clearance without commissioning a report to assemble it.",
+      "Registration, attendance and clearance state, without commissioning a report to assemble it.",
   },
   {
     title: "Auditable workflows",
     detail:
-      "Privileged actions leave a trail, so decisions can be reviewed and defended long after they were made.",
+      "Privileged actions leave a trail, so decisions can be defended long after they were made.",
   },
   {
     title: "Simpler student experience",
     detail:
-      "Students meet one login and one set of rules, which removes a large share of routine support load.",
+      "One login and one set of rules removes a large share of routine support load.",
   },
   {
     title: "Infrastructure that scales",
     detail:
-      "New modules and new campuses join the same foundation instead of starting another integration project.",
+      "New modules and campuses join the same foundation instead of starting another integration project.",
   },
 ] as const;
 

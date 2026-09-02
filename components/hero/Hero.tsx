@@ -1,7 +1,7 @@
-import { Reveal } from "@/components/primitives/Reveal";
 import { ArrowRight, ButtonLink } from "@/components/primitives/Button";
 import { ContactButton } from "@/components/cta/ContactButton";
 import { CoreSystem } from "./CoreSystem";
+import { CampusPlan } from "./CampusPlan";
 
 const FOUNDATIONS = [
   "Multi-institution by design",
@@ -10,24 +10,29 @@ const FOUNDATIONS = [
 ];
 
 /**
- * Above the fold, nothing fades in: an opacity transition on the headline would
- * push Largest Contentful Paint out by the length of the animation. The hero
- * text paints with the document; only the diagram, which is not the LCP
- * element, is revealed on entry.
+ * The hero composes itself once, in one order: the campus plan settles, the
+ * system map rises onto it, and the map then traces its own routes.
+ *
+ * The headline is deliberately outside that sequence. An opacity transition on
+ * it would push Largest Contentful Paint out by the length of the animation,
+ * so the text paints with the document and only the ground and the frame move.
  */
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden border-b border-line bg-paper">
-      {/* Structural grid, faded out at the edges. Two gradients, no image. */}
+      {/* The institution, drawn from above, with the survey grid over it. */}
+      <div aria-hidden className="hero-plan pointer-events-none absolute inset-0">
+        <CampusPlan />
+      </div>
       <div
         aria-hidden
         className="grid-wash pointer-events-none absolute inset-0 mask-fade-y opacity-70"
       />
 
       <div className="shell relative py-12 md:py-16 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12">
           <div>
-            <h1 className="display max-w-[17ch]">
+            <h1 className="display max-w-[17ch] text-balance">
               The digital infrastructure behind the modern university.
             </h1>
 
@@ -68,15 +73,15 @@ export function Hero() {
             </ul>
           </div>
 
-          <Reveal delay={80} className="lg:pl-4">
-            <figure className="ticks border border-line bg-paper/70 p-4 sm:p-5">
+          <div className="hero-figure lg:pl-4">
+            <figure className="ticks border border-line bg-paper p-4 shadow-[0_24px_60px_-40px_rgba(10,13,12,0.5)] sm:p-5">
               <figcaption className="mono-xs mb-3 flex items-center justify-between gap-4 border-b border-line pb-3 text-faint">
                 <span>System map · CampOS Core</span>
                 <span className="hidden sm:inline">Many functions. One foundation.</span>
               </figcaption>
               <CoreSystem />
             </figure>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

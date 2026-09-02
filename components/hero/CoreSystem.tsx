@@ -58,15 +58,19 @@ export function CoreSystem() {
       <SystemMapMobile active={active} all={all} lit={lit} onSelect={select} />
 
       <div className="mt-4 border-t border-line pt-4">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
           <p className="label text-faint">
             ACTIVE ROUTE · <span className="text-forest">{flow.module.toUpperCase()}</span>
           </p>
-          <p className="mono-xs text-faint">
-            {cycling ? "Cycling — select a node" : "Select a node"}
+          <p className="mono-xs inline-flex items-center gap-2 rounded-full border border-line px-2.5 py-1.5 text-faint">
+            <span
+              aria-hidden
+              className={`h-1.5 w-1.5 rounded-full ${cycling ? "bg-clay" : "bg-forest"}`}
+            />
+            {cycling ? "Tracing routes — tap any node" : "Tap any node to trace it"}
           </p>
         </div>
-        <p aria-live="polite" className="body mt-3 min-h-[4.5rem] text-[0.95rem] text-muted sm:min-h-[3.25rem]">
+        <p aria-live="polite" className="body mt-3 text-[0.95rem] text-muted sm:min-h-[3.25rem]">
           {flow.caption}
         </p>
       </div>

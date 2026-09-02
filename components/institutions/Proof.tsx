@@ -16,13 +16,12 @@ export function Proof() {
           <Reveal>
             <SectionIndex index="08" eyebrow="Proof" />
             <h2 className="heading mt-6 max-w-[18ch] text-balance">
-              What we can show you today.
+              How we prove it, before you commit.
             </h2>
             <p className="lede mt-5 max-w-prose text-muted">
-              You will not find borrowed logos, invented adoption figures or anonymous
-              testimonials on this page. Until a partnership is agreed and announced by the
-              institution itself, the honest evidence is the architecture and the working
-              software — so that is what we put in front of you.
+              Evaluation runs on evidence you can inspect: the architecture, the running
+              software, the security design, and a pilot measured on your own data. Four things,
+              in this order, before anything is deployed.
             </p>
             <div className="mt-8">
               <ContactButton className="btn btn-primary">
@@ -45,14 +44,11 @@ export function Proof() {
             </ul>
 
             <Reveal delay={80}>
-              <div className="mt-4 rounded-panel border border-dashed border-line-strong px-5 py-5">
-                <p className="label text-faint">RESERVED FOR VERIFIED PROOF</p>
-                <p className="body mt-3 text-[0.94rem] text-muted">
-                  Partner institutions, pilot outcomes, measured performance and named
-                  references will appear here — each one published only with the
-                  institution&apos;s agreement, and only once we can evidence it.
-                </p>
-              </div>
+              <p className="mono-xs mt-4 text-faint">
+                You will not find borrowed logos, invented adoption figures or anonymous
+                testimonials here. Partner institutions and pilot outcomes appear only once the
+                institution agrees to be named.
+              </p>
             </Reveal>
           </div>
         </div>

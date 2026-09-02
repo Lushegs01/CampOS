@@ -8,6 +8,7 @@ import { ForLeaders } from "@/components/institutions/ForLeaders";
 import { Demonstration } from "@/components/experience/Demonstration";
 import { Faq } from "@/components/faq/Faq";
 import { FinalCta } from "@/components/cta/FinalCta";
+import { InlineCta } from "@/components/cta/InlineCta";
 import { SiteFooter } from "@/components/footer/SiteFooter";
 import { StructuredData } from "@/components/seo/StructuredData";
 
@@ -26,6 +27,7 @@ export default function Page() {
         <Fragmentation />
         <CoreLayer />
         <Ecosystem />
+        <InlineCta />
         <IdentityJourney />
         <ForLeaders />
         <Demonstration />

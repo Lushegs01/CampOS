@@ -54,7 +54,6 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       maxWidth: {
@@ -67,7 +66,7 @@ const config: Config = {
       },
       spacing: {
         gutter: "clamp(1.25rem, 4vw, 2.5rem)",
-        section: "clamp(4.5rem, 9vw, 8.5rem)",
+        section: "clamp(3.5rem, 6.5vw, 6.5rem)",
       },
       fontSize: {
         label: ["0.6875rem", { lineHeight: "1", letterSpacing: "0.16em" }],
