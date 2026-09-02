@@ -4,7 +4,7 @@ import { SectionIndex } from "@/components/primitives/Section";
 import { ContactButton } from "@/components/cta/ContactButton";
 
 /**
- * Section 10 — proof. CampOS does not display logos, adoption numbers or
+ * Section 08 — proof. CampOS does not display logos, adoption numbers or
  * testimonials it cannot evidence, so this section offers what can actually be
  * put in front of an evaluator instead.
  */
@@ -14,7 +14,7 @@ export function Proof() {
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
           <Reveal>
-            <SectionIndex index="10" eyebrow="Proof" />
+            <SectionIndex index="08" eyebrow="Proof" />
             <h2 className="heading mt-6 max-w-[18ch] text-balance">
               How we prove it, before you commit.
             </h2>

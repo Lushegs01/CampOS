@@ -1,42 +1,13 @@
 import { Reveal } from "@/components/primitives/Reveal";
 import { SectionIndex } from "@/components/primitives/Section";
 
-/**
- * Section 09 — onboarding, as a division of labour rather than three cards.
- *
- * A registrar's real question is not "what are the steps" but "what will you
- * need from us, and what do you do". Each station answers both.
- */
-const STEPS = [
-  {
-    number: "01",
-    title: "Connect the institution",
-    lead: "The university is provisioned in Core, with its own administrators.",
-    yours: "Faculties, departments, programmes and the people who will run it.",
-    ours: "We create the institution, model its structure and issue administrator identities.",
-  },
-  {
-    number: "02",
-    title: "Configure the university",
-    lead: "Roles and rules are set to match how the institution already works.",
-    yours: "Who approves, who reads, and who is responsible for which courses and offices.",
-    ours: "We turn that into scoped roles and permissions, enforced on every request.",
-  },
-  {
-    number: "03",
-    title: "Activate the ecosystem",
-    lead: "Modules are switched on one at a time, against what is already in place.",
-    yours: "Which module matters first, and when in the academic calendar.",
-    ours: "We activate it on the identity, structure and permissions already configured.",
-  },
-];
-
+/** Section 07 — onboarding in plain English. Three steps, no jargon. */
 export function HowItWorks() {
   return (
     <section className="border-b border-line bg-paper-2 py-section">
       <div className="shell">
         <Reveal className="max-w-3xl">
-          <SectionIndex index="09" eyebrow="How it works" />
+          <SectionIndex index="07" eyebrow="How it works" />
           <h2 className="heading mt-6 max-w-[20ch] text-balance">
             Three steps from decision to running.
           </h2>

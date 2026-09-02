@@ -3,7 +3,7 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { SectionIndex } from "@/components/primitives/Section";
 
 /**
- * Section 13 — FAQ. Native <details>, so it opens without JavaScript, is
+ * Section 07 — FAQ. Native <details>, so it opens without JavaScript, is
  * findable with in-page search, and needs no ARIA of its own.
  */
 export function Faq() {
@@ -12,7 +12,7 @@ export function Faq() {
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-16">
           <Reveal className="lg:sticky lg:top-24 lg:self-start">
-            <SectionIndex index="13" eyebrow="Questions" />
+            <SectionIndex index="07" eyebrow="Questions" />
             <h2 className="heading mt-6 max-w-[14ch] text-balance">
               Straight answers.
             </h2>

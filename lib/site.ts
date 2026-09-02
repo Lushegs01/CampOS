@@ -28,8 +28,6 @@ export const NAV_LINKS = [
   { label: "Platform", href: "/#platform" },
   { label: "Ecosystem", href: "/#ecosystem" },
   { label: "Institutions", href: "/#institutions" },
-  { label: "Security", href: "/#security" },
-  { label: "Resources", href: "/#resources" },
 ] as const;
 
 /** Where "Sign in" goes. Institutions are issued their own entry point. */
@@ -41,8 +39,6 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "CampOS Core", href: "/#platform" },
       { label: "Identity", href: "/#platform" },
-      { label: "Architecture", href: "/#resources" },
-      { label: "How it works", href: "/#institutions" },
     ],
   },
   {
@@ -58,15 +54,12 @@ export const FOOTER_COLUMNS = [
     title: "Institutions",
     links: [
       { label: "For university leaders", href: "/#institutions" },
-      { label: "Multi-institution", href: "/#institutions" },
-      { label: "Security", href: "/#security" },
       { label: "See it in use", href: "/#demo" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Architecture", href: "/#resources" },
       { label: "About", href: "/about" },
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },

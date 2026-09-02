@@ -11,14 +11,14 @@ const AUDIENCE = [
   "Student affairs",
 ];
 
-/** Section 07 — the executive case, in outcomes rather than features. */
+/** Section 05 — the executive case, in outcomes rather than features. */
 export function ForLeaders() {
   return (
-    <section className="on-ink bg-ink py-section text-paper">
+    <section id="institutions" className="on-ink scroll-mt-16 border-b border-line-invert bg-ink py-section text-paper">
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
           <Reveal>
-            <SectionIndex index="07" eyebrow="For university leaders" tone="ink" />
+            <SectionIndex index="05" eyebrow="For university leaders" tone="ink" />
             <h2 className="heading mt-6 max-w-[18ch] text-balance">
               Built for how universities actually work.
             </h2>
